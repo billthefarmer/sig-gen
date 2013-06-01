@@ -1,4 +1,4 @@
-siggen
-======
+Signal Generator
+================
 
 Android Signal Generator
