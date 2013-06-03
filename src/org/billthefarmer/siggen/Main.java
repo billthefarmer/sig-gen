@@ -24,15 +24,14 @@
 package org.billthefarmer.siggen;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.res.Resources;
-import android.view.Menu;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.view.View;
@@ -53,6 +52,11 @@ public class Main extends Activity
     private SeekBar fine;
     private SeekBar level;
 
+    private Drawable radioOff;
+    private Drawable radioOn;
+    private Drawable checkOff;
+    private Drawable checkOn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -71,46 +75,8 @@ public class Main extends Activity
 	if (audio != null)
 	    audio.start();
 
-	if (knob != null)
-	{
-	    knob.setOnKnobChangeListener(this);
-	    knob.value = 400;
-	}
-
-	if (fine != null)
-	{
-	    fine.setOnSeekBarChangeListener(this);
-
-	    fine.setMax(MAX_FINE);
-	    fine.setProgress(MAX_FINE / 2);
-	}
-
-	if (level != null)
-	{
-	    level.setOnSeekBarChangeListener(this);
-
-	    level.setMax(MAX_LEVEL);
-	    level.setProgress(MAX_LEVEL / 10);
-	}
-
-	View v = findViewById(R.id.sine);
-	v.setOnClickListener(this);
-
-	v = findViewById(R.id.square);
-	v.setOnClickListener(this);
-
-	v = findViewById(R.id.sawtooth);
-	v.setOnClickListener(this);
-
-	v = findViewById(R.id.mute);
-	v.setOnClickListener(this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-	// Inflate the menu; this adds items to the action bar if it is present.
-	return true;
+	createDrawables();
+	setupWidgets();
     }
 
     @Override
@@ -194,29 +160,8 @@ public class Main extends Activity
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar)
-    {		
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar)
-    {		
-    }
-
-    @Override
     public void onClick(View v)
     {
-	Resources resources = getResources();
-	Bitmap off =
-	    BitmapFactory.decodeResource(resources,
-					 android.R.drawable.radiobutton_off_background);
-	Bitmap on =
-	    BitmapFactory.decodeResource(resources,
-					 android.R.drawable.radiobutton_on_background);
-	BitmapDrawable drawOff = new BitmapDrawable(resources, off);
-	BitmapDrawable drawOn = new BitmapDrawable(resources, on);
-	drawOff.setBounds(0, 0, off.getWidth(), off.getHeight());
-	drawOn.setBounds(0, 0, on.getWidth(), on.getHeight());
 
 	int id = v.getId();
 	switch(id)
@@ -224,34 +169,34 @@ public class Main extends Activity
 	case R.id.sine:
 	    if (audio != null)
 		audio.waveform = Audio.SINE;
-	    ((Button)v).setCompoundDrawables(drawOn, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOn, null, null, null);
 
 	    v = findViewById(R.id.square);
-	    ((Button)v).setCompoundDrawables(drawOff, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
 	    v = findViewById(R.id.sawtooth);
-	    ((Button)v).setCompoundDrawables(drawOff, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
 	    break;
 
 	case R.id.square:
 	    if (audio != null)
 		audio.waveform = Audio.SQUARE;
-	    ((Button)v).setCompoundDrawables(drawOn, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOn, null, null, null);
 
 	    v = findViewById(R.id.sine);
-	    ((Button)v).setCompoundDrawables(drawOff, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
 	    v = findViewById(R.id.sawtooth);
-	    ((Button)v).setCompoundDrawables(drawOff, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
 	    break;
 
 	case R.id.sawtooth:
 	    if (audio != null)
 		audio.waveform = Audio.SAWTOOTH;
-	    ((Button)v).setCompoundDrawables(drawOn, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOn, null, null, null);
 
 	    v = findViewById(R.id.sine);
-	    ((Button)v).setCompoundDrawables(drawOff, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
 	    v = findViewById(R.id.square);
-	    ((Button)v).setCompoundDrawables(drawOff, null, null, null);
+	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
 	    break;
 
 	case R.id.mute:
@@ -259,27 +204,84 @@ public class Main extends Activity
 		audio.mute = !audio.mute;
 
 	    if (audio.mute)
-	    {
-		Bitmap box =
-		    BitmapFactory.decodeResource(resources,
-						 android.R.drawable.checkbox_on_background);
-		BitmapDrawable drawable = new BitmapDrawable(resources, box);
-		drawable.setBounds(0, 0, box.getWidth(), box.getHeight());
-		((Button)v).setCompoundDrawables(drawable, null, null, null);
-	    }
+		((Button)v).setCompoundDrawables(checkOn, null, null, null);
 
 	    else
-	    {
-		Bitmap box =
-		    BitmapFactory.decodeResource(resources,
-						 android.R.drawable.checkbox_off_background);
-		BitmapDrawable drawable = new BitmapDrawable(resources, box);
-		drawable.setBounds(0, 0, box.getWidth(), box.getHeight());
-		((Button)v).setCompoundDrawables(drawable, null, null, null);
-	    }
+		((Button)v).setCompoundDrawables(checkOff, null, null, null);
 	    break;
 	}
     }
+
+    private void setupWidgets()
+    {
+    	if (knob != null)
+    	{
+    	    knob.setOnKnobChangeListener(this);
+    	    knob.value = 400;
+    	}
+
+    	if (fine != null)
+    	{
+    	    fine.setOnSeekBarChangeListener(this);
+
+    	    fine.setMax(MAX_FINE);
+    	    fine.setProgress(MAX_FINE / 2);
+    	}
+
+    	if (level != null)
+    	{
+    	    level.setOnSeekBarChangeListener(this);
+
+    	    level.setMax(MAX_LEVEL);
+    	    level.setProgress(MAX_LEVEL / 10);
+    	}
+
+    	View v = findViewById(R.id.sine);
+    	v.setOnClickListener(this);
+
+    	v = findViewById(R.id.square);
+    	v.setOnClickListener(this);
+
+    	v = findViewById(R.id.sawtooth);
+    	v.setOnClickListener(this);
+
+    	v = findViewById(R.id.mute);
+    	v.setOnClickListener(this);
+    }
+
+    private void createDrawables()
+    {
+    Bitmap bitmap;
+	Resources resources = getResources();
+
+	radioOff =
+	    resources.getDrawable(android.R.drawable.radiobutton_off_background);
+	bitmap = ((BitmapDrawable)radioOff).getBitmap();
+	radioOff.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+	radioOn =
+	    resources.getDrawable(android.R.drawable.radiobutton_on_background);
+	bitmap = ((BitmapDrawable)radioOn).getBitmap();
+	radioOn.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+	checkOff =
+	    resources.getDrawable(android.R.drawable.checkbox_off_background);
+	bitmap = ((BitmapDrawable)checkOff).getBitmap();
+	checkOff.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+	checkOn =
+	    resources.getDrawable(android.R.drawable.checkbox_on_background);
+	bitmap = ((BitmapDrawable)checkOn).getBitmap();
+	checkOn.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+   }
+
+    // A collection of unused unwanted unloved listener callback methods
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {}
+
+    // Audio
 
     protected class Audio implements Runnable
     {

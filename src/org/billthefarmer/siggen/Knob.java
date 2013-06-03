@@ -48,6 +48,8 @@ public class Knob extends View
 
     protected static final float MIN = 0;
     protected static final float MAX = 680;
+    private static final int SCALE = 50;
+    private static final int VELOCITY = 75;
 
     protected int parentWidth;
     protected int parentHeight;
@@ -139,8 +141,8 @@ public class Knob extends View
 	paint.setColor(Color.LTGRAY);
 	canvas.drawCircle(0, 0,  radius - MARGIN, paint);
 
-	float x = (float) (Math.sin(value * Math.PI / 100) * radius * 0.8);
-	float y = (float) (-Math.cos(value * Math.PI / 100) * radius * 0.8);
+	float x = (float) (Math.sin(value * Math.PI / SCALE) * radius * 0.8);
+	float y = (float) (-Math.cos(value * Math.PI / SCALE) * radius * 0.8);
 
 	paint.setShader(dimple);
 	matrix.setTranslate(x, y);
@@ -149,7 +151,7 @@ public class Knob extends View
 
 	paint.setShader(null);
 	canvas.drawBitmap(previous, -width / 2 + MARGIN, - height / 2 + MARGIN, paint);
-	canvas.drawBitmap(next, width / 2 - next.getHeight() - MARGIN,
+	canvas.drawBitmap(next, width / 2 - next.getWidth() - MARGIN,
 			  -height / 2 + MARGIN, paint);	
     }
 
@@ -158,7 +160,8 @@ public class Knob extends View
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-	detector.onTouchEvent(event);
+    if (detector != null)
+    	detector.onTouchEvent(event);
 
 	float x = event.getX() - width / 2;
 	float y = event.getY() - height / 2;
@@ -208,7 +211,7 @@ public class Knob extends View
 
 		// Update value
 
-		value += delta * 100 / Math.PI;
+		value += delta * SCALE / Math.PI;
 
 		if (value < MIN)
 		    value = MIN;
@@ -263,7 +266,7 @@ public class Knob extends View
 
 	// Calculate target value for animator
 
-	float target = value + (float)(delta * velocity / 250 * Math.PI);
+	float target = value + (float)(Math.signum(delta) * velocity / VELOCITY);
 
 	animator = ValueAnimator.ofFloat(value, target);
 	animator.setInterpolator(new DecelerateInterpolator());
@@ -305,6 +308,8 @@ public class Knob extends View
     {
 	public abstract void onKnobChange(Knob knob, float value);
     }
+
+    // A collection of unused unwanted unloved listener callback methods
 
     @Override
     public boolean onDown(MotionEvent e)

@@ -36,7 +36,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignStart="@id/display"
-      android:layout_alignEnd="@+id/sawtooth"
+      android:layout_alignEnd="@id/display"
       android:layout_above="@+id/square"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_on_background" />
@@ -47,8 +47,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignStart="@id/display"
-      android:layout_alignEnd="@+id/sawtooth"
-      android:layout_above="@id/sawtooth"
+      android:layout_alignEnd="@id/display"
+      android:layout_above="@+id/sawtooth"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_off_background" />
 
@@ -58,6 +58,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignStart="@id/display"
+      android:layout_alignEnd="@id/display"
       android:layout_above="@+id/mute"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_off_background" />
