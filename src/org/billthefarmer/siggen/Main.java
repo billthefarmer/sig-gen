@@ -376,7 +376,7 @@ public class Main extends Activity
 		    l += ((mute? 0.0 : level) * 16384.0 - l) / 4096.0;
 		    q += (q < Math.PI)? f * K: (f * K) - (2.0 * Math.PI);
 
-		    switch (audio.waveform)
+		    switch (waveform)
 		    {
 		    case SINE:
 			buffer[i] = (short) Math.round(Math.sin(q) * l);
