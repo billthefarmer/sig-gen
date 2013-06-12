@@ -57,6 +57,8 @@ public class Main extends Activity
     private Drawable checkOff;
     private Drawable checkOn;
 
+    // On create
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -78,6 +80,8 @@ public class Main extends Activity
 	createDrawables();
 	setupWidgets();
     }
+
+    // On destroy
 
     @Override
     protected void onDestroy()
@@ -111,6 +115,8 @@ public class Main extends Activity
 	if (audio != null)
 	    audio.frequency = frequency;
     }
+
+    // On progress changed
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
@@ -158,6 +164,8 @@ public class Main extends Activity
 	    break;
 	}
     }
+
+    // On click
 
     @Override
     public void onClick(View v)
@@ -212,46 +220,50 @@ public class Main extends Activity
 	}
     }
 
+    // Set up widgets
+
     private void setupWidgets()
     {
-    	if (knob != null)
-    	{
-    	    knob.setOnKnobChangeListener(this);
-    	    knob.value = 400;
-    	}
+	if (knob != null)
+	{
+	    knob.setOnKnobChangeListener(this);
+	    knob.value = 400;
+	}
 
-    	if (fine != null)
-    	{
-    	    fine.setOnSeekBarChangeListener(this);
+	if (fine != null)
+	{
+	    fine.setOnSeekBarChangeListener(this);
 
-    	    fine.setMax(MAX_FINE);
-    	    fine.setProgress(MAX_FINE / 2);
-    	}
+	    fine.setMax(MAX_FINE);
+	    fine.setProgress(MAX_FINE / 2);
+	}
 
-    	if (level != null)
-    	{
-    	    level.setOnSeekBarChangeListener(this);
+	if (level != null)
+	{
+	    level.setOnSeekBarChangeListener(this);
 
-    	    level.setMax(MAX_LEVEL);
-    	    level.setProgress(MAX_LEVEL / 10);
-    	}
+	    level.setMax(MAX_LEVEL);
+	    level.setProgress(MAX_LEVEL / 10);
+	}
 
-    	View v = findViewById(R.id.sine);
-    	v.setOnClickListener(this);
+	View v = findViewById(R.id.sine);
+	v.setOnClickListener(this);
 
-    	v = findViewById(R.id.square);
-    	v.setOnClickListener(this);
+	v = findViewById(R.id.square);
+	v.setOnClickListener(this);
 
-    	v = findViewById(R.id.sawtooth);
-    	v.setOnClickListener(this);
+	v = findViewById(R.id.sawtooth);
+	v.setOnClickListener(this);
 
-    	v = findViewById(R.id.mute);
-    	v.setOnClickListener(this);
+	v = findViewById(R.id.mute);
+	v.setOnClickListener(this);
     }
+
+    // Create drawables
 
     private void createDrawables()
     {
-    Bitmap bitmap;
+	Bitmap bitmap;
 	Resources resources = getResources();
 
 	radioOff =
@@ -271,7 +283,7 @@ public class Main extends Activity
 	    resources.getDrawable(android.R.drawable.checkbox_on_background);
 	bitmap = ((BitmapDrawable)checkOn).getBitmap();
 	checkOn.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-   }
+    }
 
     // A collection of unused unwanted unloved listener callback methods
 
@@ -305,6 +317,8 @@ public class Main extends Activity
 	    level = 16384;
 	}
 
+	// Start
+
 	protected void start()
 	{
 	    thread = new Thread(this, "Audio");
@@ -329,6 +343,7 @@ public class Main extends Activity
 	    processAudio();		
 	}
 
+	// Process audio
 
 	protected void processAudio()
 	{
@@ -339,6 +354,8 @@ public class Main extends Activity
 	    int minSize =
 		AudioTrack.getMinBufferSize(rate, AudioFormat.CHANNEL_OUT_MONO,
 					    AudioFormat.ENCODING_PCM_16BIT);
+
+	    // Find a suitable buffer size
 
 	    int sizes[] = {1024, 2048, 4096, 8192, 16384, 32768};
 	    int size = 0;

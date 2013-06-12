@@ -90,6 +90,8 @@ public class Knob extends View
 	detector = new GestureDetector(context, this);
     }
 
+    // On measure
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
@@ -113,6 +115,8 @@ public class Knob extends View
 	this.setMeasuredDimension(w, h);
     }
 
+    // On size changed
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
@@ -125,6 +129,8 @@ public class Knob extends View
 	dimple = new LinearGradient(MARGIN / 2, -MARGIN / 2, MARGIN / 2, MARGIN / 2,
 				    Color.GRAY, Color.WHITE, TileMode.CLAMP);
     }
+
+    // On draw
 
     @Override
     protected void onDraw(Canvas canvas)
@@ -139,7 +145,7 @@ public class Knob extends View
 
 	paint.setShader(null);
 	paint.setColor(Color.LTGRAY);
-	canvas.drawCircle(0, 0,  radius - MARGIN, paint);
+	canvas.drawCircle(0, 0,	 radius - MARGIN, paint);
 
 	float x = (float) (Math.sin(value * Math.PI / SCALE) * radius * 0.8);
 	float y = (float) (-Math.cos(value * Math.PI / SCALE) * radius * 0.8);
@@ -160,8 +166,8 @@ public class Knob extends View
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-    if (detector != null)
-    	detector.onTouchEvent(event);
+	if (detector != null)
+	    detector.onTouchEvent(event);
 
 	float x = event.getX() - width / 2;
 	float y = event.getY() - height / 2;
@@ -234,6 +240,8 @@ public class Knob extends View
 	return true;
     }
 
+    // On fling
+
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 			   float velocityY)
@@ -266,7 +274,10 @@ public class Knob extends View
 
 	// Calculate target value for animator
 
-	float target = value + (float)(Math.signum(delta) * velocity / VELOCITY);
+	float target = value + (float)(Math.signum(delta) *
+				       velocity / VELOCITY);
+
+	// Start the animation
 
 	animator = ValueAnimator.ofFloat(value, target);
 	animator.setInterpolator(new DecelerateInterpolator());
@@ -275,6 +286,8 @@ public class Knob extends View
 
 	return true;
     }
+
+    // On animation update
 
     @Override
     public void onAnimationUpdate(ValueAnimator animation)
@@ -299,10 +312,14 @@ public class Knob extends View
 	invalidate();
     }
 
+    // Set listener
+
     protected void setOnKnobChangeListener(OnKnobChangeListener l)
     {
 	listener = l;
     }
+
+    // On knob change listener
 
     public interface OnKnobChangeListener
     {

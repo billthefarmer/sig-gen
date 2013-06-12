@@ -33,15 +33,17 @@ import android.util.AttributeSet;
 
 public class Display extends SiggenView
 {
-	private static final int MARGIN = 8;
+    private static final int MARGIN = 8;
 
-	protected double frequency;
-	protected double level;
+    protected double frequency;
+    protected double level;
 
-	public Display(Context context, AttributeSet attrs)
+    public Display(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
     }
+
+    // On measure
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
@@ -54,8 +56,10 @@ public class Display extends SiggenView
 	this.setMeasuredDimension(w, h);
     }
 
+    // On draw
+
     @SuppressLint("DefaultLocale")
-	@Override
+    @Override
     protected void onDraw(Canvas canvas)
     {
 	super.onDraw(canvas);
@@ -70,5 +74,4 @@ public class Display extends SiggenView
 	paint.setTextAlign(Align.RIGHT);
 	canvas.drawText(s, width - MARGIN, height * 2 / 3, paint);
     }
-
 }

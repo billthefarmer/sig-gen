@@ -51,6 +51,8 @@ public class Scale extends SiggenView
 	matrix = new Matrix();
     }
 
+    // On measure
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
@@ -61,6 +63,8 @@ public class Scale extends SiggenView
 
 	this.setMeasuredDimension(w, h);
     }
+
+    // On size changed
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
@@ -116,6 +120,8 @@ public class Scale extends SiggenView
 	    shader = new BitmapShader(bitmap, TileMode.REPEAT, TileMode.CLAMP);
 	}
     }
+
+    // On draw
 
     @Override
     protected void onDraw(Canvas canvas)
