@@ -25,9 +25,6 @@ package org.billthefarmer.siggen;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -42,7 +39,8 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 public class Knob extends View
-    implements GestureDetector.OnGestureListener, ValueAnimator.AnimatorUpdateListener
+    implements View.OnClickListener, GestureDetector.OnGestureListener,
+	       ValueAnimator.AnimatorUpdateListener
 {
     protected static final int MARGIN = 8;
 
@@ -68,22 +66,11 @@ public class Knob extends View
     private GestureDetector detector;
     private ValueAnimator animator;
 
-    private Bitmap next;
-    private Bitmap previous;
-    
     private OnKnobChangeListener listener;
 
     public Knob(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
-
-	Resources resources = getResources();
-
-	next = BitmapFactory.decodeResource(resources,
-					    R.drawable.ic_navigation_next_item);
-
-	previous = BitmapFactory.decodeResource(resources,
-						R.drawable.ic_navigation_previous_item);
 
 	matrix = new Matrix();
 
@@ -154,11 +141,34 @@ public class Knob extends View
 	matrix.setTranslate(x, y);
 	dimple.setLocalMatrix(matrix);
 	canvas.drawCircle(x, y, MARGIN, paint);
+    }
 
-	paint.setShader(null);
-	canvas.drawBitmap(previous, -width / 2 + MARGIN, - height / 2 + MARGIN, paint);
-	canvas.drawBitmap(next, width / 2 - next.getWidth() - MARGIN,
-			  -height / 2 + MARGIN, paint);	
+    // On click
+
+    @Override
+    public void onClick(View v)
+    {
+	int id = v.getId();
+	switch(id)
+	{
+	case R.id.previous:
+	    value -= 1.0;
+	    break;
+
+	case R.id.next:
+	    value += 1.0;
+	    break;
+
+	default:
+	    return;
+	}
+
+	value = Math.round(value);
+
+	if (listener != null)
+	    listener.onKnobChange(this, value);
+
+	invalidate();
     }
 
     // On touch event
@@ -177,23 +187,6 @@ public class Knob extends View
 	switch (event.getAction())
 	{
 	case MotionEvent.ACTION_DOWN:
-
-	    float radius = (float) Math.hypot(x, y);
-
-	    if (radius > Math.min(width, height) / 2.0 && y < 0.0)
-	    {
-		if (x < 0.0)
-		    value -= 1.0;
-		else
-		    value += 1.0;
-
-		value = Math.round(value);
-
-		if (listener != null)
-		    listener.onKnobChange(this, value);
-
-		invalidate();
-	    }
 	    break;
 
 	case MotionEvent.ACTION_MOVE:

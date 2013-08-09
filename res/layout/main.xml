@@ -22,7 +22,23 @@
       android:layout_alignParentLeft="true"
       android:layout_alignParentBottom="true"
       android:layout_below="@id/scale" />
-  
+
+  <ImageButton
+      android:id="@+id/previous"
+      android:src="@drawable/ic_navigation_previous"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@id/knob"
+      android:layout_alignLeft="@id/knob" />
+
+  <ImageButton
+      android:id="@+id/next"
+      android:src="@drawable/ic_navigation_next"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@id/knob"
+      android:layout_alignRight="@id/knob" />
+
   <org.billthefarmer.siggen.Display
       android:id="@+id/display"
       android:layout_width="wrap_content"

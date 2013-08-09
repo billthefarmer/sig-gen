@@ -91,6 +91,9 @@ public class Main extends Activity
 	if (audio != null)
 	    audio.stop();
     }
+
+    // On knob change
+
     @Override
     public void onKnobChange(Knob knob, float value)
     {
@@ -170,7 +173,6 @@ public class Main extends Activity
     @Override
     public void onClick(View v)
     {
-
 	int id = v.getId();
 	switch(id)
 	{
@@ -224,10 +226,18 @@ public class Main extends Activity
 
     private void setupWidgets()
     {
+	View v;
+
 	if (knob != null)
 	{
 	    knob.setOnKnobChangeListener(this);
 	    knob.value = 400;
+
+	    v = findViewById(R.id.previous);
+	    v.setOnClickListener(knob);
+
+	    v = findViewById(R.id.next);
+	    v.setOnClickListener(knob);
 	}
 
 	if (fine != null)
@@ -246,7 +256,7 @@ public class Main extends Activity
 	    level.setProgress(MAX_LEVEL / 10);
 	}
 
-	View v = findViewById(R.id.sine);
+	v = findViewById(R.id.sine);
 	v.setOnClickListener(this);
 
 	v = findViewById(R.id.square);
