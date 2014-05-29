@@ -381,13 +381,19 @@ public class Main extends Activity
 
 	    final double K = 2.0 * Math.PI / rate;
 
+	    // Create the audio track
+
 	    audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, rate,
 					AudioFormat.CHANNEL_OUT_MONO,
 					AudioFormat.ENCODING_PCM_16BIT,
 					size, AudioTrack.MODE_STREAM);
 	    audioTrack.play();
 
+	    // Create the buffer
+
 	    buffer = new short[size];
+
+	    // Initialise the generator variables
 
 	    double f = frequency;
 	    double l = 0.0;

@@ -74,30 +74,30 @@ public class Scale extends SiggenView
 	if (w > 0 && h > 0)
 	{
 	    Bitmap bitmap =
-		Bitmap.createBitmap(SCALE * 2, height, Config.ARGB_8888);
+		Bitmap.createBitmap(width * 2, height, Config.ARGB_8888);
 	    Canvas canvas = new Canvas(bitmap);
 
 	    paint.setStrokeWidth(2);
 	    paint.setAntiAlias(false);
 	    for (int i = 1; i <= 10; i++)
 	    {
-		float x = (float) Math.log10(i) * SCALE;
+		float x = (float) Math.log10(i) * width;
 
 		for (int j = 0; j < 2; j++)
 		{
 		    canvas.drawLine(x, height * 2 / 3, x, height - MARGIN, paint);
-		    x += SCALE;
+		    x += width;
 		}
 	    }
 
 	    for (int i = 3; i < 20; i += 2)
 	    {
-		float x = (float) (Math.log10(i / 2.0) * SCALE);
+		float x = (float) (Math.log10(i / 2.0) * width);
 
 		for (int j = 0; j < 2; j++)
 		{
 		    canvas.drawLine(x, height * 5 / 6, x, height - MARGIN, paint);
-		    x += SCALE;
+		    x += width;
 		}
 	    }
 
@@ -108,14 +108,14 @@ public class Scale extends SiggenView
 	    int a[] = {1, 2, 3, 4, 6, 8};
 	    for (int i = 0; i < a.length; i++)
 	    {
-		float x = (float) (Math.log10(a[i]) * SCALE);
+		float x = (float) (Math.log10(a[i]) * width);
 
 		canvas.drawText(a[i] + "", x, height / 2, paint); 
 
-		canvas.drawText(a[i] * 10 + "", x + SCALE, height / 2, paint);
+		canvas.drawText(a[i] * 10 + "", x + width, height / 2, paint);
 	    }
 
-	    canvas.drawText("1", SCALE * 2, height / 2, paint);
+	    canvas.drawText("1", width * 2, height / 2, paint);
 
 	    shader = new BitmapShader(bitmap, TileMode.REPEAT, TileMode.CLAMP);
 	}
@@ -130,7 +130,7 @@ public class Scale extends SiggenView
 
 	paint.setShader(shader);
 	paint.setStyle(Style.FILL);
-	matrix.setTranslate(width / 2 + value, 0);
+	matrix.setTranslate(width / 2 + (value * width) / SCALE, 0);
 	shader.setLocalMatrix(matrix);
 	canvas.drawRect(0, 0, width, height, paint);
 
