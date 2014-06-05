@@ -52,7 +52,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
-      android:layout_alignRight="@id/display"
+      android:layout_alignParentRight="true"
       android:layout_above="@+id/square"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_on_background" />
@@ -63,7 +63,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
-      android:layout_alignRight="@id/display"
+      android:layout_alignParentRight="true"
       android:layout_above="@+id/sawtooth"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_off_background" />
@@ -74,7 +74,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
-      android:layout_alignRight="@id/display"
+      android:layout_alignParentRight="true"
       android:layout_above="@+id/mute"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_off_background" />
@@ -85,7 +85,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
-      android:layout_alignRight="@+id/sawtooth"
+      android:layout_alignParentRight="true"
       android:layout_above="@+id/fine"
       android:layout_marginBottom="8dp"
       android:drawablePadding="8dp"
@@ -96,16 +96,18 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_above="@+id/level"
-      android:layout_alignParentRight="true"
       android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_marginTop="8dp"
       android:layout_marginBottom="8dp" />
   
   <SeekBar
       android:id="@id/level"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
+      android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_alignLeft="@id/display" />
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="8dp" />
 
 </RelativeLayout>
