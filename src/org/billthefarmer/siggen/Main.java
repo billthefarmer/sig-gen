@@ -31,9 +31,12 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class Main extends Activity
@@ -81,6 +84,14 @@ public class Main extends Activity
 	setupWidgets();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+	// Inflate the menu; this adds items to the action bar if it is present.
+	getMenuInflater().inflate(R.menu.main, menu);
+	return true;
+    }
+
     // On destroy
 
     @Override
@@ -90,6 +101,38 @@ public class Main extends Activity
 
 	if (audio != null)
 	    audio.stop();
+    }
+
+    // On options item
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+	// Get id
+
+	int id = item.getItemId();
+	switch (id)
+	{
+
+	    // Settings
+
+	case R.id.settings:
+	    return onSettingsClick(item);
+
+	default:
+	    return false;
+	}
+
+    }
+
+    // On settings click
+
+    private boolean onSettingsClick(MenuItem item)
+    {
+	Intent intent = new Intent(this, SettingsActivity.class);
+	startActivity(intent);
+
+	return true;
     }
 
     // On knob change
