@@ -63,7 +63,7 @@ public class SettingsActivity extends Activity
 	case android.R.id.home:
 	    // app icon in action bar clicked; go home
 	    Intent intent = new Intent(this, Main.class);
-	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 	    startActivity(intent);
 	    return true;
@@ -79,7 +79,7 @@ public class SettingsActivity extends Activity
     public void onBackPressed()
     {
 	Intent intent = new Intent(this, Main.class);
-	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	// intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 	startActivity(intent);
     }
