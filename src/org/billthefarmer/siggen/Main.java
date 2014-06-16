@@ -113,7 +113,6 @@ public class Main extends Activity
 	int id = item.getItemId();
 	switch (id)
 	{
-
 	    // Settings
 
 	case R.id.settings:
@@ -122,7 +121,6 @@ public class Main extends Activity
 	default:
 	    return false;
 	}
-
     }
 
     // On settings click
