@@ -430,6 +430,21 @@ public class Main extends Activity
 					AudioFormat.CHANNEL_OUT_MONO,
 					AudioFormat.ENCODING_PCM_16BIT,
 					size, AudioTrack.MODE_STREAM);
+	    // Check audiotrack
+
+	    if (audioTrack == null)
+		return;
+
+	    // Check state
+
+	    int state = audioTrack.getState();
+
+	    if (state != AudioTrack.STATE_INITIALIZED)
+	    {
+		audioTrack.release();
+		return;
+	    }
+
 	    audioTrack.play();
 
 	    // Create the buffer
