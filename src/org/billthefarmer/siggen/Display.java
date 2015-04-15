@@ -65,7 +65,7 @@ public class Display extends SiggenView
 	super.onDraw(canvas);
 	String s = String.format("%5.2fHz", frequency);
 	paint.setTextAlign(Align.LEFT);
-	paint.setTextSize(height / 2);
+	paint.setTextSize(height * 7 / 16);
 	paint.setColor(Color.BLACK);
 	paint.setStyle(Style.FILL_AND_STROKE);
 	canvas.drawText(s, MARGIN, height * 2 / 3, paint);
