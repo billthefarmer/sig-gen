@@ -72,15 +72,4 @@ public class SettingsActivity extends Activity
 	    return super.onOptionsItemSelected(item);
 	}
     }
-
-    // On back pressed
-
-    @Override
-    public void onBackPressed()
-    {
-	Intent intent = new Intent(this, Main.class);
-	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-	startActivity(intent);
-    }
 }
