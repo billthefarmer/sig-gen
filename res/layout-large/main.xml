@@ -46,42 +46,38 @@
       android:layout_alignParentTop="true"
       android:layout_alignParentRight="true" />
 
-  <LinearLayout
-      android:orientation="horizontal"
+  <Button
+      android:id="@+id/sine"
+      android:text="@string/sine"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_above="@+id/mute">
+      android:layout_above="@+id/square"
+      android:drawablePadding="8dp"
+      android:drawableLeft="@android:drawable/radiobutton_on_background" />
 
-    <Button
-	android:id="@+id/sine"
-	android:text="@string/sin"
-	android:layout_weight="1.0"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:drawablePadding="8dp"
-	android:drawableLeft="@android:drawable/radiobutton_on_background" />
+  <Button
+      android:id="@id/square"
+      android:text="@string/square"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_above="@+id/sawtooth"
+      android:drawablePadding="8dp"
+      android:drawableLeft="@android:drawable/radiobutton_off_background" />
 
-    <Button
-	android:id="@+id/square"
-	android:text="@string/squ"
-	android:layout_weight="1.0"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:drawablePadding="8dp"
-	android:drawableLeft="@android:drawable/radiobutton_off_background" />
-
-    <Button
-	android:id="@+id/sawtooth"
-	android:text="@string/saw"
-	android:layout_weight="1.0"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:drawablePadding="8dp"
-	android:drawableLeft="@android:drawable/radiobutton_off_background" />
-
-  </LinearLayout>
+  <Button
+      android:id="@id/sawtooth"
+      android:text="@string/sawtooth"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_above="@+id/mute"
+      android:drawablePadding="8dp"
+      android:drawableLeft="@android:drawable/radiobutton_off_background" />
 
   <Button
       android:id="@id/mute"
