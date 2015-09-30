@@ -115,7 +115,8 @@ public class Main extends Activity
     {
 	super.onDestroy();
 
-	wakeLock.release();
+	if (sleep)
+	    wakeLock.release();
 
 	if (audio != null)
 	    audio.stop();
