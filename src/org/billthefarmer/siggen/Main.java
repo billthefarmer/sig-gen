@@ -23,17 +23,17 @@
 
 package org.billthefarmer.siggen;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
-import android.app.Activity;
+import android.os.PowerManager;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,19 +46,21 @@ public class Main extends Activity
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 100;
 
+    private static final String TAG = "SigGen";
+
     private Audio audio;
 
     private Knob knob;
     private Scale scale;
     private Display display;
 
+    private ImageView imageView;
     private SeekBar fine;
     private SeekBar level;
 
-    private Drawable radioOff;
-    private Drawable radioOn;
-    private Drawable checkOff;
-    private Drawable checkOn;
+    private PowerManager.WakeLock wakeLock;
+
+    private boolean sleep;
 
     // On create
 
@@ -75,12 +77,26 @@ public class Main extends Activity
 	fine = (SeekBar) findViewById(R.id.fine);
 	level = (SeekBar) findViewById(R.id.level);
 
+	// Add custom view to action bar
+
+	ActionBar actionBar = getActionBar();
+	actionBar.setCustomView(R.layout.custom);
+	actionBar.setDisplayShowCustomEnabled(true);
+	imageView = (ImageView)actionBar.getCustomView();
+
+	if (imageView != null)
+	    imageView.setOnClickListener(this);
+
+	// Get wake lock
+
+	PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
+	wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG);
+ 
 	audio = new Audio();
 
 	if (audio != null)
 	    audio.start();
 
-	createDrawables();
 	setupWidgets();
     }
 
@@ -98,6 +114,8 @@ public class Main extends Activity
     protected void onDestroy()
     {
 	super.onDestroy();
+
+	wakeLock.release();
 
 	if (audio != null)
 	    audio.stop();
@@ -220,34 +238,43 @@ public class Main extends Activity
 	case R.id.sine:
 	    if (audio != null)
 		audio.waveform = Audio.SINE;
-	    ((Button)v).setCompoundDrawables(radioOn, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
 
 	    v = findViewById(R.id.square);
-	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    v = findViewById(R.id.sawtooth);
-	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    break;
 
 	case R.id.square:
 	    if (audio != null)
 		audio.waveform = Audio.SQUARE;
-	    ((Button)v).setCompoundDrawables(radioOn, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
 
 	    v = findViewById(R.id.sine);
-	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    v = findViewById(R.id.sawtooth);
-	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    break;
 
 	case R.id.sawtooth:
 	    if (audio != null)
 		audio.waveform = Audio.SAWTOOTH;
-	    ((Button)v).setCompoundDrawables(radioOn, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
 
 	    v = findViewById(R.id.sine);
-	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    v = findViewById(R.id.square);
-	    ((Button)v).setCompoundDrawables(radioOff, null, null, null);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    break;
 
 	case R.id.mute:
@@ -255,10 +282,28 @@ public class Main extends Activity
 		audio.mute = !audio.mute;
 
 	    if (audio.mute)
-		((Button)v).setCompoundDrawables(checkOn, null, null, null);
+		((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+			android.R.drawable.checkbox_on_background, 0, 0, 0);
 
 	    else
-		((Button)v).setCompoundDrawables(checkOff, null, null, null);
+		((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+			android.R.drawable.checkbox_off_background, 0, 0, 0);
+	    break;
+
+	case R.id.sleep:
+	    sleep = !sleep;
+
+	    if (sleep)
+	    {
+		wakeLock.acquire();
+		imageView.setImageResource(R.drawable.ic_sleep_on);
+	    }
+
+	    else
+	    {
+		wakeLock.release();
+		imageView.setImageResource(R.drawable.ic_sleep_off);
+	    }
 	    break;
 	}
     }
@@ -308,32 +353,6 @@ public class Main extends Activity
 
 	v = findViewById(R.id.mute);
 	v.setOnClickListener(this);
-    }
-
-    // Create drawables
-
-    private void createDrawables()
-    {
-	Bitmap bitmap;
-	Resources resources = getResources();
-
-	radioOff =
-	    resources.getDrawable(android.R.drawable.radiobutton_off_background);
-	bitmap = ((BitmapDrawable)radioOff).getBitmap();
-	radioOff.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-	radioOn =
-	    resources.getDrawable(android.R.drawable.radiobutton_on_background);
-	bitmap = ((BitmapDrawable)radioOn).getBitmap();
-	radioOn.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-
-	checkOff =
-	    resources.getDrawable(android.R.drawable.checkbox_off_background);
-	bitmap = ((BitmapDrawable)checkOff).getBitmap();
-	checkOff.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-	checkOn =
-	    resources.getDrawable(android.R.drawable.checkbox_on_background);
-	bitmap = ((BitmapDrawable)checkOn).getBitmap();
-	checkOn.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
     }
 
     // A collection of unused unwanted unloved listener callback methods
