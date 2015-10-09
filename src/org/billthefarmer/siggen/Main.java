@@ -126,7 +126,7 @@ public class Main extends Activity
 
 	Bundle bundle = savedInstanceState.getBundle(STATE);
 
-	Log.d(TAG, "Restore: " + bundle.toString());
+	// Log.d(TAG, "Restore: " + bundle.toString());
 
 	if (knob != null)
 	{
