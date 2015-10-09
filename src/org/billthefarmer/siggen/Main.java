@@ -80,6 +80,8 @@ public class Main extends Activity
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 
+	// Get views
+
 	display = (Display) findViewById(R.id.display);
 	scale = (Scale) findViewById(R.id.scale);
 	knob = (Knob) findViewById(R.id.knob);
@@ -101,14 +103,20 @@ public class Main extends Activity
 
 	PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
 	wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
- 
+
+	// Audio
+
 	audio = new Audio();
 
 	if (audio != null)
 	    audio.start();
 
+	// Setup widgets
+
 	setupWidgets();
     }
+
+    // Menu
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -124,9 +132,13 @@ public class Main extends Activity
     {
 	super.onRestoreInstanceState(savedInstanceState);
 
+	// Get saved state bundle
+
 	Bundle bundle = savedInstanceState.getBundle(STATE);
 
 	// Log.d(TAG, "Restore: " + bundle.toString());
+
+	// Knob
 
 	if (knob != null)
 	{
@@ -134,11 +146,7 @@ public class Main extends Activity
 	    knob.invalidate();
 	}
 
-	if (scale != null)
-	{
-	    scale.value = (int) (-knob.value * 2.5);
-	    scale.invalidate();
-	}
+	// Waveform and mute
 
 	if (audio != null)
 	{
@@ -146,26 +154,26 @@ public class Main extends Activity
 	    audio.mute = bundle.getBoolean(MUTE, false);
 	}
 
+	// fine frequency and level
+
 	fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
 	level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL / 10));
 
+	// Calculate frequency
+
+	onKnobChange(knob, knob.value);
+
+	// Sleep
+
 	sleep = bundle.getBoolean(SLEEP, false);
 
-
-	double frequency = Math.pow(10.0, knob.value / 200.0) * 10.0;
-	double adjust = ((fine.getProgress() - MAX_FINE / 2) /
-			 (double)MAX_FINE) / 100.0;
-
-	frequency += frequency * adjust;
-
-	if (display != null)
+	if (sleep)
 	{
-	    display.frequency = frequency;
-	    display.invalidate();
+	    wakeLock.acquire();
+	    imageView.setImageResource(R.drawable.ic_sleep_on);
 	}
 
-	if (audio != null)
-	    audio.frequency = frequency;
+	// Waveform buttons
 
 	View v = null;
 	switch(audio.waveform)
@@ -210,6 +218,8 @@ public class Main extends Activity
 	    break;
 	}
 
+	// Mute
+
 	v = findViewById(R.id.mute);
 	if (audio.mute)
 	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
@@ -218,18 +228,14 @@ public class Main extends Activity
 	else
 	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
 			android.R.drawable.checkbox_off_background, 0, 0, 0);
-
-	if (sleep)
-	{
-	    wakeLock.acquire();
-	    imageView.setImageResource(R.drawable.ic_sleep_on);
-	}
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
 	super.onSaveInstanceState(outState);
+
+	// State bundle
 
 	Bundle bundle = new Bundle();
 
@@ -256,6 +262,8 @@ public class Main extends Activity
 	// Sleep
 
 	bundle.putBoolean(SLEEP, sleep);
+
+	// Save bundle
 
 	outState.putBundle(STATE, bundle);
     }
@@ -309,17 +317,23 @@ public class Main extends Activity
     @Override
     public void onKnobChange(Knob knob, float value)
     {
+	// Scale
+
 	if (scale != null)
 	{
 	    scale.value = (int) (-value * 2.5);
 	    scale.invalidate();
 	}
 
+	// Frequency
+
 	double frequency = Math.pow(10.0, value / 200.0) * 10.0;
 	double adjust = ((fine.getProgress() - MAX_FINE / 2) /
 			 (double)MAX_FINE) / 100.0;
 
 	frequency += frequency * adjust;
+
+	// Display
 
 	if (display != null)
 	{
