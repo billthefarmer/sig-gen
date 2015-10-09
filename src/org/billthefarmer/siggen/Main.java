@@ -35,6 +35,7 @@ import android.content.res.Resources;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,13 @@ public class Main extends Activity
     private static final int MAX_FINE = 100;
 
     private static final String TAG = "SigGen";
+
+    private static final String KNOB = "knob";
+    private static final String WAVE = "wave";
+    private static final String MUTE = "mute";
+    private static final String FINE = "fine";
+    private static final String LEVEL = "level";
+    private static final String SLEEP = "sleep";
 
     private Audio audio;
 
@@ -106,6 +114,141 @@ public class Main extends Activity
 	// Inflate the menu; this adds items to the action bar if it is present.
 	getMenuInflater().inflate(R.menu.main, menu);
 	return true;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+	super.onRestoreInstanceState(savedInstanceState);
+
+	// Log.d(TAG, "Restore: " + savedInstanceState.toString());
+
+	if (knob != null)
+	{
+	    knob.value = savedInstanceState.getFloat(KNOB, 400);
+	    knob.invalidate();
+	}
+
+	if (scale != null)
+	{
+	    scale.value = (int) (-knob.value * 2.5);
+	    scale.invalidate();
+	}
+
+	if (audio != null)
+	{
+	    audio.waveform = savedInstanceState.getInt(WAVE, Audio.SINE);
+	    audio.mute = savedInstanceState.getBoolean(MUTE, false);
+	}
+
+	fine.setProgress(savedInstanceState.getInt(FINE, MAX_FINE / 2));
+	level.setProgress(savedInstanceState.getInt(LEVEL, MAX_LEVEL / 10));
+
+	sleep = savedInstanceState.getBoolean(SLEEP, false);
+
+
+	double frequency = Math.pow(10.0, knob.value / 200.0) * 10.0;
+	double adjust = ((fine.getProgress() - MAX_FINE / 2) /
+			 (double)MAX_FINE) / 100.0;
+
+	frequency += frequency * adjust;
+
+	if (display != null)
+	{
+	    display.frequency = frequency;
+	    display.invalidate();
+	}
+
+	if (audio != null)
+	    audio.frequency = frequency;
+
+	View v = null;
+	switch(audio.waveform)
+	{
+	case Audio.SINE:
+	    v = findViewById(R.id.sine);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
+
+	    v = findViewById(R.id.square);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
+	    v = findViewById(R.id.sawtooth);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
+	    break;
+
+	case Audio.SQUARE:
+	    v = findViewById(R.id.square);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
+
+	    v = findViewById(R.id.sine);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
+	    v = findViewById(R.id.sawtooth);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
+	    break;
+
+	case Audio.SAWTOOTH:
+	    v = findViewById(R.id.sawtooth);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
+
+	    v = findViewById(R.id.sine);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
+	    v = findViewById(R.id.square);
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
+	    break;
+	}
+
+	v = findViewById(R.id.mute);
+	if (audio.mute)
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+			android.R.drawable.checkbox_on_background, 0, 0, 0);
+
+	else
+	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
+			android.R.drawable.checkbox_off_background, 0, 0, 0);
+
+	if (sleep)
+	{
+	    wakeLock.acquire();
+	    imageView.setImageResource(R.drawable.ic_sleep_on);
+	}
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+	super.onSaveInstanceState(outState);
+
+	// Knob
+
+	outState.putFloat(KNOB, knob.value);
+
+	// Waveform
+
+	outState.putInt(WAVE, audio.waveform);
+
+	// Mute
+
+	outState.putBoolean(MUTE, audio.mute);
+
+	// Fine
+
+	outState.putInt(FINE, fine.getProgress());
+
+	// Level
+
+	outState.putInt(LEVEL, level.getProgress());
+
+	// Sleep
+
+	outState.putBoolean(SLEEP, sleep);
     }
 
     // On destroy
