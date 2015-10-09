@@ -90,7 +90,7 @@ public class Main extends Activity
 	// Get wake lock
 
 	PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
-	wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG);
+	wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
  
 	audio = new Audio();
 
