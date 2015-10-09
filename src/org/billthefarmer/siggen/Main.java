@@ -49,6 +49,8 @@ public class Main extends Activity
 
     private static final String TAG = "SigGen";
 
+    private static final String STATE = "state";
+
     private static final String KNOB = "knob";
     private static final String WAVE = "wave";
     private static final String MUTE = "mute";
@@ -111,7 +113,8 @@ public class Main extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-	// Inflate the menu; this adds items to the action bar if it is present.
+	// Inflate the menu; this adds items to the action bar if it
+	// is present.
 	getMenuInflater().inflate(R.menu.main, menu);
 	return true;
     }
@@ -121,11 +124,13 @@ public class Main extends Activity
     {
 	super.onRestoreInstanceState(savedInstanceState);
 
-	// Log.d(TAG, "Restore: " + savedInstanceState.toString());
+	Bundle bundle = savedInstanceState.getBundle(STATE);
+
+	Log.d(TAG, "Restore: " + bundle.toString());
 
 	if (knob != null)
 	{
-	    knob.value = savedInstanceState.getFloat(KNOB, 400);
+	    knob.value = bundle.getFloat(KNOB, 400);
 	    knob.invalidate();
 	}
 
@@ -137,14 +142,14 @@ public class Main extends Activity
 
 	if (audio != null)
 	{
-	    audio.waveform = savedInstanceState.getInt(WAVE, Audio.SINE);
-	    audio.mute = savedInstanceState.getBoolean(MUTE, false);
+	    audio.waveform = bundle.getInt(WAVE, Audio.SINE);
+	    audio.mute = bundle.getBoolean(MUTE, false);
 	}
 
-	fine.setProgress(savedInstanceState.getInt(FINE, MAX_FINE / 2));
-	level.setProgress(savedInstanceState.getInt(LEVEL, MAX_LEVEL / 10));
+	fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
+	level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL / 10));
 
-	sleep = savedInstanceState.getBoolean(SLEEP, false);
+	sleep = bundle.getBoolean(SLEEP, false);
 
 
 	double frequency = Math.pow(10.0, knob.value / 200.0) * 10.0;
@@ -226,29 +231,33 @@ public class Main extends Activity
     {
 	super.onSaveInstanceState(outState);
 
+	Bundle bundle = new Bundle();
+
 	// Knob
 
-	outState.putFloat(KNOB, knob.value);
+	bundle.putFloat(KNOB, knob.value);
 
 	// Waveform
 
-	outState.putInt(WAVE, audio.waveform);
+	bundle.putInt(WAVE, audio.waveform);
 
 	// Mute
 
-	outState.putBoolean(MUTE, audio.mute);
+	bundle.putBoolean(MUTE, audio.mute);
 
 	// Fine
 
-	outState.putInt(FINE, fine.getProgress());
+	bundle.putInt(FINE, fine.getProgress());
 
 	// Level
 
-	outState.putInt(LEVEL, level.getProgress());
+	bundle.putInt(LEVEL, level.getProgress());
 
 	// Sleep
 
-	outState.putBoolean(SLEEP, sleep);
+	bundle.putBoolean(SLEEP, sleep);
+
+	outState.putBundle(STATE, bundle);
     }
 
     // On destroy
