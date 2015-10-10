@@ -120,6 +120,8 @@ public class Main extends Activity
 	return true;
     }
 
+    // Restore state
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState)
     {
@@ -182,6 +184,8 @@ public class Main extends Activity
 	if (sleep)
 	    wakeLock.acquire();
     }
+
+    // Save state
 
     @Override
     protected void onSaveInstanceState(Bundle outState)
