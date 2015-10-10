@@ -62,8 +62,6 @@ public class Main extends Activity
     private Scale scale;
     private Display display;
 
-    private MenuItem sleepItem;
-
     private SeekBar fine;
     private SeekBar level;
 
@@ -114,7 +112,10 @@ public class Main extends Activity
 	// is present.
 	getMenuInflater().inflate(R.menu.main, menu);
 
-	sleepItem = menu.findItem(R.id.sleep);
+	MenuItem sleepItem = menu.findItem(R.id.sleep);
+
+	if (sleep)
+	    sleepItem.setIcon(R.drawable.ic_sleep_on);
 
 	return true;
     }
@@ -179,10 +180,7 @@ public class Main extends Activity
 	sleep = bundle.getBoolean(SLEEP, false);
 
 	if (sleep)
-	{
 	    wakeLock.acquire();
-	    sleepItem.setIcon(R.drawable.ic_sleep_on);
-	}
     }
 
     @Override
