@@ -142,7 +142,7 @@ public class Main extends Activity
 	// Waveform buttons
 
 	View v = null;
-	switch(audio.waveform)
+	switch(waveform)
 	{
 	case Audio.SINE:
 	    v = findViewById(R.id.sine);
