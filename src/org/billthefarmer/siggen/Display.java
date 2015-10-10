@@ -35,8 +35,8 @@ public class Display extends SiggenView
 {
     private static final int MARGIN = 8;
 
-    protected double frequency;
-    protected double level;
+    private double frequency;
+    private double level;
 
     public Display(Context context, AttributeSet attrs)
     {
@@ -53,7 +53,23 @@ public class Display extends SiggenView
 	int w = (parentWidth - MARGIN) / 2;
 	int h = parentHeight / 5;
 
-	this.setMeasuredDimension(w, h);
+	setMeasuredDimension(w, h);
+    }
+
+    // Set frequency
+
+    protected void setFrequency(double f)
+    {
+	frequency = f;
+	invalidate();
+    }
+
+    // Set level
+
+    protected void setLevel(double l)
+    {
+	level = l;
+	invalidate();
     }
 
     // On draw

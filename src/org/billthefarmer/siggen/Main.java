@@ -23,7 +23,6 @@
 
 package org.billthefarmer.siggen;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.media.AudioFormat;
 import android.media.AudioManager;
@@ -33,7 +32,6 @@ import android.os.PowerManager;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.util.Log;
 import android.view.Menu;
@@ -64,7 +62,8 @@ public class Main extends Activity
     private Scale scale;
     private Display display;
 
-    private ImageView imageView;
+    private MenuItem sleepItem;
+
     private SeekBar fine;
     private SeekBar level;
 
@@ -88,16 +87,6 @@ public class Main extends Activity
 
 	fine = (SeekBar) findViewById(R.id.fine);
 	level = (SeekBar) findViewById(R.id.level);
-
-	// Add custom view to action bar
-
-	ActionBar actionBar = getActionBar();
-	actionBar.setCustomView(R.layout.custom);
-	actionBar.setDisplayShowCustomEnabled(true);
-	imageView = (ImageView)actionBar.getCustomView();
-
-	if (imageView != null)
-	    imageView.setOnClickListener(this);
 
 	// Get wake lock
 
@@ -124,6 +113,9 @@ public class Main extends Activity
 	// Inflate the menu; this adds items to the action bar if it
 	// is present.
 	getMenuInflater().inflate(R.menu.main, menu);
+
+	sleepItem = menu.findItem(R.id.sleep);
+
 	return true;
     }
 
@@ -141,37 +133,11 @@ public class Main extends Activity
 	// Knob
 
 	if (knob != null)
-	{
-	    knob.value = bundle.getFloat(KNOB, 400);
-	    knob.invalidate();
-	}
+	    knob.setValue(bundle.getFloat(KNOB, 400));
 
-	// Waveform and mute
+	// Waveform
 
-	if (audio != null)
-	{
-	    audio.waveform = bundle.getInt(WAVE, Audio.SINE);
-	    audio.mute = bundle.getBoolean(MUTE, false);
-	}
-
-	// fine frequency and level
-
-	fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
-	level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL / 10));
-
-	// Calculate frequency
-
-	onKnobChange(knob, knob.value);
-
-	// Sleep
-
-	sleep = bundle.getBoolean(SLEEP, false);
-
-	if (sleep)
-	{
-	    wakeLock.acquire();
-	    imageView.setImageResource(R.drawable.ic_sleep_on);
-	}
+	int waveform = bundle.getInt(WAVE, Audio.SINE);
 
 	// Waveform buttons
 
@@ -180,54 +146,43 @@ public class Main extends Activity
 	{
 	case Audio.SINE:
 	    v = findViewById(R.id.sine);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
-
-	    v = findViewById(R.id.square);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
-	    v = findViewById(R.id.sawtooth);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    break;
 
 	case Audio.SQUARE:
 	    v = findViewById(R.id.square);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
-
-	    v = findViewById(R.id.sine);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
-	    v = findViewById(R.id.sawtooth);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    break;
 
 	case Audio.SAWTOOTH:
 	    v = findViewById(R.id.sawtooth);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_on_background, 0, 0, 0);
-
-	    v = findViewById(R.id.sine);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
-	    v = findViewById(R.id.square);
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-		      android.R.drawable.radiobutton_off_background, 0, 0, 0);
 	    break;
 	}
 
+	onClick(v);
+
 	// Mute
 
-	v = findViewById(R.id.mute);
-	if (audio.mute)
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-			android.R.drawable.checkbox_on_background, 0, 0, 0);
+	boolean mute = bundle.getBoolean(MUTE, false);
 
-	else
-	    ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-			android.R.drawable.checkbox_off_background, 0, 0, 0);
+	if (mute)
+	{
+	    v = findViewById(R.id.mute);
+	    onClick(v);
+	}
+
+	// fine frequency and level
+
+	fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
+	level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL / 10));
+
+	// Sleep
+
+	sleep = bundle.getBoolean(SLEEP, false);
+
+	if (sleep)
+	{
+	    wakeLock.acquire();
+	    sleepItem.setIcon(R.drawable.ic_sleep_on);
+	}
     }
 
     @Override
@@ -241,7 +196,7 @@ public class Main extends Activity
 
 	// Knob
 
-	bundle.putFloat(KNOB, knob.value);
+	bundle.putFloat(KNOB, knob.getValue());
 
 	// Waveform
 
@@ -297,6 +252,11 @@ public class Main extends Activity
 	case R.id.settings:
 	    return onSettingsClick(item);
 
+	    // Sleep
+
+	case R.id.sleep:
+	    return onSleepClick(item);
+
 	default:
 	    return false;
 	}
@@ -312,6 +272,27 @@ public class Main extends Activity
 	return true;
     }
 
+    // On sleep click
+
+    private boolean onSleepClick(MenuItem item)
+    {
+	sleep = !sleep;
+
+	if (sleep)
+	{
+	    wakeLock.acquire();
+	    item.setIcon(R.drawable.ic_sleep_on);
+	}
+
+	else
+	{
+	    wakeLock.release();
+	    item.setIcon(R.drawable.ic_sleep_off);
+	}
+
+	return true;
+    }
+
     // On knob change
 
     @Override
@@ -320,10 +301,7 @@ public class Main extends Activity
 	// Scale
 
 	if (scale != null)
-	{
-	    scale.value = (int) (-value * 2.5);
-	    scale.invalidate();
-	}
+	    scale.setValue((int)(-value * 2.5));
 
 	// Frequency
 
@@ -336,10 +314,7 @@ public class Main extends Activity
 	// Display
 
 	if (display != null)
-	{
-	    display.frequency = frequency;
-	    display.invalidate();
-	}
+	    display.setFrequency(frequency);
 
 	if (audio != null)
 	    audio.frequency = frequency;
@@ -360,17 +335,15 @@ public class Main extends Activity
 	{
 	case R.id.fine:
 	    {
-		double frequency = Math.pow(10.0, knob.value / 200.0) * 10.0;
+		double frequency = Math.pow(10.0, knob.getValue() /
+					    200.0) * 10.0;
 		double adjust = ((progress - MAX_FINE / 2) /
 				 (double)MAX_FINE) / 50.0;
 
 		frequency += frequency * adjust;
 
 		if (display != null)
-		{
-		    display.frequency = frequency;
-		    display.invalidate();
-		}
+		    display.setFrequency(frequency);
 
 		if (audio != null)
 		    audio.frequency = frequency;
@@ -380,12 +353,12 @@ public class Main extends Activity
 	case R.id.level:
 	    if (display != null)
 	    {
-		display.level = Math.log10(progress / (double)MAX_LEVEL) * 20.0;
+		double level = Math.log10(progress / (double)MAX_LEVEL) * 20.0;
 
-		if (display.level < -80.0)
-		    display.level = -80.0;
+		if (level < -80.0)
+		    level = -80.0;
 
-		display.invalidate();
+		display.setLevel(level);
 	    }
 
 	    if (audio != null)
@@ -456,22 +429,6 @@ public class Main extends Activity
 		((Button)v).setCompoundDrawablesWithIntrinsicBounds(
 			android.R.drawable.checkbox_off_background, 0, 0, 0);
 	    break;
-
-	case R.id.sleep:
-	    sleep = !sleep;
-
-	    if (sleep)
-	    {
-		wakeLock.acquire();
-		imageView.setImageResource(R.drawable.ic_sleep_on);
-	    }
-
-	    else
-	    {
-		wakeLock.release();
-		imageView.setImageResource(R.drawable.ic_sleep_off);
-	    }
-	    break;
 	}
     }
 
@@ -484,7 +441,7 @@ public class Main extends Activity
 	if (knob != null)
 	{
 	    knob.setOnKnobChangeListener(this);
-	    knob.value = 400;
+	    knob.setValue(400);
 
 	    v = findViewById(R.id.previous);
 	    v.setOnClickListener(knob);

@@ -39,7 +39,7 @@ public class Scale extends SiggenView
 {
     private static final int SCALE = 500;
 
-    protected int value;
+    private int value;
 
     private BitmapShader shader;
     private Matrix matrix;
@@ -119,6 +119,14 @@ public class Scale extends SiggenView
 
 	    shader = new BitmapShader(bitmap, TileMode.REPEAT, TileMode.CLAMP);
 	}
+    }
+
+    // Set value
+
+    protected void setValue(int v)
+    {
+	value = v;
+	invalidate();
     }
 
     // On draw

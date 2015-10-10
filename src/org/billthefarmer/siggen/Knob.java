@@ -42,22 +42,22 @@ public class Knob extends View
     implements View.OnClickListener, GestureDetector.OnGestureListener,
 	       ValueAnimator.AnimatorUpdateListener
 {
-    protected static final int MARGIN = 8;
+    private static final int MARGIN = 8;
 
-    protected static final float MIN = 0;
-    protected static final float MAX = 680;
+    private static final float MIN = 0;
+    private static final float MAX = 680;
     private static final int SCALE = 50;
     private static final int VELOCITY = 75;
 
-    protected int parentWidth;
-    protected int parentHeight;
+    private int parentWidth;
+    private int parentHeight;
 
-    protected int width;
-    protected int height;
+    private int width;
+    private int height;
 
-    protected boolean move;
-    protected float value;
-    protected float last;
+    private boolean move;
+    private float value;
+    private float last;
 
     private Matrix matrix;
     private Paint paint;
@@ -113,8 +113,28 @@ public class Knob extends View
 	paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	gradient = new LinearGradient(0, -h * 2 / 3, 0, h * 2 / 3,
 				      Color.WHITE, Color.GRAY, TileMode.CLAMP);
-	dimple = new LinearGradient(MARGIN / 2, -MARGIN / 2, MARGIN / 2, MARGIN / 2,
-				    Color.GRAY, Color.WHITE, TileMode.CLAMP);
+	dimple = new LinearGradient(MARGIN / 2, -MARGIN / 2, MARGIN / 2,
+				    MARGIN / 2, Color.GRAY, Color.WHITE,
+				    TileMode.CLAMP);
+    }
+
+    // Set value
+
+    protected void setValue(float v)
+    {
+	value = v;
+
+	if (listener != null)
+	    listener.onKnobChange(this, value);
+
+	invalidate();
+    }
+
+    // Get value
+
+    protected float getValue()
+    {
+	return value;
     }
 
     // On draw

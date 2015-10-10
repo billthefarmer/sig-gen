@@ -62,7 +62,7 @@ public class SiggenView extends View
 
 	// Get the parent dimensions
 
-	View parent = (View) getParent();
+	View parent = (View)getParent();
 	int w = parent.getWidth();
 	int h = parent.getHeight();
 
