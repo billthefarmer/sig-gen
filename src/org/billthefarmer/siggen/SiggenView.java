@@ -31,10 +31,13 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class SiggenView extends View
 {
+    private static final String TAG = "SiggenView";
+
     protected static final int MARGIN = 8;
 
     protected int parentWidth;
@@ -66,11 +69,16 @@ public class SiggenView extends View
 	int w = parent.getWidth();
 	int h = parent.getHeight();
 
-	if (parentWidth < w)
-	    parentWidth = w;
+	// Log.d(TAG, "Parent: " + w + ", " + h);
 
-	if (parentHeight < h)
-	    parentHeight = h;
+	if (w > h)
+	{
+	    if (parentWidth < w)
+		parentWidth = w;
+
+	    if (parentHeight < h)
+		parentHeight = h;
+	}
     }
 
     @Override
