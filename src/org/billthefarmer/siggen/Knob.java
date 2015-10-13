@@ -90,14 +90,17 @@ public class Knob extends View
 	int w = parent.getWidth();
 	int h = parent.getHeight();
 
-	if (parentWidth < w)
-	    parentWidth = w;
+	if (w > h)
+	{
+	    if (parentWidth < w)
+		parentWidth = w;
 
-	if (parentHeight < h)
-	    parentHeight = h;
+	    if (parentHeight < h)
+		parentHeight = h;
+	}
 
 	w = (parentWidth - MARGIN) / 2;
-	h = (parentHeight - MARGIN) / 2;
+	h = (parentWidth - MARGIN) / 2;
 
 	this.setMeasuredDimension(w, h);
     }

@@ -101,6 +101,11 @@ public class Main extends Activity
 	// Setup widgets
 
 	setupWidgets();
+
+	// Restore state
+
+	if (savedInstanceState != null)
+	    restoreState(savedInstanceState);
     }
 
     // Menu
@@ -122,11 +127,8 @@ public class Main extends Activity
 
     // Restore state
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    private void restoreState(Bundle savedInstanceState)
     {
-	super.onRestoreInstanceState(savedInstanceState);
-
 	// Get saved state bundle
 
 	Bundle bundle = savedInstanceState.getBundle(STATE);
