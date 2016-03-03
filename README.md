@@ -1,5 +1,4 @@
-Signal Generator
-================
+# Signal Generator
 
 Android Signal Generator. the app is available from [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.siggen)
 and [here](https://github.com/billthefarmer/sig-gen/releases).
