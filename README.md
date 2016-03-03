@@ -1,4 +1,4 @@
-# Signal Generator
+# Signal Generator [![Build Status](https://travis-ci.org/billthefarmer/sig-gen.svg?branch=master)](https://travis-ci.org/billthefarmer/sig-gen)
 
 Android Signal Generator. the app is available from [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.siggen)
 and [here](https://github.com/billthefarmer/sig-gen/releases).
