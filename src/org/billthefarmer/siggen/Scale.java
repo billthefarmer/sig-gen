@@ -25,14 +25,12 @@ package org.billthefarmer.siggen;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
-import android.graphics.Shader.TileMode;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 
 public class Scale extends SiggenView
@@ -74,7 +72,7 @@ public class Scale extends SiggenView
 	if (w > 0 && h > 0)
 	{
 	    Bitmap bitmap =
-		Bitmap.createBitmap(width * 2, height, Config.ARGB_8888);
+		Bitmap.createBitmap(width * 2, height, Bitmap.Config.ARGB_8888);
 	    Canvas canvas = new Canvas(bitmap);
 
 	    paint.setStrokeWidth(2);
@@ -103,7 +101,7 @@ public class Scale extends SiggenView
 
 	    paint.setTextSize(height * 7 / 16);
 	    paint.setAntiAlias(true);
-	    paint.setTextAlign(Align.CENTER);
+	    paint.setTextAlign(Paint.Align.CENTER);
 
 	    int a[] = {1, 2, 3, 4, 6, 8};
 	    for (int i = 0; i < a.length; i++)
@@ -117,7 +115,8 @@ public class Scale extends SiggenView
 
 	    canvas.drawText("1", width * 2, height / 2, paint);
 
-	    shader = new BitmapShader(bitmap, TileMode.REPEAT, TileMode.CLAMP);
+	    shader = new BitmapShader(bitmap, Shader.TileMode.REPEAT,
+				      Shader.TileMode.CLAMP);
 	}
     }
 
@@ -137,7 +136,7 @@ public class Scale extends SiggenView
 	super.onDraw(canvas);
 
 	paint.setShader(shader);
-	paint.setStyle(Style.FILL);
+	paint.setStyle(Paint.Style.FILL);
 	matrix.setTranslate(width / 2 + (value * width) / SCALE, 0);
 	shader.setLocalMatrix(matrix);
 	canvas.drawRect(0, 0, width, height, paint);

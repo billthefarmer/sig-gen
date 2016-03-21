@@ -27,7 +27,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -104,7 +103,7 @@ public class SiggenView extends View
     paint.setShader(null);
 	paint.setStrokeWidth(3);
 	paint.setColor(Color.GRAY);
-	paint.setStyle(Style.STROKE);
+	paint.setStyle(Paint.Style.STROKE);
 	canvas.drawRoundRect(outlineRect, 10, 10, paint);
 
 	// Set the cliprect

@@ -27,10 +27,8 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -38,7 +36,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 public class SettingsFragment extends PreferenceFragment
-    implements OnSharedPreferenceChangeListener
+    implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_ABOUT = "pref_about";
 
@@ -74,7 +72,7 @@ public class SettingsFragment extends PreferenceFragment
 	    info = manager.getPackageInfo("org.billthefarmer.siggen", 0);
 	}
 	
-	catch (NameNotFoundException e)
+	catch (Exception e)
 	{
 	    e.printStackTrace();
 	}

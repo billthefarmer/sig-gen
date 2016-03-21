@@ -27,8 +27,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint.Align;
-import android.graphics.Paint.Style;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 
 public class Display extends SiggenView
@@ -80,15 +79,15 @@ public class Display extends SiggenView
     {
 	super.onDraw(canvas);
 	String s = String.format("%5.2fHz", frequency);
-	paint.setTextAlign(Align.LEFT);
+	paint.setTextAlign(Paint.Align.LEFT);
 	paint.setTextSize(height / 2);
 	paint.setTextScaleX(0.9f);
 	paint.setColor(Color.BLACK);
-	paint.setStyle(Style.FILL_AND_STROKE);
+	paint.setStyle(Paint.Style.FILL_AND_STROKE);
 	canvas.drawText(s, MARGIN, height * 2 / 3, paint);
 
 	s = String.format("%5.2fdB", level);
-	paint.setTextAlign(Align.RIGHT);
+	paint.setTextAlign(Paint.Align.RIGHT);
 	canvas.drawText(s, width - MARGIN, height * 2 / 3, paint);
     }
 }

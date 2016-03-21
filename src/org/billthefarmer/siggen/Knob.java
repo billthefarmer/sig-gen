@@ -30,8 +30,7 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import android.graphics.Shader.TileMode;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -115,10 +114,11 @@ public class Knob extends View
 		
 	paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	gradient = new LinearGradient(0, -h * 2 / 3, 0, h * 2 / 3,
-				      Color.WHITE, Color.GRAY, TileMode.CLAMP);
+				      Color.WHITE, Color.GRAY,
+				      Shader.TileMode.CLAMP);
 	dimple = new LinearGradient(MARGIN / 2, -MARGIN / 2, MARGIN / 2,
 				    MARGIN / 2, Color.GRAY, Color.WHITE,
-				    TileMode.CLAMP);
+				    Shader.TileMode.CLAMP);
     }
 
     // Set value
@@ -148,7 +148,7 @@ public class Knob extends View
 	canvas.translate(width / 2, height / 2);
 
 	paint.setShader(gradient);
-	paint.setStyle(Style.FILL);
+	paint.setStyle(Paint.Style.FILL);
 
 	int radius = Math.min(width, height) / 2;
 	canvas.drawCircle(0, 0, radius, paint);
