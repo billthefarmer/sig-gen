@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+  <item
+      android:id="@+id/sleep"
+      android:showAsAction="ifRoom"
+      android:title="@string/sleep"
+      android:icon="@drawable/ic_action_brightness_low" />
+
+  <item
+      android:id="@+id/settings"
+      android:showAsAction="ifRoom"
+      android:title="@string/settings"
+      android:icon="@drawable/ic_action_settings" />
+
+</menu>
