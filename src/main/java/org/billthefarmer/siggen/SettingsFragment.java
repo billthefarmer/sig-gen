@@ -43,84 +43,84 @@ public class SettingsFragment extends PreferenceFragment
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-	super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-	// Load the preferences from an XML resource
+        // Load the preferences from an XML resource
 
-	addPreferencesFromResource(R.xml.preferences);
+        addPreferencesFromResource(R.xml.preferences);
 
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-	preferences.registerOnSharedPreferenceChangeListener(this);
+        preferences.registerOnSharedPreferenceChangeListener(this);
 
-	// Get about summary
+        // Get about summary
 
-	Preference about = findPreference(KEY_PREF_ABOUT);
-	String sum = (String) about.getSummary();
+        Preference about = findPreference(KEY_PREF_ABOUT);
+        String sum = (String) about.getSummary();
 
-	// Get context and package manager
+        // Get context and package manager
 
-	Context context = getActivity();
-	PackageManager manager = context.getPackageManager();
+        Context context = getActivity();
+        PackageManager manager = context.getPackageManager();
 
-	// Get info
+        // Get info
 
-	PackageInfo info = null;
-	try
-	{
-	    info = manager.getPackageInfo("org.billthefarmer.siggen", 0);
-	}
-	
-	catch (Exception e)
-	{
-	    e.printStackTrace();
-	}
+        PackageInfo info = null;
+        try
+        {
+            info = manager.getPackageInfo("org.billthefarmer.siggen", 0);
+        }
 
-	// Set version in text view
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
-	if (info != null)
-	{
-	    String s = String.format(sum, info.versionName);
-	    about.setSummary(s);
-	}
+        // Set version in text view
+
+        if (info != null)
+        {
+            String s = String.format(sum, info.versionName);
+            about.setSummary(s);
+        }
     }
 
     @Override
     public void onPause()
     {
-	super.onPause();
+        super.onPause();
 
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-	preferences.unregisterOnSharedPreferenceChangeListener(this);
+        preferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     // On preference tree click
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-					 Preference preference)
+                                         Preference preference)
     {
-    	boolean result =
-	    super.onPreferenceTreeClick(preferenceScreen, preference);
+        boolean result =
+            super.onPreferenceTreeClick(preferenceScreen, preference);
 
-    	if (preference instanceof PreferenceScreen)
-    	{
-	    Dialog dialog = ((PreferenceScreen)preference).getDialog();
-	    ActionBar actionBar = dialog.getActionBar();
-	    actionBar.setDisplayHomeAsUpEnabled(false);
-    	}
+        if (preference instanceof PreferenceScreen)
+        {
+            Dialog dialog = ((PreferenceScreen)preference).getDialog();
+            ActionBar actionBar = dialog.getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
 
-    	return result;
+        return result;
     }
 
     // On shared preference changed
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences preferences,
-					  String key)
+                                          String key)
     {
     }
 }

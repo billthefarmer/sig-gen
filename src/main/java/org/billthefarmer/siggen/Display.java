@@ -39,7 +39,7 @@ public class Display extends SiggenView
 
     public Display(Context context, AttributeSet attrs)
     {
-	super(context, attrs);
+        super(context, attrs);
     }
 
     // On measure
@@ -47,28 +47,28 @@ public class Display extends SiggenView
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-	int w = (parentWidth - MARGIN) / 2;
-	int h = parentHeight / 5;
+        int w = (parentWidth - MARGIN) / 2;
+        int h = parentHeight / 5;
 
-	setMeasuredDimension(w, h);
+        setMeasuredDimension(w, h);
     }
 
     // Set frequency
 
     protected void setFrequency(double f)
     {
-	frequency = f;
-	invalidate();
+        frequency = f;
+        invalidate();
     }
 
     // Set level
 
     protected void setLevel(double l)
     {
-	level = l;
-	invalidate();
+        level = l;
+        invalidate();
     }
 
     // On draw
@@ -77,17 +77,17 @@ public class Display extends SiggenView
     @Override
     protected void onDraw(Canvas canvas)
     {
-	super.onDraw(canvas);
-	String s = String.format("%5.2fHz", frequency);
-	paint.setTextAlign(Paint.Align.LEFT);
-	paint.setTextSize(height / 2);
-	paint.setTextScaleX(0.9f);
-	paint.setColor(Color.BLACK);
-	paint.setStyle(Paint.Style.FILL_AND_STROKE);
-	canvas.drawText(s, MARGIN, height * 2 / 3, paint);
+        super.onDraw(canvas);
+        String s = String.format("%5.2fHz", frequency);
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTextSize(height / 2);
+        paint.setTextScaleX(0.9f);
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        canvas.drawText(s, MARGIN, height * 2 / 3, paint);
 
-	s = String.format("%5.2fdB", level);
-	paint.setTextAlign(Paint.Align.RIGHT);
-	canvas.drawText(s, width - MARGIN, height * 2 / 3, paint);
+        s = String.format("%5.2fdB", level);
+        paint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText(s, width - MARGIN, height * 2 / 3, paint);
     }
 }

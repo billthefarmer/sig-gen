@@ -52,66 +52,66 @@ public class SiggenView extends View
 
     public SiggenView(Context context, AttributeSet attrs)
     {
-	super(context, attrs);
+        super(context, attrs);
 
-	paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-	// Get the parent dimensions
+        // Get the parent dimensions
 
-	View parent = (View)getParent();
-	int w = parent.getWidth();
-	int h = parent.getHeight();
+        View parent = (View)getParent();
+        int w = parent.getWidth();
+        int h = parent.getHeight();
 
-	// Log.d(TAG, "Parent: " + w + ", " + h);
+        // Log.d(TAG, "Parent: " + w + ", " + h);
 
-	if (w > h)
-	{
-	    if (parentWidth < w)
-		parentWidth = w;
+        if (w > h)
+        {
+            if (parentWidth < w)
+                parentWidth = w;
 
-	    if (parentHeight < h)
-		parentHeight = h;
-	}
+            if (parentHeight < h)
+                parentHeight = h;
+        }
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
-	// Save the new width and height less the cliprect
+        // Save the new width and height less the cliprect
 
-	width = w - 6;
-	height = h - 6;
+        width = w - 6;
+        height = h - 6;
 
-	// Create some rects for
-	// the outline and clipping
+        // Create some rects for
+        // the outline and clipping
 
-	outlineRect = new RectF(1, 1, w - 1, h - 1);
-	clipRect = new Rect(3, 3, w - 3, h - 3);
+        outlineRect = new RectF(1, 1, w - 1, h - 1);
+        clipRect = new Rect(3, 3, w - 3, h - 3);
     }
 
     @Override
     protected void onDraw(Canvas canvas)
     {
-	// Set up the paint and draw the outline
+        // Set up the paint and draw the outline
 
-    paint.setShader(null);
-	paint.setStrokeWidth(3);
-	paint.setColor(Color.GRAY);
-	paint.setStyle(Paint.Style.STROKE);
-	canvas.drawRoundRect(outlineRect, 10, 10, paint);
+        paint.setShader(null);
+        paint.setStrokeWidth(3);
+        paint.setColor(Color.GRAY);
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawRoundRect(outlineRect, 10, 10, paint);
 
-	// Set the cliprect
+        // Set the cliprect
 
-	canvas.clipRect(clipRect);
+        canvas.clipRect(clipRect);
 
-	// Translate to the clip rect
+        // Translate to the clip rect
 
-	canvas.translate(clipRect.left, clipRect.top);
+        canvas.translate(clipRect.left, clipRect.top);
     }
 }
