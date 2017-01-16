@@ -24,8 +24,6 @@
 package org.billthefarmer.siggen;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
@@ -35,47 +33,26 @@ public class AboutPreference extends DialogPreference
 {
 
     // Constructor
-
     public AboutPreference(Context context, AttributeSet attrs)
     {
         super(context, attrs);
     }
 
     // On bind dialog view
-
     @Override
     protected void onBindDialogView(View view)
     {
         super.onBindDialogView(view);
 
         // Get version text view
-
         TextView version = (TextView) view.findViewById(R.id.about);
-
-        // Get context and package manager
-
-        Context context = getContext();
-        PackageManager manager = context.getPackageManager();
-
-        // Get info
-
-        PackageInfo info = null;
-        try
-        {
-            info = manager.getPackageInfo("org.billthefarmer.siggen", 0);
-        }
-
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
         // Set version in text view
 
-        if (info != null)
+        if (version != null)
         {
             String v = (String) version.getText();
-            String s = String.format(v, info.versionName);
+            String s = String.format(v, BuildConfig.VERSION_NAME);
             version.setText(s);
         }
     }
