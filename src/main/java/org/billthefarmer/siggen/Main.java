@@ -43,7 +43,7 @@ public class Main extends Activity
     View.OnClickListener
 {
     private static final int MAX_LEVEL = 100;
-    private static final int MAX_FINE = 100;
+    private static final int MAX_FINE = 1000;
 
     private static final String TAG = "SigGen";
 
@@ -433,6 +433,21 @@ public class Main extends Activity
                 ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
                     android.R.drawable.checkbox_off_background, 0, 0, 0);
             break;
+
+        case R.id.lower:
+            if (fine != null)
+            {
+                int progress = fine.getProgress();
+                fine.setProgress(--progress);
+            }
+            break;
+
+        case R.id.higher:
+            {
+                int progress = fine.getProgress();
+                fine.setProgress(++progress);
+            }
+            break;
         }
     }
 
@@ -453,6 +468,12 @@ public class Main extends Activity
             v = findViewById(R.id.next);
             v.setOnClickListener(knob);
         }
+
+        v = findViewById(R.id.lower);
+        v.setOnClickListener(this);
+
+        v = findViewById(R.id.higher);
+        v.setOnClickListener(this);
 
         if (fine != null)
         {

@@ -46,7 +46,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentTop="true"
-      android:layout_alignParentRight="true" />
+      android:layout_alignParentRight="true"
+      android:layout_marginBottom="8dp" />
 
   <Button
       android:id="@+id/sine"
@@ -88,10 +89,29 @@
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_above="@+id/fine"
-      android:layout_marginBottom="8dp"
+      android:layout_above="@+id/lower"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/checkbox_off_background" />
+
+  <ImageButton
+      android:id="@+id/lower"
+      android:src="@drawable/ic_action_previous_item"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/fine"
+      android:layout_alignLeft="@id/display"
+      android:layout_marginBottom="8dp"
+      tools:ignore="ContentDescription" />
+
+  <ImageButton
+      android:id="@+id/higher"
+      android:src="@drawable/ic_action_next_item"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/fine"
+      android:layout_alignRight="@id/display"
+      android:layout_marginBottom="8dp"
+      tools:ignore="ContentDescription" />
 
   <SeekBar
       android:id="@id/fine"
