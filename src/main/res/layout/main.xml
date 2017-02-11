@@ -46,15 +46,17 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentTop="true"
-      android:layout_alignParentRight="true" />
+      android:layout_alignParentRight="true"
+      android:layout_marginBottom="8dp" />
 
   <LinearLayout
+      android:id="@+id/waveform"
       android:orientation="horizontal"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_above="@+id/mute"
+      android:layout_below="@id/display"
       tools:ignore="ButtonStyle">
 
     <Button
@@ -87,13 +89,13 @@
   </LinearLayout>
 
   <Button
-      android:id="@id/mute"
+      android:id="@+id/mute"
       android:text="@string/mute"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_above="@+id/lower"
+      android:layout_below="@id/waveform"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/checkbox_off_background" />
 

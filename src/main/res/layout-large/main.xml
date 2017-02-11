@@ -56,40 +56,40 @@
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_above="@+id/square"
+      android:layout_below="@id/display"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_on_background" />
 
   <Button
-      android:id="@id/square"
+      android:id="@+id/square"
       android:text="@string/square"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_above="@+id/sawtooth"
+      android:layout_below="@id/sine"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_off_background" />
 
   <Button
-      android:id="@id/sawtooth"
+      android:id="@+id/sawtooth"
       android:text="@string/sawtooth"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_above="@+id/mute"
+      android:layout_below="@id/square"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/radiobutton_off_background" />
 
   <Button
-      android:id="@id/mute"
+      android:id="@+id/mute"
       android:text="@string/mute"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:layout_above="@+id/lower"
+      android:layout_below="@id/sawtooth"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/checkbox_off_background" />
 

@@ -135,6 +135,9 @@ public class Scale extends SiggenView
     {
         super.onDraw(canvas);
 
+        if (shader == null)
+            return;
+
         paint.setShader(shader);
         paint.setStyle(Paint.Style.FILL);
         matrix.setTranslate(width / 2 + (value * width) / SCALE, 0);
