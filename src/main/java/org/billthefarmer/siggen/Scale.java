@@ -83,7 +83,8 @@ public class Scale extends SiggenView
 
                 for (int j = 0; j < 2; j++)
                 {
-                    canvas.drawLine(x, height * 2 / 3, x, height - MARGIN, paint);
+                    canvas.drawLine(x, height * 2 / 3, x, height - MARGIN,
+                                    paint);
                     x += width;
                 }
             }
@@ -94,7 +95,8 @@ public class Scale extends SiggenView
 
                 for (int j = 0; j < 2; j++)
                 {
-                    canvas.drawLine(x, height * 5 / 6, x, height - MARGIN, paint);
+                    canvas.drawLine(x, height * 5 / 6, x, height - MARGIN,
+                                    paint);
                     x += width;
                 }
             }

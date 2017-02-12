@@ -176,10 +176,16 @@ public class Knob extends View
         {
         case R.id.previous:
             value -= 1.0;
+
+            if (value < MIN)
+                value = MIN;
             break;
 
         case R.id.next:
             value += 1.0;
+
+            if (value > MAX)
+                value = MAX;
             break;
 
         default:
