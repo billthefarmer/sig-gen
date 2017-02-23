@@ -32,6 +32,12 @@
       </intent-filter>
     </activity>
     <activity
+	android:name="org.billthefarmer.siggen.Input"
+	android:screenOrientation="landscape"
+	android:windowSoftInputMode="stateHidden"
+	android:theme="@android:style/Theme.Holo.Light.Dialog" >
+    </activity>
+    <activity
 	android:name="org.billthefarmer.siggen.SettingsActivity"
 	android:screenOrientation="landscape" >
     </activity>

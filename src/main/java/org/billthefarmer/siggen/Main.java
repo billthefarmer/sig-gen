@@ -70,7 +70,6 @@ public class Main extends Activity
     private boolean sleep;
 
     // On create
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -78,7 +77,6 @@ public class Main extends Activity
         setContentView(R.layout.main);
 
         // Get views
-
         display = (Display) findViewById(R.id.display);
         scale = (Scale) findViewById(R.id.scale);
         knob = (Knob) findViewById(R.id.knob);
@@ -87,29 +85,24 @@ public class Main extends Activity
         level = (SeekBar) findViewById(R.id.level);
 
         // Get wake lock
-
         PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 
         // Audio
-
         audio = new Audio();
 
         if (audio != null)
             audio.start();
 
         // Setup widgets
-
         setupWidgets();
 
         // Restore state
-
         if (savedInstanceState != null)
             restoreState(savedInstanceState);
     }
 
     // Menu
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -126,26 +119,21 @@ public class Main extends Activity
     }
 
     // Restore state
-
     private void restoreState(Bundle savedInstanceState)
     {
         // Get saved state bundle
-
         Bundle bundle = savedInstanceState.getBundle(STATE);
 
         // Log.d(TAG, "Restore: " + bundle.toString());
 
         // Knob
-
         if (knob != null)
             knob.setValue(bundle.getFloat(KNOB, 400));
 
         // Waveform
-
         int waveform = bundle.getInt(WAVE, Audio.SINE);
 
         // Waveform buttons
-
         View v = null;
         switch(waveform)
         {
@@ -174,13 +162,11 @@ public class Main extends Activity
             onClick(v);
         }
 
-        // fine frequency and level
-
+        // Fine frequency and level
         fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
         level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL / 10));
 
         // Sleep
-
         sleep = bundle.getBoolean(SLEEP, false);
 
         if (sleep)
@@ -188,42 +174,33 @@ public class Main extends Activity
     }
 
     // Save state
-
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
 
         // State bundle
-
         Bundle bundle = new Bundle();
 
         // Knob
-
         bundle.putFloat(KNOB, knob.getValue());
 
         // Waveform
-
         bundle.putInt(WAVE, audio.waveform);
 
         // Mute
-
         bundle.putBoolean(MUTE, audio.mute);
 
         // Fine
-
         bundle.putInt(FINE, fine.getProgress());
 
         // Level
-
         bundle.putInt(LEVEL, level.getProgress());
 
         // Sleep
-
         bundle.putBoolean(SLEEP, sleep);
 
         // Save bundle
-
         outState.putBundle(STATE, bundle);
     }
 
@@ -242,22 +219,18 @@ public class Main extends Activity
     }
 
     // On options item
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Get id
-
         int id = item.getItemId();
         switch (id)
         {
         // Settings
-
         case R.id.settings:
             return onSettingsClick(item);
 
         // Sleep
-
         case R.id.sleep:
             return onSleepClick(item);
 
@@ -267,7 +240,6 @@ public class Main extends Activity
     }
 
     // On settings click
-
     private boolean onSettingsClick(MenuItem item)
     {
         Intent intent = new Intent(this, SettingsActivity.class);
@@ -277,7 +249,6 @@ public class Main extends Activity
     }
 
     // On sleep click
-
     private boolean onSleepClick(MenuItem item)
     {
         sleep = !sleep;
@@ -298,17 +269,14 @@ public class Main extends Activity
     }
 
     // On knob change
-
     @Override
     public void onKnobChange(Knob knob, float value)
     {
         // Scale
-
         if (scale != null)
             scale.setValue((int)(-value * 2.5));
 
         // Frequency
-
         double frequency = Math.pow(10.0, value / 200.0) * 10.0;
         double adjust = ((fine.getProgress() - MAX_FINE / 2) /
                          (double)MAX_FINE) / 100.0;
@@ -316,7 +284,6 @@ public class Main extends Activity
         frequency += frequency * adjust;
 
         // Display
-
         if (display != null)
             display.setFrequency(frequency);
 
@@ -372,7 +339,6 @@ public class Main extends Activity
     }
 
     // On click
-
     @Override
     public void onClick(View v)
     {
@@ -452,7 +418,6 @@ public class Main extends Activity
     }
 
     // Set up widgets
-
     private void setupWidgets()
     {
         View v;
@@ -505,7 +470,6 @@ public class Main extends Activity
     }
 
     // A collection of unused unwanted unloved listener callback methods
-
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {}
 
@@ -513,7 +477,6 @@ public class Main extends Activity
     public void onStopTrackingTouch(SeekBar seekBar) {}
 
     // Audio
-
     protected class Audio implements Runnable
     {
         protected static final int SINE = 0;
@@ -537,7 +500,6 @@ public class Main extends Activity
         }
 
         // Start
-
         protected void start()
         {
             thread = new Thread(this, "Audio");
@@ -545,14 +507,12 @@ public class Main extends Activity
         }
 
         // Stop
-
         protected void stop()
         {
             Thread t = thread;
             thread = null;
 
             // Wait for the thread to exit
-
             while (t != null && t.isAlive())
                 Thread.yield();
         }
@@ -563,7 +523,6 @@ public class Main extends Activity
         }
 
         // Process audio
-
         protected void processAudio()
         {
             short buffer[];
@@ -575,7 +534,6 @@ public class Main extends Activity
                                             AudioFormat.ENCODING_PCM_16BIT);
 
             // Find a suitable buffer size
-
             int sizes[] = {1024, 2048, 4096, 8192, 16384, 32768};
             int size = 0;
 
@@ -591,18 +549,15 @@ public class Main extends Activity
             final double K = 2.0 * Math.PI / rate;
 
             // Create the audio track
-
             audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, rate,
                                         AudioFormat.CHANNEL_OUT_MONO,
                                         AudioFormat.ENCODING_PCM_16BIT,
                                         size, AudioTrack.MODE_STREAM);
             // Check audiotrack
-
             if (audioTrack == null)
                 return;
 
             // Check state
-
             int state = audioTrack.getState();
 
             if (state != AudioTrack.STATE_INITIALIZED)
@@ -614,11 +569,9 @@ public class Main extends Activity
             audioTrack.play();
 
             // Create the buffer
-
             buffer = new short[size];
 
             // Initialise the generator variables
-
             double f = frequency;
             double l = 0.0;
             double q = 0.0;
@@ -626,7 +579,6 @@ public class Main extends Activity
             while (thread != null)
             {
                 // Fill the current buffer
-
                 for (int i = 0; i < buffer.length; i++)
                 {
                     f += (frequency - f) / 4096.0;
