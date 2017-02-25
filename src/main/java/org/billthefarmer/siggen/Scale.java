@@ -103,6 +103,7 @@ public class Scale extends SiggenView
 
             paint.setTextSize(height * 7 / 16);
             paint.setAntiAlias(true);
+            paint.setStyle(Paint.Style.FILL_AND_STROKE);
             paint.setTextAlign(Paint.Align.CENTER);
 
             int a[] = {1, 2, 3, 4, 6, 8};

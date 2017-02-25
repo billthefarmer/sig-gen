@@ -1,0 +1,120 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    tools:ignore="RtlHardcoded">
+
+  <org.billthefarmer.siggen.Scale
+      android:id="@+id/scale"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentLeft="true"
+      android:layout_marginBottom="8dp" />
+  
+  <org.billthefarmer.siggen.Knob
+      android:id="@+id/knob"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentBottom="true"
+      android:layout_below="@id/scale" />
+
+  <ImageButton
+      android:id="@+id/previous"
+      android:src="@drawable/ic_action_previous_item"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@id/knob"
+      android:layout_alignLeft="@id/knob"
+      tools:ignore="ContentDescription" />
+
+  <ImageButton
+      android:id="@+id/next"
+      android:src="@drawable/ic_action_next_item"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@id/knob"
+      android:layout_alignRight="@id/knob"
+      tools:ignore="ContentDescription" />
+
+  <org.billthefarmer.siggen.Display
+      android:id="@+id/display"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentRight="true"
+      android:layout_marginBottom="8dp" />
+
+  <LinearLayout
+      android:id="@+id/waveform"
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/display"
+      tools:ignore="ButtonStyle">
+
+    <Button
+	android:id="@+id/sine"
+	android:text="@string/sin"
+	android:layout_weight="1.0"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:drawablePadding="8dp"
+	android:drawableLeft="@android:drawable/radiobutton_on_background" />
+
+    <Button
+	android:id="@+id/square"
+	android:text="@string/squ"
+	android:layout_weight="1.0"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:drawablePadding="8dp"
+	android:drawableLeft="@android:drawable/radiobutton_off_background" />
+
+    <Button
+	android:id="@+id/sawtooth"
+	android:text="@string/saw"
+	android:layout_weight="1.0"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:drawablePadding="8dp"
+	android:drawableLeft="@android:drawable/radiobutton_off_background" />
+
+  </LinearLayout>
+
+  <Button
+      android:id="@+id/mute"
+      android:text="@string/mute"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/waveform"
+      android:drawablePadding="8dp"
+      android:drawableLeft="@android:drawable/checkbox_off_background" />
+
+  <SeekBar
+      android:id="@id/fine"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/level"
+      android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_marginBottom="8dp" />
+  
+  <SeekBar
+      android:id="@id/level"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="8dp" />
+
+</RelativeLayout>
