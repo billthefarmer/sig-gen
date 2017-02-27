@@ -23,104 +23,38 @@
 
 package org.billthefarmer.siggen;
 
-import android.app.ActionBar;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 
+// SettingsFragment
 public class SettingsFragment extends PreferenceFragment
-    implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_ABOUT = "pref_about";
 
+    // onCreate
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
-
         addPreferencesFromResource(R.xml.preferences);
 
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        preferences.registerOnSharedPreferenceChangeListener(this);
-
         // Get about summary
-
         Preference about = findPreference(KEY_PREF_ABOUT);
-        String sum = (String) about.getSummary();
-
-        // Get context and package manager
-
-        Context context = getActivity();
-        PackageManager manager = context.getPackageManager();
-
-        // Get info
-
-        PackageInfo info = null;
-        try
-        {
-            info = manager.getPackageInfo("org.billthefarmer.siggen", 0);
-        }
-
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
         // Set version in text view
-
-        if (info != null)
+        if (about != null)
         {
-            String s = String.format(sum, info.versionName);
+            String sum = (String)about.getSummary();
+            String s = String.format(sum, BuildConfig.VERSION_NAME);
             about.setSummary(s);
         }
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-
-        SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        preferences.unregisterOnSharedPreferenceChangeListener(this);
-    }
-
-    // On preference tree click
-
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-                                         Preference preference)
-    {
-        boolean result =
-            super.onPreferenceTreeClick(preferenceScreen, preference);
-
-        if (preference instanceof PreferenceScreen)
-        {
-            Dialog dialog = ((PreferenceScreen)preference).getDialog();
-            ActionBar actionBar = dialog.getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        }
-
-        return result;
-    }
-
-    // On shared preference changed
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences preferences,
-                                          String key)
-    {
     }
 }
