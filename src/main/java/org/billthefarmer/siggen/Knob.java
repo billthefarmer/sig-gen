@@ -37,6 +37,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+// Knob
 public class Knob extends View
     implements View.OnClickListener, GestureDetector.OnGestureListener,
     ValueAnimator.AnimatorUpdateListener
@@ -67,6 +68,7 @@ public class Knob extends View
 
     private OnKnobChangeListener listener;
 
+    // Knob
     public Knob(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -77,14 +79,12 @@ public class Knob extends View
     }
 
     // On measure
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get the parent dimensions
-
         View parent = (View) getParent();
         int w = parent.getWidth();
         int h = parent.getHeight();
@@ -105,7 +105,6 @@ public class Knob extends View
     }
 
     // On size changed
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
@@ -122,7 +121,6 @@ public class Knob extends View
     }
 
     // Set value
-
     protected void setValue(float v)
     {
         value = v;
@@ -134,14 +132,12 @@ public class Knob extends View
     }
 
     // Get value
-
     protected float getValue()
     {
         return value;
     }
 
     // On draw
-
     @Override
     protected void onDraw(Canvas canvas)
     {
@@ -167,7 +163,6 @@ public class Knob extends View
     }
 
     // On click
-
     @Override
     public void onClick(View v)
     {
@@ -201,7 +196,6 @@ public class Knob extends View
     }
 
     // On touch event
-
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -226,11 +220,9 @@ public class Knob extends View
             else
             {
                 // Difference
-
                 float delta = theta - last;
 
                 // Allow for crossing origin
-
                 if (delta > Math.PI)
                     delta -= 2.0 * Math.PI;
 
@@ -238,7 +230,6 @@ public class Knob extends View
                     delta += 2.0 * Math.PI;
 
                 // Update value
-
                 value += delta * SCALE / Math.PI;
 
                 if (value < MIN)
@@ -263,13 +254,11 @@ public class Knob extends View
     }
 
     // On fling
-
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                            float velocityY)
     {
         // Get event coordinates
-
         float x1 = e1.getX() - width / 2;
         float y1 = e1.getY() - height / 2;
 
@@ -277,17 +266,14 @@ public class Knob extends View
         float y2 = e2.getY() - height / 2;
 
         // Calculate angles
-
         float theta1 = (float)Math.atan2(x1, -y1);
         float theta2 = (float)Math.atan2(x2, -y2);
 
         // Calculate difference and absolute velocity
-
         float delta = theta2 - theta1;
         float velocity = (float) Math.abs(Math.hypot(velocityX, velocityY));
 
         // Allow for crossing origin
-
         if (delta > Math.PI)
             delta -= 2.0 * Math.PI;
 
@@ -295,12 +281,10 @@ public class Knob extends View
             delta += 2.0 * Math.PI;
 
         // Calculate target value for animator
-
         float target = value + (float)(Math.signum(delta) *
                                        velocity / VELOCITY);
 
         // Start the animation
-
         animator = ValueAnimator.ofFloat(value, target);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(this);
@@ -310,7 +294,6 @@ public class Knob extends View
     }
 
     // On animation update
-
     @Override
     public void onAnimationUpdate(ValueAnimator animation)
     {
@@ -335,21 +318,18 @@ public class Knob extends View
     }
 
     // Set listener
-
     protected void setOnKnobChangeListener(OnKnobChangeListener l)
     {
         listener = l;
     }
 
     // On knob change listener
-
     public interface OnKnobChangeListener
     {
         public abstract void onKnobChange(Knob knob, float value);
     }
 
     // A collection of unused unwanted unloved listener callback methods
-
     @Override
     public boolean onDown(MotionEvent e)
     {

@@ -23,13 +23,15 @@
 
 package org.billthefarmer.siggen;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
+import java.util.Locale;
+
+// Display
 public class Display extends SiggenView
 {
     private static final int MARGIN = 8;
@@ -43,7 +45,6 @@ public class Display extends SiggenView
     }
 
     // On measure
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
@@ -56,7 +57,6 @@ public class Display extends SiggenView
     }
 
     // Set frequency
-
     protected void setFrequency(double f)
     {
         frequency = f;
@@ -64,7 +64,6 @@ public class Display extends SiggenView
     }
 
     // Set level
-
     protected void setLevel(double l)
     {
         level = l;
@@ -72,13 +71,11 @@ public class Display extends SiggenView
     }
 
     // On draw
-
-    @SuppressLint("DefaultLocale")
     @Override
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
-        String s = String.format("%5.2fHz", frequency);
+        String s = String.format(Locale.getDefault(), "%5.2fHz", frequency);
         paint.setTextAlign(Paint.Align.LEFT);
         paint.setTextSize(height / 2);
         paint.setTextScaleX(0.9f);
@@ -86,7 +83,7 @@ public class Display extends SiggenView
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         canvas.drawText(s, MARGIN, height * 2 / 3, paint);
 
-        s = String.format("%5.2fdB", level);
+        s = String.format(Locale.getDefault(), "%5.2fdB", level);
         paint.setTextAlign(Paint.Align.RIGHT);
         canvas.drawText(s, width - MARGIN, height * 2 / 3, paint);
     }

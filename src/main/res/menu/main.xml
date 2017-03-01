@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
   <item
+      android:id="@+id/exact"
+      android:showAsAction="ifRoom"
+      android:title="@string/exact"
+      android:icon="@drawable/ic_action_chat" />
+
+  <item
       android:id="@+id/sleep"
       android:showAsAction="ifRoom"
       android:title="@string/sleep"

@@ -33,6 +33,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+// SiggenView
 public class SiggenView extends View
 {
     private static final String TAG = "SiggenView";
@@ -50,6 +51,7 @@ public class SiggenView extends View
 
     protected Paint paint;
 
+    // SiggenView
     public SiggenView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -57,13 +59,13 @@ public class SiggenView extends View
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
+    // onMeasure
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get the parent dimensions
-
         View parent = (View)getParent();
         int w = parent.getWidth();
         int h = parent.getHeight();
@@ -80,26 +82,25 @@ public class SiggenView extends View
         }
     }
 
+    // onSizeChanged
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         // Save the new width and height less the cliprect
-
         width = w - 6;
         height = h - 6;
 
         // Create some rects for
         // the outline and clipping
-
         outlineRect = new RectF(1, 1, w - 1, h - 1);
         clipRect = new Rect(3, 3, w - 3, h - 3);
     }
 
+    // onDraw
     @Override
     protected void onDraw(Canvas canvas)
     {
         // Set up the paint and draw the outline
-
         paint.setShader(null);
         paint.setStrokeWidth(3);
         paint.setColor(Color.GRAY);
@@ -107,11 +108,9 @@ public class SiggenView extends View
         canvas.drawRoundRect(outlineRect, 10, 10, paint);
 
         // Set the cliprect
-
         canvas.clipRect(clipRect);
 
         // Translate to the clip rect
-
         canvas.translate(clipRect.left, clipRect.top);
     }
 }

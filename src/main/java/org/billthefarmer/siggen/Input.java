@@ -27,11 +27,17 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.view.inputmethod.EditorInfo;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.util.Log;
 import android.view.View;
 
 public class Input extends Activity
+    implements TextView.OnEditorActionListener
+
 {
     // On create
     @Override
@@ -39,5 +45,32 @@ public class Input extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input);
+
+        TextView text = (TextView)findViewById(R.id.input);
+        if (text != null)
+            text.setOnEditorActionListener(this);
+    }
+
+    // onEditorAction
+    public boolean onEditorAction(TextView view, int actionId, KeyEvent event)
+    {
+        // Get id
+        switch (actionId)
+        {
+        case EditorInfo.IME_ACTION_DONE:
+            if (view.length() > 0)
+            {
+                Intent intent = new Intent();
+                intent.putExtra(Main.EXACT, view.getText().toString());
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+            break;
+        }
+
+        setResult(RESULT_CANCELED);
+        finish();
+
+        return false;
     }
 }

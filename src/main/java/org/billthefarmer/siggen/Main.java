@@ -30,7 +30,9 @@ import android.media.AudioTrack;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.util.Log;
@@ -40,8 +42,10 @@ import android.view.View;
 
 public class Main extends Activity
     implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
-    View.OnClickListener
+               View.OnClickListener
 {
+    public static final String EXACT = "exact";
+
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 1000;
 
@@ -56,6 +60,8 @@ public class Main extends Activity
     private static final String LEVEL = "level";
     private static final String SLEEP = "sleep";
 
+    private static final String PREF_BUTTONS = "pref_buttons";
+
     private Audio audio;
 
     private Knob knob;
@@ -68,6 +74,7 @@ public class Main extends Activity
     private PowerManager.WakeLock wakeLock;
 
     private boolean sleep;
+    private boolean buttons = true;
 
     // On create
     @Override
@@ -118,13 +125,21 @@ public class Main extends Activity
         return true;
     }
 
+    // On Resume
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // Get preferences
+        getPreferences();
+    }
+
     // Restore state
     private void restoreState(Bundle savedInstanceState)
     {
         // Get saved state bundle
         Bundle bundle = savedInstanceState.getBundle(STATE);
-
-        // Log.d(TAG, "Restore: " + bundle.toString());
 
         // Knob
         if (knob != null)
@@ -153,7 +168,6 @@ public class Main extends Activity
         onClick(v);
 
         // Mute
-
         boolean mute = bundle.getBoolean(MUTE, false);
 
         if (mute)
@@ -205,7 +219,6 @@ public class Main extends Activity
     }
 
     // On destroy
-
     @Override
     protected void onDestroy()
     {
@@ -233,6 +246,10 @@ public class Main extends Activity
         // Sleep
         case R.id.sleep:
             return onSleepClick(item);
+
+        // Exact
+        case R.id.exact:
+            return onExactClick();
 
         default:
             return false;
@@ -268,6 +285,42 @@ public class Main extends Activity
         return true;
     }
 
+    // On exact click
+    private boolean onExactClick()
+    {
+        Intent intent = new Intent(this, Input.class);
+        startActivityForResult(intent, 0);
+
+        return true;
+  
+    }
+
+    // onActivityResult
+    @Override
+    protected void onActivityResult(int requestCode, 
+                                    int resultCode, 
+                                    Intent data)
+    {
+        // Check result code
+       if (resultCode == RESULT_OK)
+        {
+            // Get the result
+            String result = data.getStringExtra(EXACT);
+            double exact = Double.parseDouble(result);
+
+            // Ignore if out of range
+            if (exact < 10 || exact > 25000)
+                return;
+
+            // Calculate knob value
+            float value = (float)Math.log10(exact / 10.0) * 200;
+
+            // Set knob value
+            if (knob != null)
+                knob.setValue(value);
+        }
+    }
+
     // On knob change
     @Override
     public void onKnobChange(Knob knob, float value)
@@ -292,7 +345,6 @@ public class Main extends Activity
     }
 
     // On progress changed
-
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
                                   boolean fromUser)
@@ -417,6 +469,42 @@ public class Main extends Activity
         }
     }
 
+    // Get preferences
+    void getPreferences()
+    {
+        // Load preferences
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        buttons = preferences.getBoolean(PREF_BUTTONS, true);
+
+        View v;
+
+        if (buttons)
+        {
+            v = findViewById(R.id.lower);
+            if (v != null)
+                v.setVisibility(View.VISIBLE);
+
+            v = findViewById(R.id.higher);
+            if (v != null)
+                v.setVisibility(View.VISIBLE);
+        }
+
+        else
+        {
+            v = findViewById(R.id.lower);
+            if (v != null)
+                v.setVisibility(View.GONE);
+
+            v = findViewById(R.id.higher);
+            if (v != null)
+                v.setVisibility(View.GONE);
+        }
+    }
+
     // Set up widgets
     private void setupWidgets()
     {
@@ -428,17 +516,21 @@ public class Main extends Activity
             knob.setValue(400);
 
             v = findViewById(R.id.previous);
-            v.setOnClickListener(knob);
+            if (v != null)
+                v.setOnClickListener(knob);
 
             v = findViewById(R.id.next);
-            v.setOnClickListener(knob);
+            if (v != null)
+                v.setOnClickListener(knob);
         }
 
         v = findViewById(R.id.lower);
-        v.setOnClickListener(this);
+        if (v != null)
+            v.setOnClickListener(this);
 
         v = findViewById(R.id.higher);
-        v.setOnClickListener(this);
+        if (v != null)
+            v.setOnClickListener(this);
 
         if (fine != null)
         {
@@ -457,16 +549,20 @@ public class Main extends Activity
         }
 
         v = findViewById(R.id.sine);
-        v.setOnClickListener(this);
+        if (v != null)
+            v.setOnClickListener(this);
 
         v = findViewById(R.id.square);
-        v.setOnClickListener(this);
+        if (v != null)
+            v.setOnClickListener(this);
 
         v = findViewById(R.id.sawtooth);
-        v.setOnClickListener(this);
+        if (v != null)
+            v.setOnClickListener(this);
 
         v = findViewById(R.id.mute);
-        v.setOnClickListener(this);
+        if (v != null)
+            v.setOnClickListener(this);
     }
 
     // A collection of unused unwanted unloved listener callback methods

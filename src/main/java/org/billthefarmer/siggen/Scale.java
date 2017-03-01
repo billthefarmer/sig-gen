@@ -33,6 +33,7 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 
+// Scale
 public class Scale extends SiggenView
 {
     private static final int SCALE = 500;
@@ -50,7 +51,6 @@ public class Scale extends SiggenView
     }
 
     // On measure
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
@@ -63,7 +63,6 @@ public class Scale extends SiggenView
     }
 
     // On size changed
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
@@ -76,6 +75,7 @@ public class Scale extends SiggenView
             Canvas canvas = new Canvas(bitmap);
 
             paint.setStrokeWidth(2);
+            paint.setColor(Color.BLACK);
             paint.setAntiAlias(false);
             for (int i = 1; i <= 10; i++)
             {
@@ -103,6 +103,7 @@ public class Scale extends SiggenView
 
             paint.setTextSize(height * 7 / 16);
             paint.setAntiAlias(true);
+            paint.setStyle(Paint.Style.FILL_AND_STROKE);
             paint.setTextAlign(Paint.Align.CENTER);
 
             int a[] = {1, 2, 3, 4, 6, 8};
@@ -123,7 +124,6 @@ public class Scale extends SiggenView
     }
 
     // Set value
-
     protected void setValue(int v)
     {
         value = v;
@@ -131,7 +131,6 @@ public class Scale extends SiggenView
     }
 
     // On draw
-
     @Override
     protected void onDraw(Canvas canvas)
     {

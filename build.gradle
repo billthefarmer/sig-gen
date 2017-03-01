@@ -14,7 +14,8 @@ android {
     buildToolsVersion '24.0.2'
 
     lintOptions {
-	disable 'IconDensities', 'ClickableViewAccessibility', "Wakelock"
+	disable 'IconDensities', 'ClickableViewAccessibility', 'Wakelock',
+        'InconsistentLayout'
 	// abortOnError false
     }
 }

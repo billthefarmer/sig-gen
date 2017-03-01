@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.billthefarmer.siggen"
     tools:ignore="GoogleAppIndexingWarning"
-    android:versionCode="108"
-    android:versionName="1.08"
+    android:versionCode="109"
+    android:versionName="1.09"
     android:installLocation="auto" >
 
   <uses-sdk
@@ -33,8 +33,8 @@
     </activity>
     <activity
 	android:name="org.billthefarmer.siggen.Input"
+        android:label="@string/frequency"
 	android:screenOrientation="landscape"
-	android:windowSoftInputMode="stateHidden"
 	android:theme="@android:style/Theme.Holo.Light.Dialog" >
     </activity>
     <activity
