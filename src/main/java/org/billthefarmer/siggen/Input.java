@@ -30,14 +30,13 @@ import android.content.res.Resources;
 import android.view.inputmethod.EditorInfo;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class Input extends Activity
-    implements TextView.OnEditorActionListener
-
+    implements TextView.OnEditorActionListener, View.OnClickListener
 {
     // On create
     @Override
@@ -46,9 +45,30 @@ public class Input extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input);
 
-        TextView text = (TextView)findViewById(R.id.input);
-        if (text != null)
-            text.setOnEditorActionListener(this);
+        // Set listeners
+        TextView input = (TextView)findViewById(R.id.input);
+        if (input != null)
+            input.setOnEditorActionListener(this);
+
+        View cancel = findViewById(R.id.cancel);
+        if (cancel != null)
+            cancel.setOnClickListener(this);
+    }
+
+    // On click
+    @Override
+    public void onClick(View v)
+    {
+        // Get id
+        int id = v.getId();
+        switch(id)
+        {
+        // Cancel
+        case R.id.cancel:
+            setResult(RESULT_CANCELED);
+            finish();
+            break;
+        }
     }
 
     // onEditorAction
@@ -57,6 +77,7 @@ public class Input extends Activity
         // Get id
         switch (actionId)
         {
+        // Done
         case EditorInfo.IME_ACTION_DONE:
             if (view.length() > 0)
             {
@@ -64,6 +85,7 @@ public class Input extends Activity
                 intent.putExtra(Main.EXACT, view.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
+                return true;
             }
             break;
         }

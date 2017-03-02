@@ -33,12 +33,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import android.widget.Button;
-import android.widget.SeekBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.SeekBar;
 
 public class Main extends Activity
     implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
@@ -292,13 +292,12 @@ public class Main extends Activity
         startActivityForResult(intent, 0);
 
         return true;
-  
     }
 
     // onActivityResult
     @Override
-    protected void onActivityResult(int requestCode, 
-                                    int resultCode, 
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
                                     Intent data)
     {
         // Check result code
@@ -306,7 +305,7 @@ public class Main extends Activity
         {
             // Get the result
             String result = data.getStringExtra(EXACT);
-            double exact = Double.parseDouble(result);
+            float exact = Float.parseFloat(result);
 
             // Ignore if out of range
             if (exact < 10 || exact > 25000)
