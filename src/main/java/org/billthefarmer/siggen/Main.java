@@ -353,8 +353,10 @@ public class Main extends Activity
         if (audio == null)
             return;
 
+        // Check id
         switch (id)
         {
+        // Fine
         case R.id.fine:
         {
             double frequency = Math.pow(10.0, knob.getValue() /
@@ -372,6 +374,7 @@ public class Main extends Activity
         }
         break;
 
+        // Level
         case R.id.level:
             if (display != null)
             {
@@ -393,9 +396,11 @@ public class Main extends Activity
     @Override
     public void onClick(View v)
     {
+        // Check id
         int id = v.getId();
         switch(id)
         {
+        // Sine
         case R.id.sine:
             if (audio != null)
                 audio.waveform = Audio.SINE;
@@ -410,6 +415,7 @@ public class Main extends Activity
                 android.R.drawable.radiobutton_off_background, 0, 0, 0);
             break;
 
+        // Square
         case R.id.square:
             if (audio != null)
                 audio.waveform = Audio.SQUARE;
@@ -424,6 +430,7 @@ public class Main extends Activity
                 android.R.drawable.radiobutton_off_background, 0, 0, 0);
             break;
 
+        // Sawtooth
         case R.id.sawtooth:
             if (audio != null)
                 audio.waveform = Audio.SAWTOOTH;
@@ -438,6 +445,7 @@ public class Main extends Activity
                 android.R.drawable.radiobutton_off_background, 0, 0, 0);
             break;
 
+        // Mute
         case R.id.mute:
             if (audio != null)
                 audio.mute = !audio.mute;
@@ -451,6 +459,7 @@ public class Main extends Activity
                     android.R.drawable.checkbox_off_background, 0, 0, 0);
             break;
 
+        // Lower
         case R.id.lower:
             if (fine != null)
             {
@@ -459,6 +468,7 @@ public class Main extends Activity
             }
             break;
 
+        // Higher
         case R.id.higher:
             {
                 int progress = fine.getProgress();
