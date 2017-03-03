@@ -62,7 +62,7 @@
 
     <Button
 	android:id="@+id/sine"
-	android:text="@string/sin"
+	android:text="@string/s"
 	android:layout_weight="1.0"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
 
     <Button
 	android:id="@+id/square"
-	android:text="@string/squ"
+	android:text="@string/q"
 	android:layout_weight="1.0"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
 
     <Button
 	android:id="@+id/sawtooth"
-	android:text="@string/saw"
+	android:text="@string/w"
 	android:layout_weight="1.0"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
