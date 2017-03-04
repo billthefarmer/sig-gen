@@ -29,9 +29,11 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -133,6 +135,9 @@ public class Main extends Activity
 
         // Get preferences
         getPreferences();
+
+        // Check overlap
+        checkOverlap();
     }
 
     // Restore state
@@ -478,8 +483,54 @@ public class Main extends Activity
         }
     }
 
+    private void checkOverlap()
+    {
+        final SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+        display.postDelayed(new Runnable()
+            {
+                public void run()
+                {
+                    View mute = findViewById(R.id.mute);
+                    View lower = findViewById(R.id.lower);
+                    View higher = findViewById(R.id.higher);
+
+                    if (mute != null && lower != null && higher != null &&
+                        (isViewOverlapping(mute, lower) ||
+                         isViewOverlapping(mute, higher)))
+                    {
+                        lower.setVisibility(View.GONE);
+                        higher.setVisibility(View.GONE);
+
+                        SharedPreferences.Editor edit = preferences.edit();
+                        edit.putBoolean(PREF_BUTTONS, false);
+                        edit.apply();
+                    }
+                }
+            }, 10);
+    }
+
+    // isViewOverlapping
+    private boolean isViewOverlapping(View firstView, View secondView)
+    {
+        int[] firstPos = new int[2];
+        int[] secondPos = new int[2];
+
+        firstView.getLocationOnScreen(firstPos);
+        secondView.getLocationOnScreen(secondPos);
+
+        // Rect constructor parameters: left, top, right, bottom
+        Rect rectFirstView = new Rect(firstPos[0], firstPos[1],
+                                      firstPos[0] + firstView.getWidth(),
+                                      firstPos[1] + firstView.getHeight());
+        Rect rectSecondView = new Rect(secondPos[0], secondPos[1],
+                                       secondPos[0] + secondView.getWidth(),
+                                       secondPos[1] + secondView.getHeight());
+        return rectFirstView.intersect(rectSecondView);
+    }
+
     // Get preferences
-    void getPreferences()
+    private void getPreferences()
     {
         // Load preferences
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
