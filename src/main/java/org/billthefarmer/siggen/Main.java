@@ -48,6 +48,7 @@ public class Main extends Activity
 {
     public static final String EXACT = "exact";
 
+    private static final int DELAY = 10;
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 1000;
 
@@ -137,7 +138,8 @@ public class Main extends Activity
         getPreferences();
 
         // Check overlap
-        checkOverlap();
+        if (buttons)
+            checkOverlap();
     }
 
     // Restore state
@@ -483,10 +485,13 @@ public class Main extends Activity
         }
     }
 
+    // checkOverlap
     private void checkOverlap()
     {
+        // Get preferences
         final SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
+        // Check overlap after delay
         display.postDelayed(new Runnable()
             {
                 public void run()
@@ -495,26 +500,29 @@ public class Main extends Activity
                     View lower = findViewById(R.id.lower);
                     View higher = findViewById(R.id.higher);
 
+                    // Check for overlap
                     if (mute != null && lower != null && higher != null &&
                         (isViewOverlapping(mute, lower) ||
                          isViewOverlapping(mute, higher)))
                     {
+                        // Remove buttons
                         lower.setVisibility(View.GONE);
                         higher.setVisibility(View.GONE);
 
+                        // Set preference
                         SharedPreferences.Editor edit = preferences.edit();
                         edit.putBoolean(PREF_BUTTONS, false);
                         edit.apply();
                     }
                 }
-            }, 10);
+            }, DELAY);
     }
 
     // isViewOverlapping
     private boolean isViewOverlapping(View firstView, View secondView)
     {
-        int[] firstPos = new int[2];
-        int[] secondPos = new int[2];
+        int firstPos[] = new int[2];
+        int secondPos[] = new int[2];
 
         firstView.getLocationOnScreen(firstPos);
         secondView.getLocationOnScreen(secondPos);

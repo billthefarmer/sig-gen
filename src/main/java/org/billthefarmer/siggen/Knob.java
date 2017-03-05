@@ -85,9 +85,9 @@ public class Knob extends View
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get the parent dimensions
-        View parent = (View) getParent();
-        int w = parent.getWidth();
-        int h = parent.getHeight();
+        View parent = (View)getParent();
+        int w = parent.getMeasuredWidth();
+        int h = parent.getMeasuredHeight();
 
         if (w > h)
         {
