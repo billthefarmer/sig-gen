@@ -324,6 +324,10 @@ public class Main extends Activity
             // Set knob value
             if (knob != null)
                 knob.setValue(value);
+
+            // Reset fine
+            if (fine != null)
+                fine.setProgress(MAX_FINE / 2);
         }
     }
 
