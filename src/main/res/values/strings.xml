@@ -13,6 +13,9 @@
   <string name="enter">Enter frequency</string>
   <string name="cancel">Cancel</string>
 
+  <string name="bookmark_added">Bookmark added %1.2f</string>
+  <string name="bookmark_removed">Bookmark removed %1.2f</string>
+  
   <string name="sine">Sine</string>
   <string name="sin">Sin</string>
   <string name="s">S</string>

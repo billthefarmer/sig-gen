@@ -36,15 +36,18 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 
@@ -80,6 +83,8 @@ public class Main extends Activity
 
     private SeekBar fine;
     private SeekBar level;
+
+    private Toast toast;
 
     private PowerManager.WakeLock wakeLock;
     private List<Double> bookmarks;
@@ -336,11 +341,13 @@ public class Main extends Activity
             if (Math.abs(audio.frequency - bookmark) < 1.0)
             {
                 bookmarks.remove(bookmark);
+                showToast(R.string.bookmark_removed, bookmark); 
                 return true;
             }
         }
 
         bookmarks.add(audio.frequency);
+        showToast(R.string.bookmark_added, audio.frequency); 
         Collections.sort(bookmarks);
         checkBookmarks();
 
@@ -589,6 +596,29 @@ public class Main extends Activity
             }
             break;
         }
+    }
+
+    // Show toast
+    void showToast(int key, Object... args)
+    {
+        Resources resources = getResources();
+        String format = resources.getString(key);
+        String text = String.format(Locale.getDefault(), format, args);
+
+        showToast(text);
+    }
+
+    // Show toast
+    void showToast(String text)
+    {
+        // Cancel the last one
+        if (toast != null)
+            toast.cancel();
+
+        // Make a new one
+        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     // checkOverlap

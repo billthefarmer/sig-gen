@@ -23,7 +23,9 @@ The toolbar items are, from left to right:
  * **Sleep** - Prevent the device from sleeping
  * **Settings** - Show the settings.
  
- ### Settings
+To remove a bookmark, go to it and press the toolbar bookmark button.
+ 
+### Settings
 There is only one setting, to hide the fine frequency adjustment
 buttons if they overlap the mute button. The app attempts to detect
 this and will change this setting if needed.
