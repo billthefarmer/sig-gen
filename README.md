@@ -23,7 +23,7 @@ The toolbar items are, from left to right:
  * **Sleep** - Prevent the device from sleeping
  * **Settings** - Show the settings.
  
-To remove a bookmark, go to it and press the toolbar bookmark button.
+To remove a bookmark, go to it and touch the toolbar bookmark button.
  
 ### Settings
 There is only one setting, to hide the fine frequency adjustment

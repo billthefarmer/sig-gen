@@ -61,6 +61,8 @@ public class Main extends Activity
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 1000;
 
+    private static final double MARGIN = 1.0;
+
     private static final String TAG = "SigGen";
 
     private static final String STATE = "state";
@@ -338,7 +340,7 @@ public class Main extends Activity
 
         for (double bookmark: bookmarks)
         {
-            if (Math.abs(audio.frequency - bookmark) < 1.0)
+            if (Math.abs(audio.frequency - bookmark) < MARGIN)
             {
                 bookmarks.remove(bookmark);
                 showToast(R.string.bookmark_removed, bookmark); 
