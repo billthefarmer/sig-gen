@@ -49,7 +49,6 @@
       android:layout_height="wrap_content"
       android:layout_alignBottom="@id/knob"
       android:layout_alignLeft="@id/knob"
-      android:enabled="false"
       tools:ignore="ContentDescription" />
 
   <ImageButton
@@ -59,7 +58,6 @@
       android:layout_height="wrap_content"
       android:layout_alignBottom="@id/knob"
       android:layout_alignRight="@id/knob"
-      android:enabled="false"
       tools:ignore="ContentDescription" />
 
   <org.billthefarmer.siggen.Display

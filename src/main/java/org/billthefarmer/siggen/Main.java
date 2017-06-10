@@ -54,7 +54,7 @@ public class Main extends Activity
 {
     public static final String EXACT = "exact";
 
-    private static final int DELAY = 10;
+    private static final int DELAY = 100;
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 1000;
 
@@ -600,6 +600,8 @@ public class Main extends Activity
         // Check overlap after delay
         display.postDelayed(new Runnable()
             {
+                // run
+                @Override
                 public void run()
                 {
                     View mute = findViewById(R.id.mute);
@@ -646,23 +648,31 @@ public class Main extends Activity
     // Check bookmarks
     private void checkBookmarks()
     {
-        View back = findViewById(R.id.back);
-        View forward = findViewById(R.id.forward);
-
-        back.setEnabled(false);
-        forward.setEnabled(false);
-
-        if (bookmarks != null)
-        {
-            for (double bookmark: bookmarks)
+        knob.postDelayed(new Runnable()
             {
-                if (bookmark < audio.frequency)
-                    back.setEnabled(true);
+                // run
+                @Override
+                public void run()
+                {
+                    View back = findViewById(R.id.back);
+                    View forward = findViewById(R.id.forward);
 
-                if (bookmark > audio.frequency)
-                    forward.setEnabled(true);
-            }
-        }
+                    back.setEnabled(false);
+                    forward.setEnabled(false);
+
+                    if (bookmarks != null)
+                    {
+                        for (double bookmark: bookmarks)
+                        {
+                            if (bookmark < audio.frequency)
+                                back.setEnabled(true);
+
+                            if (bookmark > audio.frequency)
+                                forward.setEnabled(true);
+                        }
+                    }
+                }
+            }, DELAY);
     }
 
     // Get preferences
