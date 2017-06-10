@@ -42,6 +42,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.json.JSONArray;
+
 public class Main extends Activity
     implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
                View.OnClickListener
@@ -64,6 +70,7 @@ public class Main extends Activity
     private static final String SLEEP = "sleep";
 
     private static final String PREF_BUTTONS = "pref_buttons";
+    private static final String PREF_BOOKMARKS = "pref_bookmarks";
 
     private Audio audio;
 
@@ -75,6 +82,7 @@ public class Main extends Activity
     private SeekBar level;
 
     private PowerManager.WakeLock wakeLock;
+    private List<Double> bookmarks;
 
     private boolean sleep;
     private boolean buttons = true;
@@ -225,6 +233,27 @@ public class Main extends Activity
         outState.putBundle(STATE, bundle);
     }
 
+    // On pause
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+        // Get preferences
+        final SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (bookmarks != null)
+        {
+            JSONArray json = new JSONArray(bookmarks);
+
+            // Save preference
+            SharedPreferences.Editor edit = preferences.edit();
+            edit.putString(PREF_BOOKMARKS, json.toString());
+            edit.apply();
+        }
+    }
+
     // On destroy
     @Override
     protected void onDestroy()
@@ -253,6 +282,10 @@ public class Main extends Activity
         // Sleep
         case R.id.sleep:
             return onSleepClick(item);
+
+        // Bookmark
+        case R.id.bookmark:
+            return onBookmarkClick();
 
         // Exact
         case R.id.exact:
@@ -292,6 +325,28 @@ public class Main extends Activity
         return true;
     }
 
+    // On bookmark click
+    private boolean onBookmarkClick()
+    {
+        if (bookmarks == null)
+            bookmarks = new ArrayList<Double>();
+
+        for (double bookmark: bookmarks)
+        {
+            if (Math.abs(audio.frequency - bookmark) < 1.0)
+            {
+                bookmarks.remove(bookmark);
+                return true;
+            }
+        }
+
+        bookmarks.add(audio.frequency);
+        Collections.sort(bookmarks);
+        checkBookmarks();
+
+        return true;
+    }
+
     // On exact click
     private boolean onExactClick()
     {
@@ -318,17 +373,23 @@ public class Main extends Activity
             if (exact < 10 || exact > 25000)
                 return;
 
-            // Calculate knob value
-            float value = (float)Math.log10(exact / 10.0) * 200;
-
-            // Set knob value
-            if (knob != null)
-                knob.setValue(value);
-
-            // Reset fine
-            if (fine != null)
-                fine.setProgress(MAX_FINE / 2);
+            setFrequency(exact);
         }
+    }
+
+    // Set frequency
+    private void setFrequency(double freq)
+    {
+        // Calculate knob value
+        float value = (float)Math.log10(freq / 10.0) * 200;
+
+        // Set knob value
+        if (knob != null)
+            knob.setValue(value);
+
+        // Reset fine
+        if (fine != null)
+            fine.setProgress(MAX_FINE / 2);
     }
 
     // On knob change
@@ -352,6 +413,8 @@ public class Main extends Activity
 
         if (audio != null)
             audio.frequency = frequency;
+
+        checkBookmarks();
     }
 
     // On progress changed
@@ -470,6 +533,45 @@ public class Main extends Activity
                     android.R.drawable.checkbox_off_background, 0, 0, 0);
             break;
 
+        // Back
+        case R.id.back:
+            if (bookmarks != null)
+            {
+                try
+                {
+                    Collections.reverse(bookmarks);
+                    for (double bookmark: bookmarks)
+                    {
+                        if (bookmark < audio.frequency)
+                        {
+                            setFrequency(bookmark);
+                            break;
+                        }
+                    }
+                }
+
+                finally
+                {
+                    Collections.sort(bookmarks);
+                }
+            }
+            break;
+
+        // Forward
+        case R.id.forward:
+            if (bookmarks != null)
+            {
+                for (double bookmark: bookmarks)
+                {
+                    if (bookmark > audio.frequency)
+                    {
+                        setFrequency(bookmark);
+                        break;
+                    }
+                }
+            }                    
+            break;
+
         // Lower
         case R.id.lower:
             if (fine != null)
@@ -541,6 +643,28 @@ public class Main extends Activity
         return rectFirstView.intersect(rectSecondView);
     }
 
+    // Check bookmarks
+    private void checkBookmarks()
+    {
+        View back = findViewById(R.id.back);
+        View forward = findViewById(R.id.forward);
+
+        back.setEnabled(false);
+        forward.setEnabled(false);
+
+        if (bookmarks != null)
+        {
+            for (double bookmark: bookmarks)
+            {
+                if (bookmark < audio.frequency)
+                    back.setEnabled(true);
+
+                if (bookmark > audio.frequency)
+                    forward.setEnabled(true);
+            }
+        }
+    }
+
     // Get preferences
     private void getPreferences()
     {
@@ -575,6 +699,19 @@ public class Main extends Activity
             if (v != null)
                 v.setVisibility(View.GONE);
         }
+
+        String string = preferences.getString(PREF_BOOKMARKS, "");
+        try
+        {
+            JSONArray json = new JSONArray(string);
+            bookmarks = new ArrayList<Double>();
+            for (int i = 0; i < json.length(); i++)
+                bookmarks.add(json.getDouble(i));
+
+            checkBookmarks();
+        }
+
+        catch (Exception e) {}
     }
 
     // Set up widgets
@@ -595,6 +732,14 @@ public class Main extends Activity
             if (v != null)
                 v.setOnClickListener(knob);
         }
+
+        v = findViewById(R.id.back);
+        if (v != null)
+            v.setOnClickListener(this);
+
+        v = findViewById(R.id.forward);
+        if (v != null)
+            v.setOnClickListener(this);
 
         v = findViewById(R.id.lower);
         if (v != null)

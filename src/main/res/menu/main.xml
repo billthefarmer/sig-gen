@@ -8,6 +8,12 @@
       android:icon="@drawable/ic_action_chat" />
 
   <item
+      android:id="@+id/bookmark"
+      android:showAsAction="ifRoom"
+      android:title="@string/bookmark"
+      android:icon="@drawable/ic_action_expand" />
+
+  <item
       android:id="@+id/sleep"
       android:showAsAction="ifRoom"
       android:title="@string/sleep"

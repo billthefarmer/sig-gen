@@ -9,6 +9,7 @@
     android:installLocation="auto" >
 
   <uses-sdk
+      tools:ignore="OldTargetApi"
       android:minSdkVersion="14"
       android:targetSdkVersion="25" />
 
