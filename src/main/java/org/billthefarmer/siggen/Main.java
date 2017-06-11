@@ -23,6 +23,7 @@
 
 package org.billthefarmer.siggen;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.media.AudioFormat;
 import android.media.AudioManager;
@@ -36,6 +37,7 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +55,7 @@ import org.json.JSONArray;
 
 public class Main extends Activity
     implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
-               View.OnClickListener
+               View.OnClickListener, ValueAnimator.AnimatorUpdateListener
 {
     public static final String EXACT = "exact";
 
@@ -553,7 +555,7 @@ public class Main extends Activity
                     {
                         if (bookmark < audio.frequency)
                         {
-                            setFrequency(bookmark);
+                            animateBookmark(audio.frequency, bookmark);
                             break;
                         }
                     }
@@ -574,7 +576,7 @@ public class Main extends Activity
                 {
                     if (bookmark > audio.frequency)
                     {
-                        setFrequency(bookmark);
+                        animateBookmark(audio.frequency, bookmark);
                         break;
                     }
                 }
@@ -598,6 +600,36 @@ public class Main extends Activity
             }
             break;
         }
+    }
+
+    // animateBookmark
+    private void animateBookmark(double start, double finish)
+    {
+        // Calculate knob values
+        float value = (float)Math.log10(start / 10.0) * 200;
+        float target = (float)Math.log10(finish / 10.0) * 200;
+
+        // Start the animation
+        ValueAnimator animator = ValueAnimator.ofFloat(value, target);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.addUpdateListener(this);
+        animator.start();
+
+        // Reset fine
+        if (fine != null)
+            fine.setProgress(MAX_FINE / 2);
+    }
+
+    // onAnimationUpdate
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation)
+    {
+        // Get value
+        float value = (Float)animation.getAnimatedValue();
+
+        // Set knob value
+        if (knob != null)
+            knob.setValue(value);
     }
 
     // Show toast
