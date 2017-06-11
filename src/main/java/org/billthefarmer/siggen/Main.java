@@ -642,8 +642,8 @@ public class Main extends Activity
 
                     // Check for overlap
                     if (mute != null && lower != null && higher != null &&
-                        (isViewOverlapping(mute, lower) ||
-                         isViewOverlapping(mute, higher)))
+                        (isOverlapping(mute, lower) ||
+                         isOverlapping(mute, higher)))
                     {
                         // Remove buttons
                         lower.setVisibility(View.GONE);
@@ -658,23 +658,23 @@ public class Main extends Activity
             }, DELAY);
     }
 
-    // isViewOverlapping
-    private boolean isViewOverlapping(View firstView, View secondView)
+    // IsOverlapping
+    private boolean isOverlapping(View first, View second)
     {
         int firstPos[] = new int[2];
         int secondPos[] = new int[2];
 
-        firstView.getLocationOnScreen(firstPos);
-        secondView.getLocationOnScreen(secondPos);
+        first.getLocationOnScreen(firstPos);
+        second.getLocationOnScreen(secondPos);
 
         // Rect constructor parameters: left, top, right, bottom
-        Rect rectFirstView = new Rect(firstPos[0], firstPos[1],
-                                      firstPos[0] + firstView.getWidth(),
-                                      firstPos[1] + firstView.getHeight());
-        Rect rectSecondView = new Rect(secondPos[0], secondPos[1],
-                                       secondPos[0] + secondView.getWidth(),
-                                       secondPos[1] + secondView.getHeight());
-        return rectFirstView.intersect(rectSecondView);
+        Rect rectFirst = new Rect(firstPos[0], firstPos[1],
+                                      firstPos[0] + first.getWidth(),
+                                      firstPos[1] + first.getHeight());
+        Rect rectSecond = new Rect(secondPos[0], secondPos[1],
+                                       secondPos[0] + second.getWidth(),
+                                       secondPos[1] + second.getHeight());
+        return rectFirst.intersect(rectSecond);
     }
 
     // Check bookmarks
@@ -743,6 +743,7 @@ public class Main extends Activity
         }
 
         String string = preferences.getString(PREF_BOOKMARKS, "");
+
         try
         {
             JSONArray json = new JSONArray(string);
