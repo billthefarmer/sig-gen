@@ -27,5 +27,5 @@ To remove a bookmark, go to it and touch the toolbar bookmark button.
  
 ### Settings
 There is only one setting, to hide the fine frequency adjustment
-buttons if they overlap the mute button. The app attempts to detect
-this and will change this setting if needed.
+buttons if they overlap the mute button on small phones. The app
+attempts to detect this and will change this setting if needed.
