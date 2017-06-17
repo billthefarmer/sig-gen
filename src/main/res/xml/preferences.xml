@@ -4,20 +4,6 @@
     android:title="@string/settings">
 
   <PreferenceCategory
-      android:key="pref_display_category"
-      android:title="@string/pref_display">
-
-    <CheckBoxPreference
-	android:key="pref_buttons"
-	android:icon="@drawable/ic_action_slideshow"
-	android:title="@string/pref_buttons"
-	android:summary="@string/pref_buttons_summ"
-	android:persistent="true"
-	android:defaultValue="true" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
       android:key="pref_about_category"
       android:title="@string/pref_about">
 
