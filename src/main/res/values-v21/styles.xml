@@ -12,4 +12,10 @@
     <!-- API 21 theme customizations can go here. -->
   </style>
 
+  <style
+      name="DialogBaseTheme"
+      parent="android:Theme.Material.Light.Dialog">
+    <!-- API 21 theme customizations can go here. -->
+  </style>
+
 </resources>
