@@ -59,7 +59,7 @@ public class Main extends Activity
 {
     public static final String EXACT = "exact";
 
-    private static final int DELAY = 100;
+    private static final int DELAY = 250;
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 1000;
 
