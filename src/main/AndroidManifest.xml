@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.billthefarmer.siggen"
     tools:ignore="GoogleAppIndexingWarning"
-    android:versionCode="111"
-    android:versionName="1.11"
+    android:versionCode="112"
+    android:versionName="1.12"
     android:installLocation="auto" >
 
   <uses-sdk
@@ -36,7 +36,7 @@
 	android:name="org.billthefarmer.siggen.Input"
         android:label="@string/frequency"
 	android:screenOrientation="landscape"
-	android:theme="@android:style/Theme.Holo.Light.Dialog" >
+	android:theme="@style/DialogTheme" >
     </activity>
     <activity
 	android:name="org.billthefarmer.siggen.SettingsActivity"
