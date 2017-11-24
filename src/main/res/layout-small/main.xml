@@ -107,19 +107,38 @@
 
   </LinearLayout>
 
+  <ImageButton
+      android:id="@+id/lower"
+      android:src="@drawable/ic_action_previous_item"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/waveform"
+      android:layout_alignLeft="@id/display"
+      tools:ignore="ContentDescription" />
+
+  <ImageButton
+      android:id="@+id/higher"
+      android:src="@drawable/ic_action_next_item"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/waveform"
+      android:layout_alignRight="@id/display"
+      tools:ignore="ContentDescription" />
+
   <Button
       android:id="@+id/mute"
       android:text="@string/mute"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/display"
-      android:layout_alignParentRight="true"
+      android:layout_toRightOf="@id/lower"
+      android:layout_toLeftOf="@id/higher"
       android:layout_below="@id/waveform"
+      android:layout_alignBottom="@id/lower"
       android:drawablePadding="8dp"
       android:drawableLeft="@android:drawable/checkbox_off_background" />
 
   <SeekBar
-      android:id="@id/fine"
+      android:id="@+id/fine"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_above="@+id/level"

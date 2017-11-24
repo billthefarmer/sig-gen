@@ -34,7 +34,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Rect;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -76,7 +75,6 @@ public class Main extends Activity
     private static final String LEVEL = "level";
     private static final String SLEEP = "sleep";
 
-    private static final String PREF_BUTTONS = "pref_buttons";
     private static final String PREF_BOOKMARKS = "pref_bookmarks";
 
     private Audio audio;
@@ -94,7 +92,6 @@ public class Main extends Activity
     private List<Double> bookmarks;
 
     private boolean sleep;
-    private boolean buttons = true;
 
     // On create
     @Override
@@ -153,10 +150,6 @@ public class Main extends Activity
 
         // Get preferences
         getPreferences();
-
-        // Check overlap
-        if (buttons)
-            checkOverlap();
     }
 
     // Restore state
@@ -655,60 +648,6 @@ public class Main extends Activity
         toast.show();
     }
 
-    // checkOverlap
-    private void checkOverlap()
-    {
-        // Get preferences
-        final SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
-        // Check overlap after delay
-        display.postDelayed(new Runnable()
-            {
-                // run
-                @Override
-                public void run()
-                {
-                    View mute = findViewById(R.id.mute);
-                    View lower = findViewById(R.id.lower);
-                    View higher = findViewById(R.id.higher);
-
-                    // Check for overlap
-                    if (mute != null && lower != null && higher != null &&
-                        (isOverlapping(mute, lower) ||
-                         isOverlapping(mute, higher)))
-                    {
-                        // Remove buttons
-                        lower.setVisibility(View.GONE);
-                        higher.setVisibility(View.GONE);
-
-                        // Set preference
-                        SharedPreferences.Editor edit = preferences.edit();
-                        edit.putBoolean(PREF_BUTTONS, false);
-                        edit.apply();
-                    }
-                }
-            }, DELAY);
-    }
-
-    // IsOverlapping
-    private boolean isOverlapping(View first, View second)
-    {
-        int firstPos[] = new int[2];
-        int secondPos[] = new int[2];
-
-        first.getLocationOnScreen(firstPos);
-        second.getLocationOnScreen(secondPos);
-
-        // Rect constructor parameters: left, top, right, bottom
-        Rect rectFirst = new Rect(firstPos[0], firstPos[1],
-                                      firstPos[0] + first.getWidth(),
-                                      firstPos[1] + first.getHeight());
-        Rect rectSecond = new Rect(secondPos[0], secondPos[1],
-                                       secondPos[0] + second.getWidth(),
-                                       secondPos[1] + second.getHeight());
-        return rectFirst.intersect(rectSecond);
-    }
-
     // Check bookmarks
     private void checkBookmarks()
     {
@@ -747,32 +686,6 @@ public class Main extends Activity
 
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
-
-        buttons = preferences.getBoolean(PREF_BUTTONS, true);
-
-        View v;
-
-        if (buttons)
-        {
-            v = findViewById(R.id.lower);
-            if (v != null)
-                v.setVisibility(View.VISIBLE);
-
-            v = findViewById(R.id.higher);
-            if (v != null)
-                v.setVisibility(View.VISIBLE);
-        }
-
-        else
-        {
-            v = findViewById(R.id.lower);
-            if (v != null)
-                v.setVisibility(View.GONE);
-
-            v = findViewById(R.id.higher);
-            if (v != null)
-                v.setVisibility(View.GONE);
-        }
 
         String string = preferences.getString(PREF_BOOKMARKS, "");
 
