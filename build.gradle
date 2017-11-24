@@ -19,8 +19,7 @@ android {
     }
 
     lintOptions {
-	disable 'IconDensities', 'ClickableViewAccessibility', 'Wakelock',
-        'InconsistentLayout'
+	disable 'IconDensities', 'ClickableViewAccessibility', 'Wakelock'
 	// abortOnError false
     }
 }
