@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">Signal Generator</string>
+  <string name="copyright">Copyright \u00A9 2017 <a
+  href="http://billthefarmer.github.io">Bill Farmer</a>
+  </string>
+  <string name="licence">Licence <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+  <string name="built">Construído %s</string>
+
+  <string name="settings">Configurações</string>
+  <string name="sleep">Dormir</string>
+  <string name="exact">Exato</string>
+  <string name="bookmark">Favorito</string>
+  <string name="frequency">Frequência</string>
+  <string name="enter">Inserir Frequência</string>
+  <string name="cancel">Cancelar</string>
+
+  <string name="bookmark_added">Favorito adicionado %1.2f</string>
+  <string name="bookmark_removed">Favorito removido %1.2f</string>
+  
+  <string name="sine">Seno</string>
+  <string name="sin">Sen</string>
+  <string name="s">S</string>
+  <string name="square">Quadrada</string>
+  <string name="squ">Qua</string>
+  <string name="q">Q</string>
+  <string name="sawtooth">Dente de serra</string>
+  <string name="saw">Serra</string>
+  <string name="w">W</string>
+
+  <string name="mute">Mutar</string>
+
+  <string name="pref_about">Sobre</string>
+  <string name="pref_about_summ">Signal Generator versão %s</string>
+
+</resources>
