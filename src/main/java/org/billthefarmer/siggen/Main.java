@@ -25,23 +25,28 @@ package org.billthefarmer.siggen;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.text.InputType;
 import android.util.Log;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -58,6 +63,7 @@ public class Main extends Activity
 {
     public static final String EXACT = "exact";
 
+    private static final int TEXT = 1;
     private static final int DELAY = 250;
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 1000;
@@ -354,31 +360,60 @@ public class Main extends Activity
     // On exact click
     private boolean onExactClick()
     {
-        Intent intent = new Intent(this, Input.class);
-        startActivityForResult(intent, 0);
+        // Open dialog
+        exactDialog(R.string.frequency, R.string.enter,
+                    new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                switch (id)
+                {
+                case DialogInterface.BUTTON_POSITIVE:
+                    EditText text =
+                        (EditText) ((Dialog) dialog).findViewById(TEXT);
+                    String result = text.getText().toString();
+
+                    // Ignore empty string
+                    if (result.isEmpty())
+                        return;
+
+                    float exact = Float.parseFloat(result);
+
+                    // Ignore if out of range
+                    if (exact < 10 || exact > 25000)
+                        return;
+
+                    setFrequency(exact);
+                }
+            }
+        });
 
         return true;
     }
 
-    // onActivityResult
-    @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent data)
+    // exactDialog
+    private void exactDialog(int title, int hint,
+                             DialogInterface.OnClickListener listener)
     {
-        // Check result code
-       if (resultCode == RESULT_OK)
-        {
-            // Get the result
-            String result = data.getStringExtra(EXACT);
-            float exact = Float.parseFloat(result);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
 
-            // Ignore if out of range
-            if (exact < 10 || exact > 25000)
-                return;
+        // Add the buttons
+        builder.setPositiveButton(R.string.ok, listener);
+        builder.setNegativeButton(R.string.cancel, listener);
 
-            setFrequency(exact);
-        }
+        // Create edit text
+        Context context = builder.getContext();
+        EditText text = new EditText(context);
+        text.setId(TEXT);
+        text.setHint(hint);
+        text.setInputType(InputType.TYPE_CLASS_NUMBER|
+                          InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.setView(text, 30, 0, 30, 0);
+        dialog.show();
     }
 
     // Set frequency

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.billthefarmer.siggen"
     tools:ignore="GoogleAppIndexingWarning"
-    android:versionCode="113"
-    android:versionName="1.13"
+    android:versionCode="114"
+    android:versionName="1.14"
     android:installLocation="auto" >
 
   <uses-sdk
       tools:ignore="OldTargetApi"
       android:minSdkVersion="14"
-      android:targetSdkVersion="25" />
+      android:targetSdkVersion="27" />
 
   <uses-permission
       android:name="android.permission.WAKE_LOCK" />

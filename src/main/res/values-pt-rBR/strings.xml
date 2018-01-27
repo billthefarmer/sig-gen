@@ -17,6 +17,7 @@
   <string name="frequency">Frequência</string>
   <string name="enter">Inserir Frequência</string>
   <string name="cancel">Cancelar</string>
+  <string name="ok">OK</string>
 
   <string name="bookmark_added">Favorito adicionado %1.2f</string>
   <string name="bookmark_removed">Favorito removido %1.2f</string>
