@@ -2,10 +2,10 @@
 <resources>
 
   <string name="app_name">Signal Generator</string>
-  <string name="copyright">Copyright \u00A9 2017 <a
+  <string name="copyright">Direitos \u00A9 2017 <a
   href="http://billthefarmer.github.io">Bill Farmer</a>
   </string>
-  <string name="licence">Licence <a
+  <string name="licence">Licença <a
   href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
   <string name="built">Construído %s</string>
