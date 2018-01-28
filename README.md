@@ -5,7 +5,7 @@ and [here](https://github.com/billthefarmer/sig-gen/releases).
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/SigGen.png)
 
- *  Frequency range 10Hz - 25KHz
+ *  Frequency range 0.1Hz - 25KHz
  *  Level range 0dB - -80dB
  *  Frequency bookmarks
 
