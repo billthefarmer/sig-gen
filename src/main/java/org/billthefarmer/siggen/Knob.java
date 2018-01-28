@@ -44,7 +44,7 @@ public class Knob extends View
 {
     private static final int MARGIN = 8;
 
-    private static final float MIN = 0;
+    private static final float MIN = -400;
     private static final float MAX = 680;
     private static final int SCALE = 50;
     private static final int VELOCITY = 75;

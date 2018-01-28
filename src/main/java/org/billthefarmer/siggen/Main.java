@@ -380,7 +380,7 @@ public class Main extends Activity
                     float exact = Float.parseFloat(result);
 
                     // Ignore if out of range
-                    if (exact < 10 || exact > 25000)
+                    if (exact < 0.1 || exact > 25000)
                         return;
 
                     setFrequency(exact);
