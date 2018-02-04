@@ -37,4 +37,8 @@
   <string name="pref_about">Sobre</string>
   <string name="pref_about_summ">Signal Generator versão %s</string>
 
+  <string name="pref_theme">Escuro</string>
+  <string name="pref_dark_theme">Sombrio</string>
+  <string name="pref_dark_theme_summ">Use o tema escuro</string>
+
 </resources>

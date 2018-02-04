@@ -20,10 +20,14 @@
         API-level can go here.
     -->
 
-    <item name="back">@drawable/ic_action_back</item>
-    <item name="forward">@drawable/ic_action_forward</item>
+    <item name="back">@drawable/ic_back</item>
+    <item name="forward">@drawable/ic_forward</item>
     <item name="previous">@drawable/ic_action_previous_item</item>
     <item name="next">@drawable/ic_action_next_item</item>
+
+    <item name="pref_dark_theme">
+      @drawable/ic_action_brightness_high_light
+    </item>
 
   </style>
 
@@ -42,10 +46,12 @@
         API-level can go here.
     -->
 
-    <item name="back">@drawable/ic_action_back_dark</item>
-    <item name="forward">@drawable/ic_action_forward_dark</item>
+    <item name="back">@drawable/ic_back_dark</item>
+    <item name="forward">@drawable/ic_forward_dark</item>
     <item name="previous">@drawable/ic_action_previous_item_dark</item>
     <item name="next">@drawable/ic_action_next_item_dark</item>
+
+    <item name="pref_dark_theme">@drawable/ic_action_brightness_high</item>
 
   </style>
 
