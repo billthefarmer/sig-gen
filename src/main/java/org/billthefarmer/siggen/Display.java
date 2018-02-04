@@ -79,7 +79,7 @@ public class Display extends SiggenView
         paint.setTextAlign(Paint.Align.LEFT);
         paint.setTextSize(height / 2);
         paint.setTextScaleX(0.9f);
-        paint.setColor(Color.BLACK);
+        paint.setColor(textColour);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         canvas.drawText(s, MARGIN, height * 2 / 3, paint);
 

@@ -21,8 +21,7 @@
     -->
   </style>
 
-  <style name="DialogBaseTheme"
-         parent="android:Theme.Dialog">
+  <style name="AppDarkBaseTheme" parent="android:Theme">
     <!--
         Theme customizations available in newer API levels can go in
         res/values-vXX/styles.xml, while customizations related to
@@ -30,7 +29,8 @@
     -->
   </style>
 
-  <style name="DialogTheme" parent="DialogBaseTheme">
+  <!-- Application theme. -->
+  <style name="AppDarkTheme" parent="AppDarkBaseTheme">
     <!--
         All customizations that are NOT specific to a particular
         API-level can go here.

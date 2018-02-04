@@ -75,7 +75,7 @@ public class Scale extends SiggenView
             Canvas canvas = new Canvas(bitmap);
 
             paint.setStrokeWidth(2);
-            paint.setColor(Color.BLACK);
+            paint.setColor(textColour);
             paint.setAntiAlias(false);
             for (int i = 1; i <= 10; i++)
             {
@@ -147,7 +147,7 @@ public class Scale extends SiggenView
 
         paint.setShader(null);
         paint.setAntiAlias(false);
-        paint.setColor(Color.BLACK);
+        paint.setColor(textColour);
         paint.setStrokeWidth(2);
         canvas.drawLine(width / 2, 0, width / 2, height, paint);
     }

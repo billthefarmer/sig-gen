@@ -24,6 +24,8 @@
 package org.billthefarmer.siggen;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -45,6 +47,7 @@ public class SiggenView extends View
 
     protected int width;
     protected int height;
+    protected int textColour;
 
     private Rect clipRect;
     private RectF outlineRect;
@@ -55,6 +58,17 @@ public class SiggenView extends View
     public SiggenView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        Resources resources = getResources();
+
+        final TypedArray typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
+
+        textColour =
+            typedArray.getColor(R.styleable
+                                .Siggen_TextColour,
+                                resources.getColor(android.R.color.black));
+        typedArray.recycle();
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="Siggen">
+    <attr name="previous" format="reference" />
+    <attr name="next" format="reference" />
+    <attr name="back" format="reference" />
+    <attr name="forward" format="reference" />
+
+    <attr name="TextColour" format="reference" />
+    <attr name="BackgroundColour" format="reference" />
+  </declare-styleable>
+
+</resources>

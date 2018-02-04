@@ -9,8 +9,7 @@
     <!-- API 14 theme customizations can go here. -->
   </style>
 
-  <style name="DialogBaseTheme"
-         parent="android:Theme.Holo.Light.Dialog">
+  <style name="AppDarkBaseTheme" parent="android:Theme.Holo">
     <!-- API 14 theme customizations can go here. -->
   </style>
 

@@ -25,6 +25,8 @@ package org.billthefarmer.siggen;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -54,6 +56,8 @@ public class Knob extends View
 
     private int width;
     private int height;
+    private int textColour;
+    private int backgroundColour;
 
     private boolean move;
     private float value;
@@ -72,6 +76,21 @@ public class Knob extends View
     public Knob(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        Resources resources = getResources();
+
+        final TypedArray typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
+
+        textColour =
+            typedArray.getColor(R.styleable
+                                .Siggen_TextColour,
+                                resources.getColor(android.R.color.black));
+        backgroundColour =
+            typedArray.getColor(R.styleable
+                                .Siggen_BackgroundColour,
+                                resources.getColor(android.R.color.white));
+        typedArray.recycle();
 
         matrix = new Matrix();
 
@@ -113,10 +132,10 @@ public class Knob extends View
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         gradient = new LinearGradient(0, -h * 2 / 3, 0, h * 2 / 3,
-                                      Color.WHITE, Color.GRAY,
+                                      backgroundColour, Color.GRAY,
                                       Shader.TileMode.CLAMP);
         dimple = new LinearGradient(MARGIN / 2, -MARGIN / 2, MARGIN / 2,
-                                    MARGIN / 2, Color.GRAY, Color.WHITE,
+                                    MARGIN / 2, Color.GRAY, backgroundColour,
                                     Shader.TileMode.CLAMP);
     }
 
@@ -150,7 +169,7 @@ public class Knob extends View
         canvas.drawCircle(0, 0, radius, paint);
 
         paint.setShader(null);
-        paint.setColor(Color.LTGRAY);
+        paint.setColor(Color.GRAY);
         canvas.drawCircle(0, 0,	 radius - MARGIN, paint);
 
         float x = (float) (Math.sin(value * Math.PI / SCALE) * radius * 0.8);
