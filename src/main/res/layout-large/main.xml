@@ -31,7 +31,7 @@
 
   <ImageButton
       android:id="@+id/previous"
-      android:src="@drawable/ic_action_previous_item"
+      android:src="?attr/previous"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignTop="@id/knob"
@@ -40,7 +40,7 @@
 
   <ImageButton
       android:id="@+id/next"
-      android:src="@drawable/ic_action_next_item"
+      android:src="?attr/next"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignTop="@id/knob"
@@ -49,7 +49,7 @@
 
   <ImageButton
       android:id="@+id/back"
-      android:src="@drawable/ic_back"
+      android:src="?attr/next"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignBottom="@id/knob"
@@ -58,7 +58,7 @@
 
   <ImageButton
       android:id="@+id/forward"
-      android:src="@drawable/ic_forward"
+      android:src="?attr/forward"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignBottom="@id/knob"
@@ -121,7 +121,7 @@
 
   <ImageButton
       android:id="@+id/lower"
-      android:src="@drawable/ic_action_previous_item"
+      android:src="?attr/previous"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_above="@+id/fine"
@@ -131,7 +131,7 @@
 
   <ImageButton
       android:id="@+id/higher"
-      android:src="@drawable/ic_action_next_item"
+      android:src="?attr/next"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_above="@id/fine"

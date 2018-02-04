@@ -19,6 +19,12 @@
         All customizations that are NOT specific to a particular
         API-level can go here.
     -->
+
+    <item name="back">@drawable/ic_action_back</item>
+    <item name="forward">@drawable/ic_action_forward</item>
+    <item name="previous">@drawable/ic_action_previous_item</item>
+    <item name="next">@drawable/ic_action_next_item</item>
+
   </style>
 
   <style name="AppDarkBaseTheme" parent="android:Theme">
@@ -35,6 +41,12 @@
         All customizations that are NOT specific to a particular
         API-level can go here.
     -->
+
+    <item name="back">@drawable/ic_action_back_dark</item>
+    <item name="forward">@drawable/ic_action_forward_dark</item>
+    <item name="previous">@drawable/ic_action_previous_item_dark</item>
+    <item name="next">@drawable/ic_action_next_item_dark</item>
+
   </style>
 
 </resources>

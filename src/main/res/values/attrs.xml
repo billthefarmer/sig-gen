@@ -2,10 +2,10 @@
 <resources>
 
   <declare-styleable name="Siggen">
-    <attr name="previous" format="reference" />
-    <attr name="next" format="reference" />
     <attr name="back" format="reference" />
     <attr name="forward" format="reference" />
+    <attr name="previous" format="reference" />
+    <attr name="next" format="reference" />
 
     <attr name="TextColour" format="reference" />
     <attr name="BackgroundColour" format="reference" />
