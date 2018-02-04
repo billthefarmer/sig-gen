@@ -56,7 +56,8 @@ public class Knob extends View
 
     private int width;
     private int height;
-    private int textColour;
+    private int knobColour;
+    private int foregroundColour;
     private int backgroundColour;
 
     private boolean move;
@@ -82,7 +83,7 @@ public class Knob extends View
         final TypedArray typedArray =
             context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
 
-        textColour =
+        foregroundColour =
             typedArray.getColor(R.styleable
                                 .Siggen_TextColour,
                                 resources.getColor(android.R.color.black));
@@ -91,6 +92,12 @@ public class Knob extends View
                                 .Siggen_BackgroundColour,
                                 resources.getColor(android.R.color.white));
         typedArray.recycle();
+
+        if (foregroundColour > backgroundColour)
+            knobColour = Color.DKGRAY;
+
+        else
+            knobColour = Color.LTGRAY;
 
         matrix = new Matrix();
 
@@ -169,7 +176,7 @@ public class Knob extends View
         canvas.drawCircle(0, 0, radius, paint);
 
         paint.setShader(null);
-        paint.setColor(Color.GRAY);
+        paint.setColor(knobColour);
         canvas.drawCircle(0, 0,	 radius - MARGIN, paint);
 
         float x = (float) (Math.sin(value * Math.PI / SCALE) * radius * 0.8);

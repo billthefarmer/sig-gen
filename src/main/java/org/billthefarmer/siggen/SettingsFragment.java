@@ -24,6 +24,7 @@
 package org.billthefarmer.siggen;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -31,8 +32,10 @@ import android.preference.PreferenceManager;
 
 // SettingsFragment
 public class SettingsFragment extends PreferenceFragment
+    implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_ABOUT = "pref_about";
+    private static final int VERSION_M = 23;
 
     // onCreate
     @Override
@@ -55,6 +58,36 @@ public class SettingsFragment extends PreferenceFragment
             String sum = (String)about.getSummary();
             String s = String.format(sum, BuildConfig.VERSION_NAME);
             about.setSummary(s);
+        }
+    }
+
+    // on Resume
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+            .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    // on Pause
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+            .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    // On shared preference changed
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences preferences,
+                                          String key)
+    {
+        if (key.equals(Main.PREF_DARK_THEME))
+        {
+            if (Build.VERSION.SDK_INT != VERSION_M)
+                getActivity().recreate();
         }
     }
 }

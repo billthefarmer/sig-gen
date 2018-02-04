@@ -26,7 +26,9 @@ package org.billthefarmer.siggen;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 // SettingsActivity
@@ -37,6 +39,16 @@ public class SettingsActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        boolean darkTheme =
+            preferences.getBoolean(Main.PREF_DARK_THEME, false);
+
+        if (darkTheme)
+            setTheme(R.style.AppDarkTheme);
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()

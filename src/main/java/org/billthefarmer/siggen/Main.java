@@ -35,6 +35,7 @@ import android.content.res.Resources;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
@@ -67,6 +68,7 @@ public class Main extends Activity
     private static final int DELAY = 250;
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 1000;
+    private static final int VERSION_M = 23;
 
     private static final double MARGIN = 1.0;
 
@@ -81,7 +83,8 @@ public class Main extends Activity
     private static final String LEVEL = "level";
     private static final String SLEEP = "sleep";
 
-    private static final String PREF_BOOKMARKS = "pref_bookmarks";
+    public static final String PREF_BOOKMARKS = "pref_bookmarks";
+    public static final String PREF_DARK_THEME = "pref_dark_theme";
 
     private Audio audio;
 
@@ -98,12 +101,20 @@ public class Main extends Activity
     private List<Double> bookmarks;
 
     private boolean sleep;
+    private boolean darkTheme;
 
     // On create
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        getPreferences();
+
+        if (darkTheme)
+            setTheme(R.style.AppDarkTheme);
+
         setContentView(R.layout.main);
 
         // Get views
@@ -154,8 +165,13 @@ public class Main extends Activity
     {
         super.onResume();
 
+        boolean dark = darkTheme;
+
         // Get preferences
         getPreferences();
+
+        if (dark != darkTheme && Build.VERSION.SDK_INT != VERSION_M)
+            recreate();
     }
 
     // Restore state
@@ -716,11 +732,11 @@ public class Main extends Activity
     // Get preferences
     private void getPreferences()
     {
-        // Load preferences
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
+        // Get preferences
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
+
+        darkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
         String string = preferences.getString(PREF_BOOKMARKS, "");
 

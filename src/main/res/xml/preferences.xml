@@ -23,8 +23,8 @@
 
     <org.billthefarmer.siggen.AboutPreference
 	android:key="pref_about"
-	android:icon="@drawable/ic_action_about"
-	android:dialogIcon="@drawable/ic_action_about"
+	android:icon="?attr/pref_about"
+	android:dialogIcon="?attr/pref_about"
 	android:negativeButtonText=""
 	android:title="@string/pref_about"
 	android:summary="@string/pref_about_summ"
