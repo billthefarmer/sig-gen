@@ -36,7 +36,7 @@ import android.util.Log;
 import android.view.View;
 
 // SiggenView
-public class SiggenView extends View
+public abstract class SiggenView extends View
 {
     private static final String TAG = "SiggenView";
 
@@ -65,8 +65,7 @@ public class SiggenView extends View
             context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
 
         textColour =
-            typedArray.getColor(R.styleable
-                                .Siggen_TextColour,
+            typedArray.getColor(R.styleable.Siggen_TextColour,
                                 resources.getColor(android.R.color.black));
         typedArray.recycle();
 
