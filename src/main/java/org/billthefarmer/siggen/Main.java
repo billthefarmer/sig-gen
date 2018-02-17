@@ -39,6 +39,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -137,6 +139,9 @@ public class Main extends Activity
 
         // Setup widgets
         setupWidgets();
+
+        // Setup phone state listener
+        setupPhoneStateListener();
 
         // Restore state
         if (savedInstanceState != null)
@@ -819,6 +824,30 @@ public class Main extends Activity
         v = findViewById(R.id.mute);
         if (v != null)
             v.setOnClickListener(this);
+    }
+
+    // setupPhoneStateListener
+    private void setupPhoneStateListener()
+    {
+        TelephonyManager manager = (TelephonyManager)
+            getSystemService(TELEPHONY_SERVICE);
+        manager.listen(new PhoneStateListener()
+            {
+                public void onCallStateChanged (int state,
+                                                String incomingNumber)
+                {
+                    if (state != TelephonyManager.CALL_STATE_IDLE)
+                    {
+                        if (!audio.mute)
+                        {
+                            View v = findViewById(R.id.mute);
+                            if (v != null)
+                                onClick(v);
+                        }
+                    }
+                }
+
+            }, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
     // A collection of unused unwanted unloved listener callback methods
