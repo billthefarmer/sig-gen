@@ -290,9 +290,14 @@ public class Main extends Activity
     {
         super.onDestroy();
 
-        TelephonyManager manager = (TelephonyManager)
-            getSystemService(TELEPHONY_SERVICE);
-        manager.listen(phoneListener, PhoneStateListener.LISTEN_NONE);
+        try
+        {
+            TelephonyManager manager = (TelephonyManager)
+                getSystemService(TELEPHONY_SERVICE);
+            manager.listen(phoneListener, PhoneStateListener.LISTEN_NONE);
+        }
+
+        catch (Exception e) {}
 
         if (sleep)
             wakeLock.release();
@@ -852,9 +857,14 @@ public class Main extends Activity
 
             };
 
-        TelephonyManager manager = (TelephonyManager)
-            getSystemService(TELEPHONY_SERVICE);
-        manager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+        try
+        {
+            TelephonyManager manager = (TelephonyManager)
+                getSystemService(TELEPHONY_SERVICE);
+            manager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+        }
+
+        catch (Exception e) {}
     }
 
     // A collection of unused unwanted unloved listener callback methods

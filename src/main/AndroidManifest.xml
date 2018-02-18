@@ -32,7 +32,8 @@
       </intent-filter>
     </activity>
     <activity
-	android:name="SettingsActivity" >
+	android:name="SettingsActivity"
+        android:screenOrientation="landscape" >
     </activity>
   </application>
 
