@@ -100,6 +100,7 @@ public class Main extends Activity
     private Toast toast;
 
     private PowerManager.WakeLock wakeLock;
+    private PhoneStateListener phoneListener;
     private List<Double> bookmarks;
 
     private boolean sleep;
@@ -288,6 +289,10 @@ public class Main extends Activity
     protected void onDestroy()
     {
         super.onDestroy();
+
+        TelephonyManager manager = (TelephonyManager)
+            getSystemService(TELEPHONY_SERVICE);
+        manager.listen(phoneListener, PhoneStateListener.LISTEN_NONE);
 
         if (sleep)
             wakeLock.release();
@@ -829,9 +834,7 @@ public class Main extends Activity
     // setupPhoneStateListener
     private void setupPhoneStateListener()
     {
-        TelephonyManager manager = (TelephonyManager)
-            getSystemService(TELEPHONY_SERVICE);
-        manager.listen(new PhoneStateListener()
+        phoneListener = new PhoneStateListener()
             {
                 public void onCallStateChanged (int state,
                                                 String incomingNumber)
@@ -847,7 +850,11 @@ public class Main extends Activity
                     }
                 }
 
-            }, PhoneStateListener.LISTEN_CALL_STATE);
+            };
+
+        TelephonyManager manager = (TelephonyManager)
+            getSystemService(TELEPHONY_SERVICE);
+        manager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
     // A collection of unused unwanted unloved listener callback methods
