@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         jcenter()
-		google()
+        google()
     }
 
     dependencies {
@@ -30,13 +30,13 @@ android {
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
-	compileOptions {
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
-	disable 'IconDensities', 'ClickableViewAccessibility', 'Wakelock'
-	// abortOnError false
+        disable 'IconDensities', 'ClickableViewAccessibility', 'Wakelock'
+        // abortOnError false
     }
 }
