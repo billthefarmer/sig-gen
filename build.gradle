@@ -1,21 +1,38 @@
 buildscript {
     repositories {
         jcenter()
+		google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:3.1.4'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
     }
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'android-22'
-    buildToolsVersion '27.0.2'
-
+    compileSdkVersion 28
+    buildToolsVersion '28.0.2'
     defaultConfig {
+        applicationId "org.billthefarmer.siggen"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionName "1.16"
+        versionCode 116
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
+    }
+
+	compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
