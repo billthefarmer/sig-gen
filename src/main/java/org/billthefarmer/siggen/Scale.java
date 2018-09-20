@@ -27,7 +27,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Shader;
@@ -107,13 +106,13 @@ public class Scale extends SiggenView
             paint.setTextAlign(Paint.Align.CENTER);
 
             int a[] = {1, 2, 3, 4, 6, 8};
-            for (int i = 0; i < a.length; i++)
+            for (int anA : a)
             {
-                float x = (float) (Math.log10(a[i]) * width);
+                float x = (float) (Math.log10(anA) * width);
 
-                canvas.drawText(a[i] + "", x, height / 2, paint);
+                canvas.drawText(anA + "", x, height / 2, paint);
 
-                canvas.drawText(a[i] * 10 + "", x + width, height / 2, paint);
+                canvas.drawText(anA * 10 + "", x + width, height / 2, paint);
             }
 
             canvas.drawText("1", width * 2, height / 2, paint);

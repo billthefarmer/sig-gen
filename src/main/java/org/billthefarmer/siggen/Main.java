@@ -42,7 +42,6 @@ import android.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,12 +52,12 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import org.json.JSONArray;
 
 public class Main extends Activity
     implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
@@ -121,15 +120,15 @@ public class Main extends Activity
         setContentView(R.layout.main);
 
         // Get views
-        display = (Display) findViewById(R.id.display);
-        scale = (Scale) findViewById(R.id.scale);
-        knob = (Knob) findViewById(R.id.knob);
+        display = findViewById(R.id.display);
+        scale = findViewById(R.id.scale);
+        knob = findViewById(R.id.knob);
 
-        fine = (SeekBar) findViewById(R.id.fine);
-        level = (SeekBar) findViewById(R.id.level);
+        fine = findViewById(R.id.fine);
+        level = findViewById(R.id.level);
 
         // Get wake lock
-        PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
+        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 
         // Audio
@@ -195,19 +194,18 @@ public class Main extends Activity
 
         // Waveform buttons
         View v = null;
-        switch(waveform)
-        {
-        case Audio.SINE:
-            v = findViewById(R.id.sine);
-            break;
+        switch (waveform) {
+            case Audio.SINE:
+                v = findViewById(R.id.sine);
+                break;
 
-        case Audio.SQUARE:
-            v = findViewById(R.id.square);
-            break;
+            case Audio.SQUARE:
+                v = findViewById(R.id.square);
+                break;
 
-        case Audio.SAWTOOTH:
-            v = findViewById(R.id.sawtooth);
-            break;
+            case Audio.SAWTOOTH:
+                v = findViewById(R.id.sawtooth);
+                break;
         }
 
         onClick(v);
@@ -215,8 +213,7 @@ public class Main extends Activity
         // Mute
         boolean mute = bundle.getBoolean(MUTE, false);
 
-        if (mute)
-        {
+        if (mute) {
             v = findViewById(R.id.mute);
             onClick(v);
         }
@@ -229,7 +226,7 @@ public class Main extends Activity
         sleep = bundle.getBoolean(SLEEP, false);
 
         if (sleep)
-            wakeLock.acquire();
+            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
     }
 
     // Save state
@@ -271,10 +268,9 @@ public class Main extends Activity
 
         // Get preferences
         final SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (bookmarks != null)
-        {
+        if (bookmarks != null) {
             JSONArray json = new JSONArray(bookmarks);
 
             // Save preference
@@ -290,14 +286,12 @@ public class Main extends Activity
     {
         super.onDestroy();
 
-        try
-        {
+        try {
             TelephonyManager manager = (TelephonyManager)
-                getSystemService(TELEPHONY_SERVICE);
+                    getSystemService(TELEPHONY_SERVICE);
             manager.listen(phoneListener, PhoneStateListener.LISTEN_NONE);
+        } catch (Exception e) {
         }
-
-        catch (Exception e) {}
 
         if (sleep)
             wakeLock.release();
@@ -312,26 +306,25 @@ public class Main extends Activity
     {
         // Get id
         int id = item.getItemId();
-        switch (id)
-        {
-        // Settings
-        case R.id.settings:
-            return onSettingsClick(item);
+        switch (id) {
+            // Settings
+            case R.id.settings:
+                return onSettingsClick(item);
 
-        // Sleep
-        case R.id.sleep:
-            return onSleepClick(item);
+            // Sleep
+            case R.id.sleep:
+                return onSleepClick(item);
 
-        // Bookmark
-        case R.id.bookmark:
-            return onBookmarkClick();
+            // Bookmark
+            case R.id.bookmark:
+                return onBookmarkClick();
 
-        // Exact
-        case R.id.exact:
-            return onExactClick();
+            // Exact
+            case R.id.exact:
+                return onExactClick();
 
-        default:
-            return false;
+            default:
+                return false;
         }
     }
 
@@ -351,12 +344,9 @@ public class Main extends Activity
 
         if (sleep)
         {
-            wakeLock.acquire();
+            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
             item.setIcon(R.drawable.ic_action_brightness_high);
-        }
-
-        else
-        {
+        } else {
             wakeLock.release();
             item.setIcon(R.drawable.ic_action_brightness_low);
         }
@@ -368,20 +358,20 @@ public class Main extends Activity
     private boolean onBookmarkClick()
     {
         if (bookmarks == null)
-            bookmarks = new ArrayList<Double>();
+            bookmarks = new ArrayList<>();
 
-        for (double bookmark: bookmarks)
+        for (double bookmark : bookmarks)
         {
             if (Math.abs(audio.frequency - bookmark) < MARGIN)
             {
                 bookmarks.remove(bookmark);
-                showToast(R.string.bookmark_removed, bookmark); 
+                showToast(R.string.bookmark_removed, bookmark);
                 return true;
             }
         }
 
         bookmarks.add(audio.frequency);
-        showToast(R.string.bookmark_added, audio.frequency); 
+        showToast(R.string.bookmark_added, audio.frequency);
         Collections.sort(bookmarks);
         checkBookmarks();
 
@@ -393,31 +383,27 @@ public class Main extends Activity
     {
         // Open dialog
         exactDialog(R.string.frequency, R.string.enter,
-                    new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int id)
-            {
-                switch (id)
+                (dialog, id) ->
                 {
-                case DialogInterface.BUTTON_POSITIVE:
-                    EditText text =
-                        (EditText) ((Dialog) dialog).findViewById(TEXT);
-                    String result = text.getText().toString();
+                    switch (id) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            EditText text =
+                                    ((Dialog) dialog).findViewById(TEXT);
+                            String result = text.getText().toString();
 
-                    // Ignore empty string
-                    if (result.isEmpty())
-                        return;
+                            // Ignore empty string
+                            if (result.isEmpty())
+                                return;
 
-                    float exact = Float.parseFloat(result);
+                            float exact = Float.parseFloat(result);
 
-                    // Ignore if out of range
-                    if (exact < 0.1 || exact > 25000)
-                        return;
+                            // Ignore if out of range
+                            if (exact < 0.1 || exact > 25000)
+                                return;
 
-                    setFrequency(exact);
-                }
-            }
-        });
+                            setFrequency(exact);
+                    }
+                });
 
         return true;
     }
@@ -438,8 +424,8 @@ public class Main extends Activity
         EditText text = new EditText(context);
         text.setId(TEXT);
         text.setHint(hint);
-        text.setInputType(InputType.TYPE_CLASS_NUMBER|
-                          InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        text.setInputType(InputType.TYPE_CLASS_NUMBER |
+                InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
@@ -451,7 +437,7 @@ public class Main extends Activity
     private void setFrequency(double freq)
     {
         // Calculate knob value
-        float value = (float)Math.log10(freq / 10.0) * 200;
+        float value = (float) Math.log10(freq / 10.0) * 200;
 
         // Set knob value
         if (knob != null)
@@ -468,12 +454,12 @@ public class Main extends Activity
     {
         // Scale
         if (scale != null)
-            scale.setValue((int)(-value * 2.5));
+            scale.setValue((int) (-value * 2.5));
 
         // Frequency
         double frequency = Math.pow(10.0, value / 200.0) * 10.0;
         double adjust = ((fine.getProgress() - MAX_FINE / 2) /
-                         (double)MAX_FINE) / 100.0;
+                (double) MAX_FINE) / 100.0;
 
         frequency += frequency * adjust;
 
@@ -500,39 +486,37 @@ public class Main extends Activity
         // Check id
         switch (id)
         {
-        // Fine
-        case R.id.fine:
-        {
-            double frequency = Math.pow(10.0, knob.getValue() /
-                                        200.0) * 10.0;
-            double adjust = ((progress - MAX_FINE / 2) /
-                             (double)MAX_FINE) / 50.0;
+            // Fine
+            case R.id.fine: {
+                double frequency = Math.pow(10.0, knob.getValue() /
+                        200.0) * 10.0;
+                double adjust = ((progress - MAX_FINE / 2) /
+                        (double) MAX_FINE) / 50.0;
 
-            frequency += frequency * adjust;
+                frequency += frequency * adjust;
 
-            if (display != null)
-                display.setFrequency(frequency);
+                if (display != null)
+                    display.setFrequency(frequency);
 
-            if (audio != null)
-                audio.frequency = frequency;
-        }
-        break;
-
-        // Level
-        case R.id.level:
-            if (display != null)
-            {
-                double level = Math.log10(progress / (double)MAX_LEVEL) * 20.0;
-
-                if (level < -80.0)
-                    level = -80.0;
-
-                display.setLevel(level);
+                if (audio != null)
+                    audio.frequency = frequency;
             }
-
-            if (audio != null)
-                audio.level = progress / (double)MAX_LEVEL;
             break;
+
+            // Level
+            case R.id.level:
+                if (display != null) {
+                    double level = Math.log10(progress / (double) MAX_LEVEL) * 20.0;
+
+                    if (level < -80.0)
+                        level = -80.0;
+
+                    display.setLevel(level);
+                }
+
+                if (audio != null)
+                    audio.level = progress / (double) MAX_LEVEL;
+                break;
         }
     }
 
@@ -542,118 +526,106 @@ public class Main extends Activity
     {
         // Check id
         int id = v.getId();
-        switch(id)
+        switch (id)
         {
-        // Sine
-        case R.id.sine:
-            if (audio != null)
-                audio.waveform = Audio.SINE;
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_on_background, 0, 0, 0);
+            // Sine
+            case R.id.sine:
+                if (audio != null)
+                    audio.waveform = Audio.SINE;
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_on_background, 0, 0, 0);
 
-            v = findViewById(R.id.square);
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
-            v = findViewById(R.id.sawtooth);
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
-            break;
+                v = findViewById(R.id.square);
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                v = findViewById(R.id.sawtooth);
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                break;
 
-        // Square
-        case R.id.square:
-            if (audio != null)
-                audio.waveform = Audio.SQUARE;
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_on_background, 0, 0, 0);
+            // Square
+            case R.id.square:
+                if (audio != null)
+                    audio.waveform = Audio.SQUARE;
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_on_background, 0, 0, 0);
 
-            v = findViewById(R.id.sine);
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
-            v = findViewById(R.id.sawtooth);
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
-            break;
+                v = findViewById(R.id.sine);
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                v = findViewById(R.id.sawtooth);
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                break;
 
-        // Sawtooth
-        case R.id.sawtooth:
-            if (audio != null)
-                audio.waveform = Audio.SAWTOOTH;
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_on_background, 0, 0, 0);
+            // Sawtooth
+            case R.id.sawtooth:
+                if (audio != null)
+                    audio.waveform = Audio.SAWTOOTH;
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_on_background, 0, 0, 0);
 
-            v = findViewById(R.id.sine);
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
-            v = findViewById(R.id.square);
-            ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
-            break;
+                v = findViewById(R.id.sine);
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                v = findViewById(R.id.square);
+                ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                break;
 
-        // Mute
-        case R.id.mute:
-            if (audio != null)
-                audio.mute = !audio.mute;
+            // Mute
+            case R.id.mute:
+                if (audio != null)
+                    audio.mute = !audio.mute;
 
-            if (audio.mute)
-                ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                    android.R.drawable.checkbox_on_background, 0, 0, 0);
+                if (audio.mute)
+                    ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                            android.R.drawable.checkbox_on_background, 0, 0, 0);
 
-            else
-                ((Button)v).setCompoundDrawablesWithIntrinsicBounds(
-                    android.R.drawable.checkbox_off_background, 0, 0, 0);
-            break;
+                else
+                    ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
+                            android.R.drawable.checkbox_off_background, 0, 0, 0);
+                break;
 
-        // Back
-        case R.id.back:
-            if (bookmarks != null)
-            {
-                try
-                {
-                    Collections.reverse(bookmarks);
-                    for (double bookmark: bookmarks)
-                    {
-                        if (bookmark < audio.frequency)
-                        {
+            // Back
+            case R.id.back:
+                if (bookmarks != null) {
+                    try {
+                        Collections.reverse(bookmarks);
+                        for (double bookmark : bookmarks) {
+                            if (bookmark < audio.frequency) {
+                                animateBookmark(audio.frequency, bookmark);
+                                break;
+                            }
+                        }
+                    } finally {
+                        Collections.sort(bookmarks);
+                    }
+                }
+                break;
+
+            // Forward
+            case R.id.forward:
+                if (bookmarks != null) {
+                    for (double bookmark : bookmarks) {
+                        if (bookmark > audio.frequency) {
                             animateBookmark(audio.frequency, bookmark);
                             break;
                         }
                     }
                 }
+                break;
 
-                finally
-                {
-                    Collections.sort(bookmarks);
+            // Lower
+            case R.id.lower:
+                if (fine != null) {
+                    int progress = fine.getProgress();
+                    fine.setProgress(--progress);
                 }
-            }
-            break;
+                break;
 
-        // Forward
-        case R.id.forward:
-            if (bookmarks != null)
-            {
-                for (double bookmark: bookmarks)
-                {
-                    if (bookmark > audio.frequency)
-                    {
-                        animateBookmark(audio.frequency, bookmark);
-                        break;
-                    }
-                }
-            }                    
-            break;
-
-        // Lower
-        case R.id.lower:
-            if (fine != null)
-            {
-                int progress = fine.getProgress();
-                fine.setProgress(--progress);
-            }
-            break;
-
-        // Higher
-        case R.id.higher:
-            {
+            // Higher
+            case R.id.higher: {
                 int progress = fine.getProgress();
                 fine.setProgress(++progress);
             }
@@ -665,8 +637,8 @@ public class Main extends Activity
     private void animateBookmark(double start, double finish)
     {
         // Calculate knob values
-        float value = (float)Math.log10(start / 10.0) * 200;
-        float target = (float)Math.log10(finish / 10.0) * 200;
+        float value = (float) Math.log10(start / 10.0) * 200;
+        float target = (float) Math.log10(finish / 10.0) * 200;
 
         // Start the animation
         ValueAnimator animator = ValueAnimator.ofFloat(value, target);
@@ -684,7 +656,7 @@ public class Main extends Activity
     public void onAnimationUpdate(ValueAnimator animation)
     {
         // Get value
-        float value = (Float)animation.getAnimatedValue();
+        float value = (Float) animation.getAnimatedValue();
 
         // Set knob value
         if (knob != null)
@@ -717,31 +689,25 @@ public class Main extends Activity
     // Check bookmarks
     private void checkBookmarks()
     {
-        knob.postDelayed(new Runnable()
-            {
-                // run
-                @Override
-                public void run()
-                {
-                    View back = findViewById(R.id.back);
-                    View forward = findViewById(R.id.forward);
+        // run
+        knob.postDelayed(() ->
+        {
+            View back = findViewById(R.id.back);
+            View forward = findViewById(R.id.forward);
 
-                    back.setEnabled(false);
-                    forward.setEnabled(false);
+            back.setEnabled(false);
+            forward.setEnabled(false);
 
-                    if (bookmarks != null)
-                    {
-                        for (double bookmark: bookmarks)
-                        {
-                            if (bookmark < audio.frequency)
-                                back.setEnabled(true);
+            if (bookmarks != null) {
+                for (double bookmark : bookmarks) {
+                    if (bookmark < audio.frequency)
+                        back.setEnabled(true);
 
-                            if (bookmark > audio.frequency)
-                                forward.setEnabled(true);
-                        }
-                    }
+                    if (bookmark > audio.frequency)
+                        forward.setEnabled(true);
                 }
-            }, DELAY);
+            }
+        }, DELAY);
     }
 
     // Get preferences
@@ -749,7 +715,7 @@ public class Main extends Activity
     {
         // Get preferences
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         darkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
@@ -758,14 +724,13 @@ public class Main extends Activity
         try
         {
             JSONArray json = new JSONArray(string);
-            bookmarks = new ArrayList<Double>();
+            bookmarks = new ArrayList<>();
             for (int i = 0; i < json.length(); i++)
                 bookmarks.add(json.getDouble(i));
 
             checkBookmarks();
+        } catch (Exception e) {
         }
-
-        catch (Exception e) {}
     }
 
     // Set up widgets
@@ -803,16 +768,14 @@ public class Main extends Activity
         if (v != null)
             v.setOnClickListener(this);
 
-        if (fine != null)
-        {
+        if (fine != null) {
             fine.setOnSeekBarChangeListener(this);
 
             fine.setMax(MAX_FINE);
             fine.setProgress(MAX_FINE / 2);
         }
 
-        if (level != null)
-        {
+        if (level != null) {
             level.setOnSeekBarChangeListener(this);
 
             level.setMax(MAX_LEVEL);
@@ -839,32 +802,26 @@ public class Main extends Activity
     // setupPhoneStateListener
     private void setupPhoneStateListener()
     {
-        phoneListener = new PhoneStateListener()
-            {
-                public void onCallStateChanged (int state,
-                                                String incomingNumber)
-                {
-                    if (state != TelephonyManager.CALL_STATE_IDLE)
-                    {
-                        if (!audio.mute)
-                        {
-                            View v = findViewById(R.id.mute);
-                            if (v != null)
-                                onClick(v);
-                        }
+        phoneListener = new PhoneStateListener() {
+            public void onCallStateChanged(int state,
+                                           String incomingNumber) {
+                if (state != TelephonyManager.CALL_STATE_IDLE) {
+                    if (!audio.mute) {
+                        View v = findViewById(R.id.mute);
+                        if (v != null)
+                            onClick(v);
                     }
                 }
+            }
 
-            };
+        };
 
-        try
-        {
+        try {
             TelephonyManager manager = (TelephonyManager)
-                getSystemService(TELEPHONY_SERVICE);
+                    getSystemService(TELEPHONY_SERVICE);
             manager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+        } catch (Exception e) {
         }
-
-        catch (Exception e) {}
     }
 
     // A collection of unused unwanted unloved listener callback methods
@@ -915,8 +872,7 @@ public class Main extends Activity
                 Thread.yield();
         }
 
-        public void run()
-        {
+        public void run() {
             processAudio();
         }
 
@@ -926,10 +882,10 @@ public class Main extends Activity
             short buffer[];
 
             int rate =
-                AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
+                    AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
             int minSize =
-                AudioTrack.getMinBufferSize(rate, AudioFormat.CHANNEL_OUT_MONO,
-                                            AudioFormat.ENCODING_PCM_16BIT);
+                    AudioTrack.getMinBufferSize(rate, AudioFormat.CHANNEL_OUT_MONO,
+                            AudioFormat.ENCODING_PCM_16BIT);
 
             // Find a suitable buffer size
             int sizes[] = {1024, 2048, 4096, 8192, 16384, 32768};
@@ -948,18 +904,15 @@ public class Main extends Activity
 
             // Create the audio track
             audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, rate,
-                                        AudioFormat.CHANNEL_OUT_MONO,
-                                        AudioFormat.ENCODING_PCM_16BIT,
-                                        size, AudioTrack.MODE_STREAM);
-            // Check audiotrack
-            if (audioTrack == null)
-                return;
+                    AudioFormat.CHANNEL_OUT_MONO,
+                    AudioFormat.ENCODING_PCM_16BIT,
+                    size, AudioTrack.MODE_STREAM);
+            // Check audioTrack
 
             // Check state
             int state = audioTrack.getState();
 
-            if (state != AudioTrack.STATE_INITIALIZED)
-            {
+            if (state != AudioTrack.STATE_INITIALIZED) {
                 audioTrack.release();
                 return;
             }
@@ -985,17 +938,17 @@ public class Main extends Activity
 
                     switch (waveform)
                     {
-                    case SINE:
-                        buffer[i] = (short) Math.round(Math.sin(q) * l);
-                        break;
+                        case SINE:
+                            buffer[i] = (short) Math.round(Math.sin(q) * l);
+                            break;
 
-                    case SQUARE:
-                        buffer[i] = (short) ((q > 0.0) ? l : -l);
-                        break;
+                        case SQUARE:
+                            buffer[i] = (short) ((q > 0.0) ? l : -l);
+                            break;
 
-                    case SAWTOOTH:
-                        buffer[i] = (short) Math.round((q / Math.PI) * l);
-                        break;
+                        case SAWTOOTH:
+                            buffer[i] = (short) Math.round((q / Math.PI) * l);
+                            break;
                     }
                 }
 

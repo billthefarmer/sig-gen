@@ -57,7 +57,6 @@ public class Knob extends View
     private int width;
     private int height;
     private int knobColour;
-    private int foregroundColour;
     private int backgroundColour;
 
     private boolean move;
@@ -69,7 +68,6 @@ public class Knob extends View
     private LinearGradient gradient;
     private LinearGradient dimple;
     private GestureDetector detector;
-    private ValueAnimator animator;
 
     private OnKnobChangeListener listener;
 
@@ -83,10 +81,10 @@ public class Knob extends View
         final TypedArray typedArray =
             context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
 
-        foregroundColour =
-            typedArray.getColor(R.styleable
+        int foregroundColour =
+                typedArray.getColor(R.styleable
                                 .Siggen_TextColour,
-                                resources.getColor(android.R.color.black));
+                        resources.getColor(android.R.color.black));
         backgroundColour =
             typedArray.getColor(R.styleable
                                 .Siggen_BackgroundColour,
@@ -307,11 +305,12 @@ public class Knob extends View
             delta += 2.0 * Math.PI;
 
         // Calculate target value for animator
-        float target = value + (float)(Math.signum(delta) *
-                                       velocity / VELOCITY);
+        float target =
+                value + Math.signum(delta) * velocity / VELOCITY;
 
         // Start the animation
-        animator = ValueAnimator.ofFloat(value, target);
+        ValueAnimator animator =
+                ValueAnimator.ofFloat(value, target);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(this);
         animator.start();
@@ -352,7 +351,7 @@ public class Knob extends View
     // On knob change listener
     public interface OnKnobChangeListener
     {
-        public abstract void onKnobChange(Knob knob, float value);
+        void onKnobChange(Knob knob, float value);
     }
 
     // A collection of unused unwanted unloved listener callback methods

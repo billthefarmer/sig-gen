@@ -32,7 +32,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 // SiggenView
@@ -99,7 +98,7 @@ public abstract class SiggenView extends View
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
-        // Save the new width and height less the cliprect
+        // Save the new width and height less the clipRect
         width = w - 6;
         height = h - 6;
 
@@ -120,7 +119,7 @@ public abstract class SiggenView extends View
         paint.setStyle(Paint.Style.STROKE);
         canvas.drawRoundRect(outlineRect, 10, 10, paint);
 
-        // Set the cliprect
+        // Set the clipRect
         canvas.clipRect(clipRect);
 
         // Translate to the clip rect

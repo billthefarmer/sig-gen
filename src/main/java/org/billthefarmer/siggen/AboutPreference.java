@@ -48,7 +48,7 @@ public class AboutPreference extends DialogPreference
         super.onBindDialogView(view);
 
         // Get version text view
-        TextView version = (TextView) view.findViewById(R.id.about);
+        TextView version = view.findViewById(R.id.about);
 
         // Set version in text view
 
@@ -60,7 +60,7 @@ public class AboutPreference extends DialogPreference
         }
 
         // Get built text view
-        TextView built = (TextView) view.findViewById(R.id.built);
+        TextView built = view.findViewById(R.id.built);
 
         // Set built date in text view
         if (built != null)
@@ -73,15 +73,15 @@ public class AboutPreference extends DialogPreference
         }
 
         // Get copyright text view
-        TextView copyright = (TextView) view.findViewById(R.id.copyright);
+        TextView copyright = view.findViewById(R.id.copyright);
 
         // Set movement method
         copyright.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Get licence text view
-        TextView licence = (TextView) view.findViewById(R.id.licence);
+        TextView licence = view.findViewById(R.id.licence);
 
         // Set movement method
         licence.setMovementMethod(LinkMovementMethod.getInstance());
-     }
+    }
 }
