@@ -1,6 +1,6 @@
-# Signal Generator [![Build Status](https://travis-ci.org/billthefarmer/sig-gen.svg?branch=master)](https://travis-ci.org/billthefarmer/sig-gen) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.siggen)
+# Signal Generator [![Build Status](https://travis-ci.org/billthefarmer/sig-gen.svg?branch=master)](https://travis-ci.org/billthefarmer/sig-gen) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.siggen)
 
-Android Signal Generator. the app is available from [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.siggen)
+A signal generator for Android. The app can be downloaded from [F-Droid](https://f-droid.org/packages/org.billthefarmer.siggen)
 and [here](https://github.com/billthefarmer/sig-gen/releases).
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/SigGen.png)
