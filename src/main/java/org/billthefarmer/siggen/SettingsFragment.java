@@ -27,11 +27,11 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 // SettingsFragment
-public class SettingsFragment extends PreferenceFragment
+@SuppressWarnings("deprecation")
+public class SettingsFragment extends android.preference.PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_ABOUT = "pref_about";

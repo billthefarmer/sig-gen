@@ -42,7 +42,7 @@ import android.view.animation.DecelerateInterpolator;
 // Knob
 public class Knob extends View
     implements View.OnClickListener, GestureDetector.OnGestureListener,
-    ValueAnimator.AnimatorUpdateListener
+               ValueAnimator.AnimatorUpdateListener
 {
     private static final int MARGIN = 8;
 
@@ -72,6 +72,7 @@ public class Knob extends View
     private OnKnobChangeListener listener;
 
     // Knob
+    @SuppressWarnings("deprecation")
     public Knob(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -82,9 +83,9 @@ public class Knob extends View
             context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
 
         int foregroundColour =
-                typedArray.getColor(R.styleable
+            typedArray.getColor(R.styleable
                                 .Siggen_TextColour,
-                        resources.getColor(android.R.color.black));
+                                resources.getColor(android.R.color.black));
         backgroundColour =
             typedArray.getColor(R.styleable
                                 .Siggen_BackgroundColour,
@@ -306,11 +307,11 @@ public class Knob extends View
 
         // Calculate target value for animator
         float target =
-                value + Math.signum(delta) * velocity / VELOCITY;
+            value + Math.signum(delta) * velocity / VELOCITY;
 
         // Start the animation
         ValueAnimator animator =
-                ValueAnimator.ofFloat(value, target);
+            ValueAnimator.ofFloat(value, target);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(this);
         animator.start();

@@ -877,6 +877,7 @@ public class Main extends Activity
         }
 
         // Process audio
+        @SuppressWarnings("deprecation")
         protected void processAudio()
         {
             short buffer[];

@@ -106,13 +106,13 @@ public class Scale extends SiggenView
             paint.setTextAlign(Paint.Align.CENTER);
 
             int a[] = {1, 2, 3, 4, 6, 8};
-            for (int anA : a)
+            for (int n : a)
             {
-                float x = (float) (Math.log10(anA) * width);
+                float x = (float) (Math.log10(n) * width);
 
-                canvas.drawText(anA + "", x, height / 2, paint);
+                canvas.drawText(n + "", x, height / 2, paint);
 
-                canvas.drawText(anA * 10 + "", x + width, height / 2, paint);
+                canvas.drawText(n * 10 + "", x + width, height / 2, paint);
             }
 
             canvas.drawText("1", width * 2, height / 2, paint);

@@ -54,6 +54,7 @@ public abstract class SiggenView extends View
     protected Paint paint;
 
     // SiggenView
+    @SuppressWarnings("deprecation")
     public SiggenView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
