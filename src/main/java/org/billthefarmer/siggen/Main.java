@@ -74,6 +74,7 @@ public class Main extends Activity
     private static final double MARGIN = 1.0;
 
     private static final String TAG = "SigGen";
+    private static final String LOCK = "SigGen:lock";
 
     private static final String STATE = "state";
 
@@ -129,7 +130,7 @@ public class Main extends Activity
 
         // Get wake lock
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOCK);
 
         // Audio
         audio = new Audio();
