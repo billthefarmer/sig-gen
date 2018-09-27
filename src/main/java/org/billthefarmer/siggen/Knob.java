@@ -41,8 +41,9 @@ import android.view.animation.DecelerateInterpolator;
 
 // Knob
 public class Knob extends View
-        implements View.OnClickListener, GestureDetector.OnGestureListener,
-        ValueAnimator.AnimatorUpdateListener {
+    implements View.OnClickListener, GestureDetector.OnGestureListener,
+    ValueAnimator.AnimatorUpdateListener
+{
     private static final int MARGIN = 8;
 
     private static final float MIN = -400;
@@ -72,22 +73,23 @@ public class Knob extends View
 
     // Knob
     @SuppressWarnings("deprecation")
-    public Knob(Context context, AttributeSet attrs) {
+    public Knob(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
 
         Resources resources = getResources();
 
         final TypedArray typedArray =
-                context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
+            context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
 
         int foregroundColour =
-                typedArray.getColor(R.styleable
+            typedArray.getColor(R.styleable
                                 .Siggen_TextColour,
-                        resources.getColor(android.R.color.black));
+                                resources.getColor(android.R.color.black));
         backgroundColour =
-                typedArray.getColor(R.styleable
+            typedArray.getColor(R.styleable
                                 .Siggen_BackgroundColour,
-                        resources.getColor(android.R.color.white));
+                                resources.getColor(android.R.color.white));
         typedArray.recycle();
 
         if (foregroundColour > backgroundColour)
@@ -103,7 +105,8 @@ public class Knob extends View
 
     // On measure
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get the parent dimensions
@@ -111,7 +114,8 @@ public class Knob extends View
         int w = parent.getMeasuredWidth();
         int h = parent.getMeasuredHeight();
 
-        if (w > h) {
+        if (w > h)
+        {
             if (parentWidth < w)
                 parentWidth = w;
 
@@ -127,26 +131,29 @@ public class Knob extends View
 
     // On size changed
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
         width = w;
         height = h;
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         gradient = new LinearGradient(0, -h * 2 / 3, 0, h * 2 / 3,
-                backgroundColour, Color.GRAY,
-                Shader.TileMode.CLAMP);
+                                      backgroundColour, Color.GRAY,
+                                      Shader.TileMode.CLAMP);
         dimple = new LinearGradient(MARGIN / 2, -MARGIN / 2, MARGIN / 2,
-                MARGIN / 2, Color.GRAY, backgroundColour,
-                Shader.TileMode.CLAMP);
+                                    MARGIN / 2, Color.GRAY, backgroundColour,
+                                    Shader.TileMode.CLAMP);
     }
 
     // Get value
-    protected float getValue() {
+    protected float getValue()
+    {
         return value;
     }
 
     // Set value
-    protected void setValue(float v) {
+    protected void setValue(float v)
+    {
         value = v;
 
         if (listener != null)
@@ -157,7 +164,8 @@ public class Knob extends View
 
     // On draw
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas)
+    {
         canvas.translate(width / 2, height / 2);
 
         paint.setShader(gradient);
@@ -181,25 +189,27 @@ public class Knob extends View
 
     // On click
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         int id = v.getId();
-        switch (id) {
-            case R.id.previous:
-                value -= 1.0;
+        switch (id)
+        {
+        case R.id.previous:
+            value -= 1.0;
 
-                if (value < MIN)
-                    value = MIN;
-                break;
+            if (value < MIN)
+                value = MIN;
+            break;
 
-            case R.id.next:
-                value += 1.0;
+        case R.id.next:
+            value += 1.0;
 
-                if (value > MAX)
-                    value = MAX;
-                break;
+            if (value > MAX)
+                value = MAX;
+            break;
 
-            default:
-                return;
+        default:
+            return;
         }
 
         value = Math.round(value);
@@ -212,7 +222,8 @@ public class Knob extends View
 
     // On touch event
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event)
+    {
         if (detector != null)
             detector.onTouchEvent(event);
 
@@ -221,46 +232,48 @@ public class Knob extends View
 
         float theta = (float) Math.atan2(x, -y);
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                break;
+        switch (event.getAction())
+        {
+        case MotionEvent.ACTION_DOWN:
+            break;
 
-            case MotionEvent.ACTION_MOVE:
+        case MotionEvent.ACTION_MOVE:
 
-                if (!move)
-                    move = true;
+            if (!move)
+                move = true;
 
-                else {
-                    // Difference
-                    float delta = theta - last;
+            else
+            {
+                // Difference
+                float delta = theta - last;
 
-                    // Allow for crossing origin
-                    if (delta > Math.PI)
-                        delta -= 2.0 * Math.PI;
+                // Allow for crossing origin
+                if (delta > Math.PI)
+                    delta -= 2.0 * Math.PI;
 
-                    if (delta < -Math.PI)
-                        delta += 2.0 * Math.PI;
+                if (delta < -Math.PI)
+                    delta += 2.0 * Math.PI;
 
-                    // Update value
-                    value += delta * SCALE / Math.PI;
+                // Update value
+                value += delta * SCALE / Math.PI;
 
-                    if (value < MIN)
-                        value = MIN;
+                if (value < MIN)
+                    value = MIN;
 
-                    if (value > MAX)
-                        value = MAX;
+                if (value > MAX)
+                    value = MAX;
 
-                    if (listener != null)
-                        listener.onKnobChange(this, value);
+                if (listener != null)
+                    listener.onKnobChange(this, value);
 
-                    invalidate();
-                }
-                last = theta;
-                break;
+                invalidate();
+            }
+            last = theta;
+            break;
 
-            case MotionEvent.ACTION_UP:
-                move = false;
-                break;
+        case MotionEvent.ACTION_UP:
+            move = false;
+            break;
         }
         return true;
     }
@@ -268,7 +281,8 @@ public class Knob extends View
     // On fling
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                           float velocityY) {
+                           float velocityY)
+    {
         // Get event coordinates
         float x1 = e1.getX() - width / 2;
         float y1 = e1.getY() - height / 2;
@@ -293,11 +307,11 @@ public class Knob extends View
 
         // Calculate target value for animator
         float target =
-                value + Math.signum(delta) * velocity / VELOCITY;
+            value + Math.signum(delta) * velocity / VELOCITY;
 
         // Start the animation
         ValueAnimator animator =
-                ValueAnimator.ofFloat(value, target);
+            ValueAnimator.ofFloat(value, target);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(this);
         animator.start();
@@ -307,15 +321,18 @@ public class Knob extends View
 
     // On animation update
     @Override
-    public void onAnimationUpdate(ValueAnimator animation) {
+    public void onAnimationUpdate(ValueAnimator animation)
+    {
         value = (Float) animation.getAnimatedValue();
 
-        if (value < MIN) {
+        if (value < MIN)
+        {
             animation.cancel();
             value = MIN;
         }
 
-        if (value > MAX) {
+        if (value > MAX)
+        {
             animation.cancel();
             value = MAX;
         }
@@ -327,37 +344,44 @@ public class Knob extends View
     }
 
     // Set listener
-    protected void setOnKnobChangeListener(OnKnobChangeListener l) {
+    protected void setOnKnobChangeListener(OnKnobChangeListener l)
+    {
         listener = l;
     }
 
     // A collection of unused unwanted unloved listener callback methods
     @Override
-    public boolean onDown(MotionEvent e) {
+    public boolean onDown(MotionEvent e)
+    {
         return false;
     }
 
     @Override
-    public void onLongPress(MotionEvent e) {
+    public void onLongPress(MotionEvent e)
+    {
     }
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-                            float distanceY) {
+                            float distanceY)
+    {
         return false;
     }
 
     @Override
-    public void onShowPress(MotionEvent e) {
+    public void onShowPress(MotionEvent e)
+    {
     }
 
     @Override
-    public boolean onSingleTapUp(MotionEvent e) {
+    public boolean onSingleTapUp(MotionEvent e)
+    {
         return false;
     }
 
     // On knob change listener
-    public interface OnKnobChangeListener {
+    public interface OnKnobChangeListener
+    {
         void onKnobChange(Knob knob, float value);
     }
 }

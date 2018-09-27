@@ -33,7 +33,8 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 
 // Scale
-public class Scale extends SiggenView {
+public class Scale extends SiggenView
+{
     private static final int SCALE = 500;
 
     private int value;
@@ -41,7 +42,8 @@ public class Scale extends SiggenView {
     private BitmapShader shader;
     private Matrix matrix;
 
-    public Scale(Context context, AttributeSet attrs) {
+    public Scale(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
 
         matrix = new Matrix();
@@ -49,7 +51,8 @@ public class Scale extends SiggenView {
 
     // On measure
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int w = (parentWidth - MARGIN) / 2;
@@ -60,33 +63,39 @@ public class Scale extends SiggenView {
 
     // On size changed
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        if (w > 0 && h > 0) {
+        if (w > 0 && h > 0)
+        {
             Bitmap bitmap =
-                    Bitmap.createBitmap(width * 2, height, Bitmap.Config.ARGB_8888);
+                Bitmap.createBitmap(width * 2, height, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
 
             paint.setStrokeWidth(2);
             paint.setColor(textColour);
             paint.setAntiAlias(false);
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= 10; i++)
+            {
                 float x = (float) Math.log10(i) * width;
 
-                for (int j = 0; j < 2; j++) {
+                for (int j = 0; j < 2; j++)
+                {
                     canvas.drawLine(x, height * 2 / 3, x, height - MARGIN,
-                            paint);
+                                    paint);
                     x += width;
                 }
             }
 
-            for (int i = 3; i < 20; i += 2) {
+            for (int i = 3; i < 20; i += 2)
+            {
                 float x = (float) (Math.log10(i / 2.0) * width);
 
-                for (int j = 0; j < 2; j++) {
+                for (int j = 0; j < 2; j++)
+                {
                     canvas.drawLine(x, height * 5 / 6, x, height - MARGIN,
-                            paint);
+                                    paint);
                     x += width;
                 }
             }
@@ -97,7 +106,8 @@ public class Scale extends SiggenView {
             paint.setTextAlign(Paint.Align.CENTER);
 
             int a[] = {1, 2, 3, 4, 6, 8};
-            for (int n : a) {
+            for (int n : a)
+            {
                 float x = (float) (Math.log10(n) * width);
 
                 canvas.drawText(n + "", x, height / 2, paint);
@@ -108,19 +118,21 @@ public class Scale extends SiggenView {
             canvas.drawText("1", width * 2, height / 2, paint);
 
             shader = new BitmapShader(bitmap, Shader.TileMode.REPEAT,
-                    Shader.TileMode.CLAMP);
+                                      Shader.TileMode.CLAMP);
         }
     }
 
     // Set value
-    protected void setValue(int v) {
+    protected void setValue(int v)
+    {
         value = v;
         invalidate();
     }
 
     // On draw
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas)
+    {
         super.onDraw(canvas);
 
         if (shader == null)
