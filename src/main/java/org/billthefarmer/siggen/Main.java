@@ -60,9 +60,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class Main extends Activity
-    implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
-               View.OnClickListener, ValueAnimator.AnimatorUpdateListener
-{
+        implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
+        View.OnClickListener, ValueAnimator.AnimatorUpdateListener {
     public static final String EXACT = "exact";
 
     private static final int TEXT = 1;
@@ -108,8 +107,7 @@ public class Main extends Activity
 
     // On create
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Get preferences
@@ -151,8 +149,7 @@ public class Main extends Activity
 
     // Menu
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -167,8 +164,7 @@ public class Main extends Activity
 
     // On Resume
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
 
         boolean dark = darkTheme;
@@ -181,8 +177,7 @@ public class Main extends Activity
     }
 
     // Restore state
-    private void restoreState(Bundle savedInstanceState)
-    {
+    private void restoreState(Bundle savedInstanceState) {
         // Get saved state bundle
         Bundle bundle = savedInstanceState.getBundle(STATE);
 
@@ -232,8 +227,7 @@ public class Main extends Activity
 
     // Save state
     @Override
-    protected void onSaveInstanceState(Bundle outState)
-    {
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // State bundle
@@ -263,8 +257,7 @@ public class Main extends Activity
 
     // On pause
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
 
         // Get preferences
@@ -283,8 +276,7 @@ public class Main extends Activity
 
     // On destroy
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
 
         try {
@@ -303,8 +295,7 @@ public class Main extends Activity
 
     // On options item
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Get id
         int id = item.getItemId();
         switch (id) {
@@ -330,8 +321,7 @@ public class Main extends Activity
     }
 
     // On settings click
-    private boolean onSettingsClick(MenuItem item)
-    {
+    private boolean onSettingsClick(MenuItem item) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
 
@@ -339,12 +329,10 @@ public class Main extends Activity
     }
 
     // On sleep click
-    private boolean onSleepClick(MenuItem item)
-    {
+    private boolean onSleepClick(MenuItem item) {
         sleep = !sleep;
 
-        if (sleep)
-        {
+        if (sleep) {
             wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
             item.setIcon(R.drawable.ic_action_brightness_high);
         } else {
@@ -356,15 +344,12 @@ public class Main extends Activity
     }
 
     // On bookmark click
-    private boolean onBookmarkClick()
-    {
+    private boolean onBookmarkClick() {
         if (bookmarks == null)
             bookmarks = new ArrayList<>();
 
-        for (double bookmark : bookmarks)
-        {
-            if (Math.abs(audio.frequency - bookmark) < MARGIN)
-            {
+        for (double bookmark : bookmarks) {
+            if (Math.abs(audio.frequency - bookmark) < MARGIN) {
                 bookmarks.remove(bookmark);
                 showToast(R.string.bookmark_removed, bookmark);
                 return true;
@@ -380,8 +365,7 @@ public class Main extends Activity
     }
 
     // On exact click
-    private boolean onExactClick()
-    {
+    private boolean onExactClick() {
         // Open dialog
         exactDialog(R.string.frequency, R.string.enter,
                 (dialog, id) ->
@@ -411,8 +395,7 @@ public class Main extends Activity
 
     // exactDialog
     private void exactDialog(int title, int hint,
-                             DialogInterface.OnClickListener listener)
-    {
+                             DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
 
@@ -435,8 +418,7 @@ public class Main extends Activity
     }
 
     // Set frequency
-    private void setFrequency(double freq)
-    {
+    private void setFrequency(double freq) {
         // Calculate knob value
         float value = (float) Math.log10(freq / 10.0) * 200;
 
@@ -451,8 +433,7 @@ public class Main extends Activity
 
     // On knob change
     @Override
-    public void onKnobChange(Knob knob, float value)
-    {
+    public void onKnobChange(Knob knob, float value) {
         // Scale
         if (scale != null)
             scale.setValue((int) (-value * 2.5));
@@ -477,16 +458,14 @@ public class Main extends Activity
     // On progress changed
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
-                                  boolean fromUser)
-    {
+                                  boolean fromUser) {
         int id = seekBar.getId();
 
         if (audio == null)
             return;
 
         // Check id
-        switch (id)
-        {
+        switch (id) {
             // Fine
             case R.id.fine: {
                 double frequency = Math.pow(10.0, knob.getValue() /
@@ -523,12 +502,10 @@ public class Main extends Activity
 
     // On click
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         // Check id
         int id = v.getId();
-        switch (id)
-        {
+        switch (id) {
             // Sine
             case R.id.sine:
                 if (audio != null)
@@ -635,8 +612,7 @@ public class Main extends Activity
     }
 
     // animateBookmark
-    private void animateBookmark(double start, double finish)
-    {
+    private void animateBookmark(double start, double finish) {
         // Calculate knob values
         float value = (float) Math.log10(start / 10.0) * 200;
         float target = (float) Math.log10(finish / 10.0) * 200;
@@ -654,8 +630,7 @@ public class Main extends Activity
 
     // onAnimationUpdate
     @Override
-    public void onAnimationUpdate(ValueAnimator animation)
-    {
+    public void onAnimationUpdate(ValueAnimator animation) {
         // Get value
         float value = (Float) animation.getAnimatedValue();
 
@@ -665,8 +640,7 @@ public class Main extends Activity
     }
 
     // Show toast
-    void showToast(int key, Object... args)
-    {
+    void showToast(int key, Object... args) {
         Resources resources = getResources();
         String format = resources.getString(key);
         String text = String.format(Locale.getDefault(), format, args);
@@ -675,8 +649,7 @@ public class Main extends Activity
     }
 
     // Show toast
-    void showToast(String text)
-    {
+    void showToast(String text) {
         // Cancel the last one
         if (toast != null)
             toast.cancel();
@@ -688,8 +661,7 @@ public class Main extends Activity
     }
 
     // Check bookmarks
-    private void checkBookmarks()
-    {
+    private void checkBookmarks() {
         // run
         knob.postDelayed(() ->
         {
@@ -712,8 +684,7 @@ public class Main extends Activity
     }
 
     // Get preferences
-    private void getPreferences()
-    {
+    private void getPreferences() {
         // Get preferences
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
@@ -722,8 +693,7 @@ public class Main extends Activity
 
         String string = preferences.getString(PREF_BOOKMARKS, "");
 
-        try
-        {
+        try {
             JSONArray json = new JSONArray(string);
             bookmarks = new ArrayList<>();
             for (int i = 0; i < json.length(); i++)
@@ -735,12 +705,10 @@ public class Main extends Activity
     }
 
     // Set up widgets
-    private void setupWidgets()
-    {
+    private void setupWidgets() {
         View v;
 
-        if (knob != null)
-        {
+        if (knob != null) {
             knob.setOnKnobChangeListener(this);
             knob.setValue(400);
 
@@ -801,8 +769,7 @@ public class Main extends Activity
     }
 
     // setupPhoneStateListener
-    private void setupPhoneStateListener()
-    {
+    private void setupPhoneStateListener() {
         phoneListener = new PhoneStateListener() {
             public void onCallStateChanged(int state,
                                            String incomingNumber) {
@@ -827,14 +794,15 @@ public class Main extends Activity
 
     // A collection of unused unwanted unloved listener callback methods
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
+    public void onStopTrackingTouch(SeekBar seekBar) {
+    }
 
     // Audio
-    protected class Audio implements Runnable
-    {
+    protected class Audio implements Runnable {
         protected static final int SINE = 0;
         protected static final int SQUARE = 1;
         protected static final int SAWTOOTH = 2;
@@ -849,22 +817,19 @@ public class Main extends Activity
 
         private AudioTrack audioTrack;
 
-        protected Audio()
-        {
+        protected Audio() {
             frequency = 440.0;
             level = 16384;
         }
 
         // Start
-        protected void start()
-        {
+        protected void start() {
             thread = new Thread(this, "Audio");
             thread.start();
         }
 
         // Stop
-        protected void stop()
-        {
+        protected void stop() {
             Thread t = thread;
             thread = null;
 
@@ -879,8 +844,7 @@ public class Main extends Activity
 
         // Process audio
         @SuppressWarnings("deprecation")
-        protected void processAudio()
-        {
+        protected void processAudio() {
             short buffer[];
 
             int rate =
@@ -893,10 +857,8 @@ public class Main extends Activity
             int sizes[] = {1024, 2048, 4096, 8192, 16384, 32768};
             int size = 0;
 
-            for (int s : sizes)
-            {
-                if (s > minSize)
-                {
+            for (int s : sizes) {
+                if (s > minSize) {
                     size = s;
                     break;
                 }
@@ -929,17 +891,14 @@ public class Main extends Activity
             double l = 0.0;
             double q = 0.0;
 
-            while (thread != null)
-            {
+            while (thread != null) {
                 // Fill the current buffer
-                for (int i = 0; i < buffer.length; i++)
-                {
+                for (int i = 0; i < buffer.length; i++) {
                     f += (frequency - f) / 4096.0;
                     l += ((mute ? 0.0 : level) * 16384.0 - l) / 4096.0;
                     q += (q < Math.PI) ? f * K : (f * K) - (2.0 * Math.PI);
 
-                    switch (waveform)
-                    {
+                    switch (waveform) {
                         case SINE:
                             buffer[i] = (short) Math.round(Math.sin(q) * l);
                             break;

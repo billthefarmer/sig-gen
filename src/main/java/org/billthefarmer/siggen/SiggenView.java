@@ -35,8 +35,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 // SiggenView
-public abstract class SiggenView extends View
-{
+public abstract class SiggenView extends View {
     private static final String TAG = "SiggenView";
 
     protected static final int MARGIN = 8;
@@ -55,18 +54,17 @@ public abstract class SiggenView extends View
 
     // SiggenView
     @SuppressWarnings("deprecation")
-    public SiggenView(Context context, AttributeSet attrs)
-    {
+    public SiggenView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         Resources resources = getResources();
 
         final TypedArray typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
+                context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
 
         textColour =
-            typedArray.getColor(R.styleable.Siggen_TextColour,
-                                resources.getColor(android.R.color.black));
+                typedArray.getColor(R.styleable.Siggen_TextColour,
+                        resources.getColor(android.R.color.black));
         typedArray.recycle();
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -74,19 +72,17 @@ public abstract class SiggenView extends View
 
     // onMeasure
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get the parent dimensions
-        View parent = (View)getParent();
+        View parent = (View) getParent();
         int w = parent.getMeasuredWidth();
         int h = parent.getMeasuredHeight();
 
         // Log.d(TAG, "Parent: " + w + ", " + h);
 
-        if (w > h)
-        {
+        if (w > h) {
             if (parentWidth < w)
                 parentWidth = w;
 
@@ -97,8 +93,7 @@ public abstract class SiggenView extends View
 
     // onSizeChanged
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         // Save the new width and height less the clipRect
         width = w - 6;
         height = h - 6;
@@ -111,8 +106,7 @@ public abstract class SiggenView extends View
 
     // onDraw
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         // Set up the paint and draw the outline
         paint.setShader(null);
         paint.setStrokeWidth(3);
