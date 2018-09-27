@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings">
 
-  <PreferenceCategory
-      android:key="pref_theme_category"
-      android:title="@string/pref_theme">
+    <PreferenceCategory
+        android:key="pref_theme_category"
+        android:title="@string/pref_theme">
 
-    <CheckBoxPreference
-        android:key="pref_dark_theme"
-	android:icon="?attr/pref_dark_theme"
-	android:title="@string/pref_dark_theme"
-	android:summary="@string/pref_dark_theme_summ"
-	android:persistent="true"
-	android:defaultValue="false" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="?attr/pref_dark_theme"
+            android:key="pref_dark_theme"
+            android:persistent="true"
+            android:summary="@string/pref_dark_theme_summ"
+            android:title="@string/pref_dark_theme" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
-  <PreferenceCategory
-      android:key="pref_about_category"
-      android:title="@string/pref_about">
+    <PreferenceCategory
+        android:key="pref_about_category"
+        android:title="@string/pref_about">
 
-    <org.billthefarmer.siggen.AboutPreference
-	android:key="pref_about"
-	android:icon="?attr/pref_about"
-	android:dialogIcon="?attr/pref_about"
-	android:negativeButtonText=""
-	android:title="@string/pref_about"
-	android:summary="@string/pref_about_summ"
-	android:dialogLayout="@layout/about_dialog" />
+        <org.billthefarmer.siggen.AboutPreference
+            android:dialogIcon="?attr/pref_about"
+            android:dialogLayout="@layout/about_dialog"
+            android:icon="?attr/pref_about"
+            android:key="pref_about"
+            android:negativeButtonText=""
+            android:summary="@string/pref_about_summ"
+            android:title="@string/pref_about" />
 
-  </PreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>

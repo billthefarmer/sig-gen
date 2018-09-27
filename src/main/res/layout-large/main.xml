@@ -1,160 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    tools:ignore="RtlHardcoded" >
+    tools:ignore="RtlHardcoded">
 
-  <org.billthefarmer.siggen.Scale
-      android:id="@+id/scale"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentLeft="true"
-      android:layout_marginBottom="8dp"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
-  
-  <org.billthefarmer.siggen.Knob
-      android:id="@+id/knob"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentBottom="true"
-      android:layout_below="@id/scale"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
+    <org.billthefarmer.siggen.Scale
+        android:id="@+id/scale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
-  <ImageButton
-      android:id="@+id/previous"
-      android:src="?attr/previous"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignTop="@id/knob"
-      android:layout_alignLeft="@id/knob"
-      tools:ignore="ContentDescription" />
+    <org.billthefarmer.siggen.Knob
+        android:id="@+id/knob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scale"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
-  <ImageButton
-      android:id="@+id/next"
-      android:src="?attr/next"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignTop="@id/knob"
-      android:layout_alignRight="@id/knob"
-      tools:ignore="ContentDescription" />
+    <ImageButton
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/knob"
+        android:layout_alignTop="@id/knob"
+        android:src="?attr/previous"
+        tools:ignore="ContentDescription" />
 
-  <ImageButton
-      android:id="@+id/back"
-      android:src="?attr/back"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBottom="@id/knob"
-      android:layout_alignLeft="@id/knob"
-      tools:ignore="ContentDescription" />
+    <ImageButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/knob"
+        android:layout_alignRight="@id/knob"
+        android:src="?attr/next"
+        tools:ignore="ContentDescription" />
 
-  <ImageButton
-      android:id="@+id/forward"
-      android:src="?attr/forward"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBottom="@id/knob"
-      android:layout_alignRight="@id/knob"
-      tools:ignore="ContentDescription" />
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/knob"
+        android:layout_alignBottom="@id/knob"
+        android:src="?attr/back"
+        tools:ignore="ContentDescription" />
 
-  <org.billthefarmer.siggen.Display
-      android:id="@+id/display"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentRight="true"
-      android:layout_marginBottom="8dp"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
+    <ImageButton
+        android:id="@+id/forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/knob"
+        android:layout_alignBottom="@id/knob"
+        android:src="?attr/forward"
+        tools:ignore="ContentDescription" />
 
-  <Button
-      android:id="@+id/sine"
-      android:text="@string/sine"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/display"
-      android:layout_alignParentRight="true"
-      android:layout_below="@id/display"
-      android:drawablePadding="8dp"
-      android:drawableLeft="@android:drawable/radiobutton_on_background" />
+    <org.billthefarmer.siggen.Display
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="8dp"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
-  <Button
-      android:id="@+id/square"
-      android:text="@string/square"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/display"
-      android:layout_alignParentRight="true"
-      android:layout_below="@id/sine"
-      android:drawablePadding="8dp"
-      android:drawableLeft="@android:drawable/radiobutton_off_background" />
+    <Button
+        android:id="@+id/sine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/display"
+        android:layout_alignLeft="@id/display"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@android:drawable/radiobutton_on_background"
+        android:drawablePadding="8dp"
+        android:text="@string/sine" />
 
-  <Button
-      android:id="@+id/sawtooth"
-      android:text="@string/sawtooth"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/display"
-      android:layout_alignParentRight="true"
-      android:layout_below="@id/square"
-      android:drawablePadding="8dp"
-      android:drawableLeft="@android:drawable/radiobutton_off_background" />
+    <Button
+        android:id="@+id/square"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sine"
+        android:layout_alignLeft="@id/display"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@android:drawable/radiobutton_off_background"
+        android:drawablePadding="8dp"
+        android:text="@string/square" />
 
-  <Button
-      android:id="@+id/mute"
-      android:text="@string/mute"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/display"
-      android:layout_alignParentRight="true"
-      android:layout_below="@id/sawtooth"
-      android:drawablePadding="8dp"
-      android:drawableLeft="@android:drawable/checkbox_off_background" />
+    <Button
+        android:id="@+id/sawtooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/square"
+        android:layout_alignLeft="@id/display"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@android:drawable/radiobutton_off_background"
+        android:drawablePadding="8dp"
+        android:text="@string/sawtooth" />
 
-  <ImageButton
-      android:id="@+id/lower"
-      android:src="?attr/previous"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/fine"
-      android:layout_alignLeft="@id/display"
-      android:layout_marginBottom="8dp"
-      tools:ignore="ContentDescription" />
+    <Button
+        android:id="@+id/mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sawtooth"
+        android:layout_alignLeft="@id/display"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@android:drawable/checkbox_off_background"
+        android:drawablePadding="8dp"
+        android:text="@string/mute" />
 
-  <ImageButton
-      android:id="@+id/higher"
-      android:src="?attr/next"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@id/fine"
-      android:layout_alignRight="@id/display"
-      android:layout_marginBottom="8dp"
-      tools:ignore="ContentDescription" />
+    <ImageButton
+        android:id="@+id/lower"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fine"
+        android:layout_alignLeft="@id/display"
+        android:layout_marginBottom="8dp"
+        android:src="?attr/previous"
+        tools:ignore="ContentDescription" />
 
-  <SeekBar
-      android:id="@id/fine"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/level"
-      android:layout_alignLeft="@id/display"
-      android:layout_alignParentRight="true"
-      android:layout_marginBottom="8dp" />
-  
-  <SeekBar
-      android:id="@id/level"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/display"
-      android:layout_alignParentRight="true"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="8dp" />
+    <ImageButton
+        android:id="@+id/higher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fine"
+        android:layout_alignRight="@id/display"
+        android:layout_marginBottom="8dp"
+        android:src="?attr/next"
+        tools:ignore="ContentDescription" />
+
+    <SeekBar
+        android:id="@id/fine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/level"
+        android:layout_alignLeft="@id/display"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="8dp" />
+
+    <SeekBar
+        android:id="@id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/display"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp" />
 
 </RelativeLayout>
