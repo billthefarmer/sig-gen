@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/exact"
-        android:icon="@drawable/ic_action_chat"
-        android:showAsAction="ifRoom"
-        android:title="@string/exact" />
+  <item
+      android:id="@+id/exact"
+      android:icon="@drawable/ic_action_chat"
+      android:showAsAction="ifRoom"
+      android:title="@string/exact" />
 
-    <item
-        android:id="@+id/bookmark"
-        android:icon="@drawable/ic_action_expand"
-        android:showAsAction="ifRoom"
-        android:title="@string/bookmark" />
+  <item
+      android:id="@+id/bookmark"
+      android:icon="@drawable/ic_action_expand"
+      android:showAsAction="ifRoom"
+      android:title="@string/bookmark" />
 
-    <item
-        android:id="@+id/sleep"
-        android:icon="@drawable/ic_action_brightness_low"
-        android:showAsAction="ifRoom"
-        android:title="@string/sleep" />
+  <item
+      android:id="@+id/sleep"
+      android:icon="@drawable/ic_action_brightness_low"
+      android:showAsAction="ifRoom"
+      android:title="@string/sleep" />
 
-    <item
-        android:id="@+id/settings"
-        android:icon="@drawable/ic_action_settings"
-        android:showAsAction="ifRoom"
-        android:title="@string/settings" />
+  <item
+      android:id="@+id/settings"
+      android:icon="@drawable/ic_action_settings"
+      android:showAsAction="ifRoom"
+      android:title="@string/settings" />
 
 </menu>

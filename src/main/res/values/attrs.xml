@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="Siggen">
-        <attr name="back" format="reference" />
-        <attr name="forward" format="reference" />
-        <attr name="previous" format="reference" />
-        <attr name="next" format="reference" />
+  <declare-styleable name="Siggen">
+    <attr name="back" format="reference" />
+    <attr name="forward" format="reference" />
+    <attr name="previous" format="reference" />
+    <attr name="next" format="reference" />
 
-        <attr name="pref_dark_theme" format="reference" />
-        <attr name="pref_about" format="reference" />
+    <attr name="pref_dark_theme" format="reference" />
+    <attr name="pref_about" format="reference" />
 
-        <attr name="TextColour" format="reference" />
-        <attr name="BackgroundColour" format="reference" />
-    </declare-styleable>
+    <attr name="TextColour" format="reference" />
+    <attr name="BackgroundColour" format="reference" />
+  </declare-styleable>
 
 </resources>
