@@ -31,22 +31,19 @@ import android.util.AttributeSet;
 import java.util.Locale;
 
 // Display
-public class Display extends SiggenView
-{
+public class Display extends SiggenView {
     private static final int MARGIN = 8;
 
     private double frequency;
     private double level;
 
-    public Display(Context context, AttributeSet attrs)
-    {
+    public Display(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     // On measure
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int w = (parentWidth - MARGIN) / 2;
@@ -56,23 +53,20 @@ public class Display extends SiggenView
     }
 
     // Set frequency
-    protected void setFrequency(double f)
-    {
+    protected void setFrequency(double f) {
         frequency = f;
         invalidate();
     }
 
     // Set level
-    protected void setLevel(double l)
-    {
+    protected void setLevel(double l) {
         level = l;
         invalidate();
     }
 
     // On draw
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         String s = String.format(Locale.getDefault(), "%5.2fHz", frequency);
         paint.setTextAlign(Paint.Align.LEFT);

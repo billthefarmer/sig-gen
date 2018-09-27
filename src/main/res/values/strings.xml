@@ -4,8 +4,7 @@
   <string name="app_name">Signal Generator</string>
   <string name="copyright">Copyright \u00A9 2017 <a href="https://billthefarmer.github.io">Bill Farmer</a>
   </string>
-  <string name="licence">Licence <a
-  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">Licence <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
   <string name="built">Built %s</string>
 
@@ -20,7 +19,7 @@
 
   <string name="bookmark_added">Bookmark added %1.2f</string>
   <string name="bookmark_removed">Bookmark removed %1.2f</string>
-  
+
   <string name="sine">Sine</string>
   <string name="sin">Sin</string>
   <string name="s">S</string>

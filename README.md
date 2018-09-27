@@ -15,7 +15,7 @@ The frequency knob responds to finger twirling. The fine frequency and
 level sliders allow for fine adjustments of frequency and output
 level. The frequency knob is also adjustable using the left and right
 arrow buttons above. The two bookmark buttons below the frequency knob
-show if there are bookmarks and will go to the next lower or higher
+show if there are bookmarks, and will go to the next lower or higher
 bookmark if it exists.
 
 The toolbar items are, from left to right:

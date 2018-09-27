@@ -2,11 +2,9 @@
 <resources>
 
   <string name="app_name">Signal Generator</string>
-  <string name="copyright">Direitos \u00A9 2017 <a
-  href="http://billthefarmer.github.io">Bill Farmer</a>
+  <string name="copyright">Direitos \u00A9 2017 <a href="https://billthefarmer.github.io">Bill Farmer</a>
   </string>
-  <string name="licence">Licença <a
-  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">Licença <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
   <string name="built">Construído %s</string>
 
@@ -21,7 +19,7 @@
 
   <string name="bookmark_added">Favorito adicionado %1.2f</string>
   <string name="bookmark_removed">Favorito removido %1.2f</string>
-  
+
   <string name="sine">Seno</string>
   <string name="sin">Sen</string>
   <string name="s">S</string>

@@ -1,60 +1,60 @@
 <resources>
 
-  <!--
-      Base application theme, dependent on API level. This theme is
-      replaced by AppBaseTheme from res/values-vXX/styles.xml on newer
-      devices.
-  -->
-  <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
     <!--
-        Theme customizations available in newer API levels can go in
-        res/values-vXX/styles.xml, while customizations related to
-        backward-compatibility can go here.
+        Base application theme, dependent on API level. This theme is
+        replaced by AppBaseTheme from res/values-vXX/styles.xml on newer
+        devices.
     -->
-  </style>
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
 
-  <!-- Application theme. -->
-  <style name="AppTheme" parent="AppBaseTheme">
-    <!--
-        All customizations that are NOT specific to a particular
-        API-level can go here.
-    -->
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!--
+            All customizations that are NOT specific to a particular
+            API-level can go here.
+        -->
 
-    <item name="back">@drawable/ic_back</item>
-    <item name="forward">@drawable/ic_forward</item>
-    <item name="previous">@drawable/ic_action_previous_item</item>
-    <item name="next">@drawable/ic_action_next_item</item>
+        <item name="back">@drawable/ic_back</item>
+        <item name="forward">@drawable/ic_forward</item>
+        <item name="previous">@drawable/ic_action_previous_item</item>
+        <item name="next">@drawable/ic_action_next_item</item>
 
-    <item name="pref_dark_theme">
-      @drawable/ic_action_brightness_high_light
-    </item>
-    <item name="pref_about">@drawable/ic_action_about</item>
+        <item name="pref_dark_theme">
+            @drawable/ic_action_brightness_high_light
+        </item>
+        <item name="pref_about">@drawable/ic_action_about</item>
 
-  </style>
+    </style>
 
-  <style name="AppDarkBaseTheme" parent="android:Theme.Holo">
-    <!--
-        Theme customizations available in newer API levels can go in
-        res/values-vXX/styles.xml, while customizations related to
-        backward-compatibility can go here.
-    -->
-  </style>
+    <style name="AppDarkBaseTheme" parent="android:Theme.Holo">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
 
-  <!-- Application theme. -->
-  <style name="AppDarkTheme" parent="AppDarkBaseTheme">
-    <!--
-        All customizations that are NOT specific to a particular
-        API-level can go here.
-    -->
+    <!-- Application theme. -->
+    <style name="AppDarkTheme" parent="AppDarkBaseTheme">
+        <!--
+            All customizations that are NOT specific to a particular
+            API-level can go here.
+        -->
 
-    <item name="back">@drawable/ic_back_dark</item>
-    <item name="forward">@drawable/ic_forward_dark</item>
-    <item name="previous">@drawable/ic_action_previous_item_dark</item>
-    <item name="next">@drawable/ic_action_next_item_dark</item>
+        <item name="back">@drawable/ic_back_dark</item>
+        <item name="forward">@drawable/ic_forward_dark</item>
+        <item name="previous">@drawable/ic_action_previous_item_dark</item>
+        <item name="next">@drawable/ic_action_next_item_dark</item>
 
-    <item name="pref_dark_theme">@drawable/ic_action_brightness_high</item>
-    <item name="pref_about">@drawable/ic_action_about_dark</item>
+        <item name="pref_dark_theme">@drawable/ic_action_brightness_high</item>
+        <item name="pref_about">@drawable/ic_action_about_dark</item>
 
-  </style>
+    </style>
 
 </resources>

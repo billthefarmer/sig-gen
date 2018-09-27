@@ -5,9 +5,9 @@ jdk:
 
 android:
   components:
-    - platform-tools
     - tools
-    - build-tools-28.0.2
+    - platform-tools
+    - build-tools-28.0.3
     - android-28
 
 script: ./gradlew build
