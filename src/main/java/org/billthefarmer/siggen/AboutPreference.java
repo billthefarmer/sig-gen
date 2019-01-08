@@ -25,6 +25,7 @@ package org.billthefarmer.siggen;
 
 import android.content.Context;
 import android.preference.DialogPreference;
+import android.text.SpannableStringBuilder;
 import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.view.View;
@@ -54,9 +55,13 @@ public class AboutPreference extends DialogPreference
 
         if (version != null)
         {
-            String v = (String) version.getText();
-            String s = String.format(v, BuildConfig.VERSION_NAME);
-            version.setText(s);
+            SpannableStringBuilder builder =
+                new SpannableStringBuilder(version.getText());
+            int st = builder.toString().indexOf("%s");
+            int en = builder.length();
+            builder.replace(st, en, BuildConfig.VERSION_NAME);
+            version.setText(builder);
+            version.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
         // Get built text view
