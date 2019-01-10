@@ -52,7 +52,6 @@ public class AboutPreference extends DialogPreference
         TextView version = view.findViewById(R.id.about);
 
         // Set version in text view
-
         if (version != null)
         {
             SpannableStringBuilder builder =
@@ -70,7 +69,7 @@ public class AboutPreference extends DialogPreference
         // Set built date in text view
         if (built != null)
         {
-            String d = (String) built.getText();
+            String d = built.getText().toString();
             DateFormat dateFormat = DateFormat.getDateTimeInstance();
             String s =
                 String.format(d, dateFormat.format(BuildConfig.BUILT));
@@ -81,12 +80,14 @@ public class AboutPreference extends DialogPreference
         TextView copyright = view.findViewById(R.id.copyright);
 
         // Set movement method
-        copyright.setMovementMethod(LinkMovementMethod.getInstance());
+        if (copyright != null)
+            copyright.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Get licence text view
         TextView licence = view.findViewById(R.id.licence);
 
         // Set movement method
-        licence.setMovementMethod(LinkMovementMethod.getInstance());
+        if (licence != null)
+            licence.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

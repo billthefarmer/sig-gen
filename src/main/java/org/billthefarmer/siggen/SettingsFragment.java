@@ -35,6 +35,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_ABOUT = "pref_about";
+
     private static final int VERSION_M = 23;
 
     // onCreate
@@ -55,7 +56,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
         // Set version in text view
         if (about != null)
         {
-            String sum = (String) about.getSummary();
+            String sum = about.getSummary().toString();
             String s = String.format(sum, BuildConfig.VERSION_NAME);
             about.setSummary(s);
         }
