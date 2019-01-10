@@ -30,8 +30,8 @@ android {
         applicationId "org.billthefarmer.siggen"
         minSdkVersion 14
         targetSdkVersion 28
-        versionName "1.18"
-        versionCode 118
+        versionName "1.19"
+        versionCode 119
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
