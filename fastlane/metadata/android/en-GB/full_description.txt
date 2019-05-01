@@ -1,0 +1,13 @@
+Audio signal generator with twirly knob.
+
+The frequency knob responds to finger twirling. The fine frequency and
+level sliders allow for fine adjustments of frequency and output
+level. The frequency knob is also adjustable using the left and right
+arrow buttons. The two bookmark buttons below the frequency knob show
+if there are bookmarks, and will go to the next lower or higher
+bookmark if it exists.
+
+ *  Frequency range 0.1Hz - 25KHz
+ *  Level range 0dB - -80dB
+ *  Set exact frequency
+ *  Frequency bookmarks
