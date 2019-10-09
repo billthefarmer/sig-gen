@@ -433,14 +433,14 @@ public class Main extends Activity
         // Create edit text
         Context context = builder.getContext();
         EditText text = new EditText(context);
-        text.setId(TEXT);
+        text.setId(R.id.text);
         text.setHint(hint);
         text.setInputType(InputType.TYPE_CLASS_NUMBER |
                           InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
-        dialog.setView(text, 30, 0, 30, 0);
+        dialog.setView(text, 40, 0, 40, 0);
         dialog.show();
     }
 
