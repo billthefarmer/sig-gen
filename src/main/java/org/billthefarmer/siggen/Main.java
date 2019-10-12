@@ -65,11 +65,9 @@ public class Main extends Activity
 {
     public static final String EXACT = "exact";
 
-    private static final int TEXT = 1;
     private static final int DELAY = 250;
     private static final int MAX_LEVEL = 100;
     private static final int MAX_FINE = 1000;
-    private static final int VERSION_M = 23;
 
     private static final double MARGIN = 1.0;
 
@@ -176,7 +174,7 @@ public class Main extends Activity
         // Get preferences
         getPreferences();
 
-        if (dark != darkTheme && Build.VERSION.SDK_INT != VERSION_M)
+        if (dark != darkTheme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
     }
 
@@ -399,7 +397,7 @@ public class Main extends Activity
             {
             case DialogInterface.BUTTON_POSITIVE:
                 EditText text =
-                ((Dialog) dialog).findViewById(TEXT);
+                ((Dialog) dialog).findViewById(R.id.text);
                 String result = text.getText().toString();
 
                 // Ignore empty string
