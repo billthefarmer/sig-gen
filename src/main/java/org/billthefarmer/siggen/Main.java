@@ -31,7 +31,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -688,8 +687,7 @@ public class Main extends Activity
     // Show toast
     void showToast(int key, Object... args)
     {
-        Resources resources = getResources();
-        String format = resources.getString(key);
+        String format = getString(key);
         String text = String.format(Locale.getDefault(), format, args);
 
         showToast(text);
