@@ -302,6 +302,7 @@ public class Main extends Activity
 
         if (audio != null)
             audio.stop();
+		thread.stop();
     }
 
     // On options item
