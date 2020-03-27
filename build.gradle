@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.6.1'
     }
 }
 
@@ -24,14 +24,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '29.0.2'
+    buildToolsVersion '29.0.3'
 
     defaultConfig {
         applicationId "org.billthefarmer.siggen"
         minSdkVersion 14
         targetSdkVersion 28
-        versionName "1.20"
-        versionCode 120
+        versionName "1.21"
+        versionCode 121
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
