@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:4.1.1'
     }
 }
 
@@ -43,7 +43,7 @@ android {
 
     lintOptions {
         disable 'IconDensities', 'ClickableViewAccessibility', 'Wakelock',
-                'CustomViewStyleable'
+                'CustomViewStyleable', 'OldTargetApi', 'NonConstantResourceId'
         abortOnError false
     }
 }
