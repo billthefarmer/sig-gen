@@ -33,8 +33,6 @@ import java.util.Locale;
 // Display
 public class Display extends SiggenView
 {
-    private static final int MARGIN = 8;
-
     private double frequency;
     private double level;
 

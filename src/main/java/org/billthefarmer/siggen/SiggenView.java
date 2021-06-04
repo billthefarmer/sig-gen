@@ -32,6 +32,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 // SiggenView
@@ -82,8 +83,6 @@ public abstract class SiggenView extends View
         View parent = (View) getParent();
         int w = parent.getMeasuredWidth();
         int h = parent.getMeasuredHeight();
-
-        // Log.d(TAG, "Parent: " + w + ", " + h);
 
         if (w > h)
         {

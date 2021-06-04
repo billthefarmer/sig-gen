@@ -15,6 +15,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
       android:layout_alignParentTop="true"
+      android:layout_marginRight="8dp"
       android:layout_marginBottom="8dp"
       app:BackgroundColour="?android:attr/colorBackground"
       app:TextColour="?android:attr/textColorPrimary" />
@@ -26,6 +27,7 @@
       android:layout_below="@id/scale"
       android:layout_alignParentLeft="true"
       android:layout_alignParentBottom="true"
+      android:layout_alignRight="@id/scale"
       app:BackgroundColour="?android:attr/colorBackground"
       app:TextColour="?android:attr/textColorPrimary" />
 
@@ -71,6 +73,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentTop="true"
       android:layout_alignParentRight="true"
+      android:layout_toRightOf="@id/scale"
       android:layout_marginBottom="8dp"
       app:BackgroundColour="?android:attr/colorBackground"
       app:TextColour="?android:attr/textColorPrimary" />

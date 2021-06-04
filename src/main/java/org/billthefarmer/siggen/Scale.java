@@ -58,7 +58,7 @@ public class Scale extends SiggenView
         int w = (parentWidth - MARGIN) / 2;
         int h = parentHeight / 5;
 
-        this.setMeasuredDimension(w, h);
+        setMeasuredDimension(w, h);
     }
 
     // On size changed
