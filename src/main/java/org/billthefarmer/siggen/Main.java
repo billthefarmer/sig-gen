@@ -41,6 +41,7 @@ import android.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -84,6 +85,7 @@ public class Main extends Activity
 
     public static final String PREF_BOOKMARKS = "pref_bookmarks";
     public static final String PREF_DARK_THEME = "pref_dark_theme";
+    public static final String PREF_DUTY = "pref_duty";
 
     private Audio audio;
 
@@ -102,6 +104,8 @@ public class Main extends Activity
 
     private boolean sleep;
     private boolean darkTheme;
+
+    private float duty;
 
     // On create
     @Override
@@ -741,6 +745,8 @@ public class Main extends Activity
 
         darkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
+        duty = Float.parseFloat(preferences.getString(PREF_DUTY, "0.5"));
+
         String string = preferences.getString(PREF_BOOKMARKS, "");
 
         try
@@ -969,12 +975,15 @@ public class Main extends Activity
 
             while (thread != null)
             {
+                double t = (duty * 2.0 * Math.PI) - Math.PI;
+
                 // Fill the current buffer
                 for (int i = 0; i < buffer.length; i++)
                 {
                     f += (frequency - f) / 4096.0;
                     l += ((mute ? 0.0 : level) * 16384.0 - l) / 4096.0;
-                    q += (q < Math.PI) ? f * K : (f * K) - (2.0 * Math.PI);
+                    q += ((q + (f * K)) < Math.PI) ? f * K :
+                        (f * K) - (2.0 * Math.PI);
 
                     switch (waveform)
                     {
@@ -983,7 +992,7 @@ public class Main extends Activity
                         break;
 
                     case SQUARE:
-                        buffer[i] = (short) ((q > 0.0) ? l : -l);
+                        buffer[i] = (short) ((q > t) ? l : -l);
                         break;
 
                     case SAWTOOTH:

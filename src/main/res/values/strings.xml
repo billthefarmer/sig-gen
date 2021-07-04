@@ -39,4 +39,6 @@
   <string name="pref_dark_theme">Dark</string>
   <string name="pref_dark_theme_summ">Use dark theme</string>
 
+  <string name="pref_duty">Square duty cycle</string>
+
 </resources>
