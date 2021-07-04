@@ -9,6 +9,7 @@ and [here](https://github.com/billthefarmer/sig-gen/releases).
  *  Level range 0dB - -80dB
  *  Set exact frequency
  *  Frequency bookmarks
+ *  Square wave duty cycle
 
 ### Using
 The frequency knob responds to finger twirling. The fine frequency and
