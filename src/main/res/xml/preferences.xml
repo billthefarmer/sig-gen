@@ -9,6 +9,7 @@
 
     <ListPreference
         android:key="pref_duty"
+        android:icon="?attr/pref_duty"
         android:title="@string/pref_duty"
         android:entries="@array/pref_duty_entries"
         android:entryValues="@array/pref_duty_entry_values"
@@ -21,12 +22,12 @@
       android:title="@string/pref_theme">
 
     <CheckBoxPreference
+        android:key="pref_dark_theme"
         android:defaultValue="false"
         android:icon="?attr/pref_dark_theme"
-        android:key="pref_dark_theme"
         android:persistent="true"
-        android:summary="@string/pref_dark_theme_summ"
-        android:title="@string/pref_dark_theme" />
+        android:title="@string/pref_dark_theme"
+        android:summary="@string/pref_dark_theme_summ" />
 
   </PreferenceCategory>
 

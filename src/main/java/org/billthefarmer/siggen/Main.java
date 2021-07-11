@@ -105,8 +105,6 @@ public class Main extends Activity
     private boolean sleep;
     private boolean darkTheme;
 
-    private float duty;
-
     // On create
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -743,9 +741,10 @@ public class Main extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        darkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+        if (audio != null)
+            audio.duty = Float.parseFloat(preferences.getString(PREF_DUTY, "0.5"));
 
-        duty = Float.parseFloat(preferences.getString(PREF_DUTY, "0.5"));
+        darkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
         String string = preferences.getString(PREF_BOOKMARKS, "");
 
@@ -887,6 +886,8 @@ public class Main extends Activity
         protected double frequency;
         protected double level;
 
+        protected float duty;
+
         protected Thread thread;
 
         private AudioTrack audioTrack;
@@ -894,7 +895,7 @@ public class Main extends Activity
         protected Audio()
         {
             frequency = 440.0;
-            level = 16384;
+            level = 16384.0;
         }
 
         // Start
@@ -976,6 +977,7 @@ public class Main extends Activity
             while (thread != null)
             {
                 double t = (duty * 2.0 * Math.PI) - Math.PI;
+                double v = 0.0;
 
                 // Fill the current buffer
                 for (int i = 0; i < buffer.length; i++)
@@ -999,7 +1001,7 @@ public class Main extends Activity
                         buffer[i] = (short) Math.round((q / Math.PI) * l);
                         break;
                     }
-                }
+               }
 
                 audioTrack.write(buffer, 0, buffer.length);
             }

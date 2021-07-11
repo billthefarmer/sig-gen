@@ -2,6 +2,7 @@
 .gradle/
 .idea/
 build/
+data/
 local.properties
 *~
 *.apk

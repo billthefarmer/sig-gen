@@ -7,8 +7,9 @@
     <attr name="previous" format="reference" />
     <attr name="next" format="reference" />
 
-    <attr name="pref_dark_theme" format="reference" />
     <attr name="pref_about" format="reference" />
+    <attr name="pref_dark_theme" format="reference" />
+    <attr name="pref_duty" format="reference" />
 
     <attr name="TextColour" format="reference" />
     <attr name="BackgroundColour" format="reference" />
