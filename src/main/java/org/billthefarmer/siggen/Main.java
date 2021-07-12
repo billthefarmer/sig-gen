@@ -911,9 +911,14 @@ public class Main extends Activity
             Thread t = thread;
             thread = null;
 
-            // Wait for the thread to exit
-            while (t != null && t.isAlive())
-                Thread.yield();
+            try
+            {
+                // Wait for the thread to exit
+                if (t != null && t.isAlive())
+                    t.join();
+            }
+
+            catch (Exception e) {}
         }
 
         public void run()
@@ -977,7 +982,6 @@ public class Main extends Activity
             while (thread != null)
             {
                 double t = (duty * 2.0 * Math.PI) - Math.PI;
-                double v = 0.0;
 
                 // Fill the current buffer
                 for (int i = 0; i < buffer.length; i++)
