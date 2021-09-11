@@ -3,7 +3,7 @@
 
   <item
       android:id="@+id/exact"
-      android:icon="@drawable/ic_action_chat"
+      android:icon="@drawable/ic_action_view_as_list"
       android:showAsAction="ifRoom"
       android:title="@string/exact" />
 
