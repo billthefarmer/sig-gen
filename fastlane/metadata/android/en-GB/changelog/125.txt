@@ -1,0 +1,2 @@
+* Change exact icon
+* Update about dialog
