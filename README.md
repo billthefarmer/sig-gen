@@ -45,7 +45,7 @@ parameters should be:
 | | org.billthefarmer.siggen.SET_WAVE | int | 0 = Sine |
 | | | | 1 = Square |
 | | | | 2 = Sawtooth |
-| | org.billthefarmer.siggen.SET_MUTE | boolean |
+| | org.billthefarmer.siggen.SET_MUTE | boolean | true, false |
 
 Any combination of extras or none may be sent. Subsequent intents sent
 will update the parameters from the included extras.
