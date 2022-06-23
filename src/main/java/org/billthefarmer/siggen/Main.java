@@ -87,6 +87,11 @@ public class Main extends Activity
     public static final String PREF_DARK_THEME = "pref_dark_theme";
     public static final String PREF_DUTY = "pref_duty";
 
+    public static final String SET_FREQ = "org.billthefarmer.siggen.SET_FREQ";
+    public static final String SET_WAVE = "org.billthefarmer.siggen.SET_WAVE";
+    public static final String SET_MUTE = "org.billthefarmer.siggen.SET_MUTE";
+    public static final String SET_LEVEL = "org.billthefarmer.siggen.SET_LEVEL";
+
     private Audio audio;
 
     private Knob knob;
@@ -146,6 +151,16 @@ public class Main extends Activity
         // Restore state
         if (savedInstanceState != null)
             restoreState(savedInstanceState);
+
+        // Get intent
+        setState(getIntent());
+    }
+
+    // onNewIntent
+    @Override
+    public void onNewIntent(Intent intent)
+    {
+        setState(intent);
     }
 
     // Menu
@@ -443,6 +458,66 @@ public class Main extends Activity
         dialog.show();
     }
 
+    // setState
+    private void setState(Intent intent)
+    {
+        Bundle extras = intent.getExtras();
+        if (extras == null)
+            return;
+
+        // Frequency
+        if (extras.containsKey(SET_FREQ))
+        {
+            float value = extras.getFloat(SET_FREQ);
+            if (value != 0.0)
+                setFrequency(value);
+
+            else
+                setFrequency(extras.getInt(SET_FREQ));
+        }
+
+        if (extras.containsKey(SET_WAVE))
+        {
+            // Waveform buttons
+            View view = null;
+            switch (extras.getInt(SET_WAVE))
+            {
+            case Audio.SINE:
+                view = findViewById(R.id.sine);
+                break;
+
+            case Audio.SQUARE:
+                view = findViewById(R.id.square);
+                break;
+
+            case Audio.SAWTOOTH:
+                view = findViewById(R.id.sawtooth);
+                break;
+            }
+
+            onClick(view);
+        }
+
+        // Mute
+        if (extras.containsKey(SET_MUTE))
+        {
+            audio.mute = !extras.getBoolean(SET_MUTE);
+            View view = findViewById(R.id.mute);
+            onClick(view);
+        }
+
+        // Level
+        if (extras.containsKey(SET_LEVEL))
+        {
+            float value = extras.getFloat(SET_FREQ);
+            if (value != 0.0)
+                setLevel(value);
+
+            else
+                setLevel(extras.getInt(SET_LEVEL));
+        }
+    }
+
     // Set frequency
     private void setFrequency(double freq)
     {
@@ -456,6 +531,15 @@ public class Main extends Activity
         // Reset fine
         if (fine != null)
             fine.setProgress(MAX_FINE / 2);
+    }
+
+    // Set level
+    private void setLevel(float value)
+    {
+        long progress = Math.round(Math.pow(10.0, value / 20.0) * MAX_LEVEL);
+        level.setProgress((int) progress);
+        audio.level = Math.pow(10.0, value / 20.0);
+        display.setLevel(value);
     }
 
     // On knob change
