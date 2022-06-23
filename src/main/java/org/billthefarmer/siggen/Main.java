@@ -482,6 +482,7 @@ public class Main extends Activity
             View view = null;
             switch (extras.getInt(SET_WAVE))
             {
+            default:
             case Audio.SINE:
                 view = findViewById(R.id.sine);
                 break;
@@ -509,7 +510,7 @@ public class Main extends Activity
         // Level
         if (extras.containsKey(SET_LEVEL))
         {
-            float value = extras.getFloat(SET_FREQ);
+            float value = extras.getFloat(SET_LEVEL);
             if (value != 0.0)
                 setLevel(value);
 
