@@ -11,6 +11,7 @@ and [here](https://github.com/billthefarmer/sig-gen/releases).
  *  Set exact frequency
  *  Frequency bookmarks
  *  Square wave duty cycle
+ *  External control
 
 ### Using
 The frequency knob responds to finger twirling. The fine frequency and
