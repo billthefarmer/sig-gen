@@ -30,13 +30,14 @@ The toolbar items are, from left to right:
 To remove a bookmark, go to it and touch the toolbar bookmark button.
 
 ### External Control
-The app may be started, the frequency, level, waveform and mute
+The app may be started, the frequency, level, waveform and mute set
 externally by sending a suitable
-[Intent](https://developer.android.com/reference/android/content/Intent). The
-parameters should be:
+[Intent](https://developer.android.com/reference/android/content/Intent)
+from an automation app. The app package/activity is
+`org.billthefarmer.siggen/.Main`. The parameters may be:
 
-| Parameter | Key | Type | Value |
-| --------- | --- | ---- | ----- |
+| Parameter | Action/Category/Extra | Type | Value |
+| --------- | --------------------- | ---- | ----- |
 | Action | android.intent.action.MAIN |
 | | android.intent.action.DEFAULT |
 | Category | android.intent.category.LAUNCHER |
@@ -50,3 +51,12 @@ parameters should be:
 
 Any combination of extras or none may be sent. Subsequent intents sent
 will update the parameters from the included extras.
+
+This may be tested using the [Android Debug
+Bridge](https://developer.android.com/studio/command-line/adb#am).
+```shell
+$ adb shell am start --ef org.billthefarmer.siggen.SET_FREQ 257.3 --ef org.billthefarmer.siggen.SET_LEVEL -25.2 org.billthefarmer.siggen/.Main
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=org.billthefarmer.siggen/.Main (has extras) }
+$ adb shell am start --ez org.billthefarmer.siggen.SET_MUTE true org.billthefarmer.siggen/.Main Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=org.billthefarmer.siggen/.Main (has extras) }
+Warning: Activity not started, its current task has been brought to the front
+```
