@@ -35,8 +35,7 @@ externally by sending a suitable
 [Intent](https://developer.android.com/reference/android/content/Intent). The
 parameters should be:
 
-| Parameter | Value | Type | Value |
-| --------- | ----- | ---- | ----- |
+| Parameter | Key | Type | Value |
 | Action | android.intent.action.MAIN |
 | | android.intent.action.DEFAULT |
 | Category | android.intent.category.LAUNCHER |
