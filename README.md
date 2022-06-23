@@ -40,8 +40,8 @@ parameters should be:
 | | android.intent.action.DEFAULT |
 | Category | android.intent.category.LAUNCHER |
 | | android.intent.category.DEFAULT |
-| Extras | org.billthefarmer.siggen.SET_FREQ | int, float |
-| | org.billthefarmer.siggen.SET_LEVEL | int, float |
+| Extras | org.billthefarmer.siggen.SET_FREQ | int, float | 0.1 &ndash; 25000 |
+| | org.billthefarmer.siggen.SET_LEVEL | int, float | -80 &ndash; 0 |
 | | org.billthefarmer.siggen.SET_WAVE | int | 0 = Sine |
 | | | | 1 = Square |
 | | | | 2 = Sawtooth |
