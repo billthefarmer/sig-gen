@@ -36,6 +36,7 @@ externally by sending a suitable
 parameters should be:
 
 | Parameter | Key | Type | Value |
+| --------- | --- | ---- | ----- |
 | Action | android.intent.action.MAIN |
 | | android.intent.action.DEFAULT |
 | Category | android.intent.category.LAUNCHER |
