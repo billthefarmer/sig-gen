@@ -57,6 +57,7 @@ Bridge](https://developer.android.com/studio/command-line/adb#am).
 ```shell
 $ adb shell am start --ef org.billthefarmer.siggen.SET_FREQ 257.3 --ef org.billthefarmer.siggen.SET_LEVEL -25.2 org.billthefarmer.siggen/.Main
 Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=org.billthefarmer.siggen/.Main (has extras) }
-$ adb shell am start --ez org.billthefarmer.siggen.SET_MUTE true org.billthefarmer.siggen/.Main Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=org.billthefarmer.siggen/.Main (has extras) }
+$ adb shell am start --ez org.billthefarmer.siggen.SET_MUTE true org.billthefarmer.siggen/.Main
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=org.billthefarmer.siggen/.Main (has extras) }
 Warning: Activity not started, its current task has been brought to the front
 ```
