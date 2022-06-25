@@ -34,7 +34,8 @@ The app may be started, the frequency, level, waveform and mute set
 externally by sending a suitable
 [Intent](https://developer.android.com/reference/android/content/Intent)
 from an automation app. The app package/activity is
-`org.billthefarmer.siggen/.Main`. The parameters may be:
+`org.billthefarmer.siggen/org.billthefarmer.siggen.Main`. The
+parameters may be:
 
 | Parameter | Action/Category/Extra | Type | Value |
 | --------- | --------------------- | ---- | ----- |
