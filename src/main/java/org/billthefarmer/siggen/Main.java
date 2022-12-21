@@ -535,9 +535,12 @@ public class Main extends Activity
     }
 
     // Set level
-    private void setLevel(float value)
+    private void setLevel(double value)
     {
-        long progress = Math.round(Math.pow(10.0, value / 20.0) * MAX_LEVEL);
+        if (value < -80.0)
+            value = -80.0;
+
+        long progress = Math.round((value / 80.0) * MAX_LEVEL) + MAX_LEVEL;
         level.setProgress((int) progress);
         audio.level = Math.pow(10.0, value / 20.0);
         display.setLevel(value);
@@ -603,16 +606,15 @@ public class Main extends Activity
         case R.id.level:
             if (display != null)
             {
-                double level = Math.log10(progress / (double) MAX_LEVEL) * 20.0;
-
-                if (level < -80.0)
-                    level = -80.0;
-
+                double level = ((double) progress - MAX_LEVEL) / MAX_LEVEL * 80.0;
                 display.setLevel(level);
             }
 
             if (audio != null)
-                audio.level = progress / (double) MAX_LEVEL;
+            {
+                double level = ((double) progress - MAX_LEVEL) / MAX_LEVEL * 80.0;
+                audio.level = Math.pow(10.0, level / 20.0);
+            }
             break;
         }
     }
@@ -899,7 +901,7 @@ public class Main extends Activity
             level.setOnSeekBarChangeListener(this);
 
             level.setMax(MAX_LEVEL);
-            level.setProgress(MAX_LEVEL / 10);
+            level.setProgress(MAX_LEVEL * 3 / 4);
         }
 
         v = findViewById(R.id.sine);
