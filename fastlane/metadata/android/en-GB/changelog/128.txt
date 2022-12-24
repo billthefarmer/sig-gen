@@ -1,0 +1,2 @@
+ * Make volume slider linear in dB
+ * Save state in preferences
