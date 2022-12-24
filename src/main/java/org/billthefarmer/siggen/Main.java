@@ -86,6 +86,10 @@ public class Main extends Activity
     public static final String PREF_BOOKMARKS = "pref_bookmarks";
     public static final String PREF_DARK_THEME = "pref_dark_theme";
     public static final String PREF_DUTY = "pref_duty";
+    public static final String PREF_MUTE = "pref_mute";
+    public static final String PREF_FREQ = "pref_freq";
+    public static final String PREF_WAVE = "pref_wave";
+    public static final String PREF_LEVEL = "pref_level";
 
     public static final String SET_FREQ = "org.billthefarmer.siggen.SET_FREQ";
     public static final String SET_WAVE = "org.billthefarmer.siggen.SET_WAVE";
@@ -228,7 +232,6 @@ public class Main extends Activity
 
         // Mute
         boolean mute = bundle.getBoolean(MUTE, false);
-
         if (mute)
         {
             v = findViewById(R.id.mute);
@@ -237,7 +240,7 @@ public class Main extends Activity
 
         // Fine frequency and level
         fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
-        level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL / 10));
+        level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL * 3 / 4));
 
         // Sleep
         sleep = bundle.getBoolean(SLEEP, false);
@@ -286,16 +289,21 @@ public class Main extends Activity
         // Get preferences
         final SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edit = preferences.edit();
 
         if (bookmarks != null)
         {
             JSONArray json = new JSONArray(bookmarks);
 
             // Save preference
-            SharedPreferences.Editor edit = preferences.edit();
             edit.putString(PREF_BOOKMARKS, json.toString());
-            edit.apply();
         }
+
+        edit.putInt(PREF_WAVE, audio.waveform);
+        edit.putBoolean(PREF_MUTE, audio.mute);
+        edit.putInt(PREF_LEVEL, level.getProgress());
+        edit.putString(PREF_FREQ, Double.toString(audio.frequency));
+        edit.apply();
     }
 
     // On destroy
@@ -606,13 +614,15 @@ public class Main extends Activity
         case R.id.level:
             if (display != null)
             {
-                double level = ((double) progress - MAX_LEVEL) / MAX_LEVEL * 80.0;
+                double level =
+                    ((double) progress - MAX_LEVEL) / MAX_LEVEL * 80.0;
                 display.setLevel(level);
             }
 
             if (audio != null)
             {
-                double level = ((double) progress - MAX_LEVEL) / MAX_LEVEL * 80.0;
+                double level =
+                    ((double) progress - MAX_LEVEL) / MAX_LEVEL * 80.0;
                 audio.level = Math.pow(10.0, level / 20.0);
             }
             break;
@@ -833,7 +843,41 @@ public class Main extends Activity
             PreferenceManager.getDefaultSharedPreferences(this);
 
         if (audio != null)
-            audio.duty = Float.parseFloat(preferences.getString(PREF_DUTY, "0.5"));
+        {
+            View v = null;
+
+            audio.duty =
+                Float.parseFloat(preferences.getString(PREF_DUTY, "0.5"));
+
+            double frequency =
+                Double.parseDouble(preferences.getString(PREF_FREQ, "1000.0"));
+            setFrequency(frequency);
+
+            int wave = preferences.getInt(PREF_WAVE, Audio.SINE);
+            switch (wave)
+            {
+            default:
+            case Audio.SINE:
+                v = findViewById(R.id.sine);
+                break;
+
+            case Audio.SQUARE:
+                v = findViewById(R.id.square);
+                break;
+
+            case Audio.SAWTOOTH:
+                v = findViewById(R.id.sawtooth);
+                break;
+            }
+            onClick(v);
+
+            int progress = preferences.getInt(PREF_LEVEL, MAX_LEVEL * 3 / 4);
+            level.setProgress(progress);
+
+            audio.mute = !preferences.getBoolean(PREF_MUTE, false);
+            v = findViewById(R.id.mute);
+            onClick(v);
+        }
 
         darkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
@@ -934,8 +978,7 @@ public class Main extends Activity
                     if (!audio.mute)
                     {
                         View v = findViewById(R.id.mute);
-                        if (v != null)
-                            onClick(v);
+                        onClick(v);
                     }
                 }
             }
@@ -972,7 +1015,7 @@ public class Main extends Activity
         protected static final int SAWTOOTH = 2;
 
         protected int waveform;
-        protected boolean mute;
+        protected boolean mute = true;
 
         protected double frequency;
         protected double level;
