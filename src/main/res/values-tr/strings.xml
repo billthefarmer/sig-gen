@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string name="app_name">Signal Generator</string>
-  <string name="copyright">Copyright \u00A9 2017 <a href="https://billthefarmer.github.io">Bill Farmer</a>
+  <string name="app_name">Sinyal Üreteci</string>
+  <string name="copyright">Telif hakkı \u00A9 2017 <a href="https://billthefarmer.github.io">Bill Farmer</a>
   </string>
-  <string name="licence">Licence <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  <string name="licence">Lisans <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
-  <string name="built">Built %s</string>
+  <string name="built">Oluştur %s</string>
 
-  <string name="settings">Settings</string>
-  <string name="sleep">Sleep</string>
-  <string name="exact">Exact</string>
-  <string name="bookmark">Bookmark</string>
-  <string name="frequency">Frequency</string>
-  <string name="enter">Enter frequency</string>
-  <string name="cancel">Cancel</string>
-  <string name="ok">OK</string>
+  <string name="settings">Ayarlar</string>
+  <string name="sleep">Uyu</string>
+  <string name="exact">Kesin</string>
+  <string name="bookmark">Yer işareti</string>
+  <string name="frequency">Frekans</string>
+  <string name="enter">Frekans girin</string>
+  <string name="cancel">İptal</string>
+  <string name="ok">Tamam</string>
 
-  <string name="bookmark_added">Bookmark added %1.2f</string>
-  <string name="bookmark_removed">Bookmark removed %1.2f</string>
+  <string name="bookmark_added">Yer işareti eklendi %1.2f</string>
+  <string name="bookmark_removed">Yer işareti kaldırıldı %1.2f</string>
 
-  <string name="sine">Sine</string>
+  <string name="sine">Sinüs</string>
   <string name="sin">Sin</string>
   <string name="s">S</string>
-  <string name="square">Square</string>
-  <string name="squ">Squ</string>
+  <string name="square">Kare</string>
+  <string name="squ">Kar</string>
   <string name="q">Q</string>
-  <string name="sawtooth">Sawtooth</string>
-  <string name="saw">Saw</string>
+  <string name="sawtooth">Testere dişli</string>
+  <string name="saw">Tes</string>
   <string name="w">W</string>
 
-  <string name="mute">Mute</string>
+  <string name="mute">Sesi kapat</string>
 
-  <string name="pref_about">About</string>
-  <string name="pref_about_summ">Signal Generator <a href="https://github.com/billthefarmer/sig-gen/releases/latest">version %s</a></string>
+  <string name="pref_about">Hakkında</string>
+  <string name="pref_about_summ">Sinyal Üreteci <a href="https://github.com/billthefarmer/sig-gen/releases/latest">version %s</a></string>
 
-  <string name="pref_theme">Theme</string>
-  <string name="pref_dark_theme">Dark</string>
-  <string name="pref_dark_theme_summ">Use dark theme</string>
+  <string name="pref_theme">Tema</string>
+  <string name="pref_dark_theme">Koyu</string>
+  <string name="pref_dark_theme_summ">Koyu temayı kullan</string>
 
-  <string name="pref_duty">Square duty cycle</string>
+  <string name="pref_duty">Kare görev döngüsü</string>
 
 </resources>
