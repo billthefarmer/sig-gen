@@ -1,0 +1,8 @@
+İki düğmeli ses sinyali üreteci.
+
+Frekans düğmesi parmak dönmesine tepki verir. İnce frekans ve seviye kaydırıcıları, frekans ve çıkış seviyesinin hassas bir şekilde ayarlanmasını sağlar. Frekans düğmesi ayrıca sol ve sağ ok düğmeleri kullanılarak ayarlanabilir. Frekans düğmesinin altındaki iki yer işareti düğmesi, yer işaretleri olup olmadığını gösterir ve varsa bir sonraki alt veya daha yüksek yer işaretine gider.
+
+ *  Frekans aralığı 0.1Hz - 25KHz
+ *  Seviye aralığı 0dB - -80dB
+ *  Tam frekansı ayarlama
+ *  Frekans yer imleri
