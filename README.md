@@ -1,4 +1,4 @@
-# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Signal Generator [![.github/workflows/main.yml](https://github.com/billthefarmer/sig-gen/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/billthefarmer/sig-gen/actions) [![Release](https://img.shields.io/github/release/billthefarmer/sig-gen.svg?logo=github)](https://github.com/billthefarmer/sig-gen/releases)
+# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Signal Generator [![.github/workflows/main.yml](https://github.com/billthefarmer/sig-gen/workflows/.github/workflows/build.yml/badge.svg)](https://github.com/billthefarmer/sig-gen/actions) [![Release](https://img.shields.io/github/release/billthefarmer/sig-gen.svg?logo=github)](https://github.com/billthefarmer/sig-gen/releases)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.svg" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/org.billthefarmer.siggen)
 
 A signal generator for Android. The app can be downloaded from [F-Droid](https://f-droid.org/packages/org.billthefarmer.siggen)
