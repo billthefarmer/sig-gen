@@ -69,6 +69,8 @@ public class Main extends Activity
     private static final int MAX_LEVEL = 160;
     private static final int MAX_FINE = 1000;
 
+    public static final int VERSION_CODE_S_V2 = 32;
+
     private static final double MARGIN = 1.0;
 
     private static final String TAG = "SigGen";
@@ -804,7 +806,7 @@ public class Main extends Activity
         toast.setGravity(Gravity.CENTER, 0, 0);
         // Fix for android 13
         View view = toast.getView();
-        if (view != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+        if (view != null && Build.VERSION.SDK_INT > VERSION_CODE_S_V2)
             view.setBackgroundResource(R.drawable.toast_frame);
         toast.show();
     }
