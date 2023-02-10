@@ -198,6 +198,8 @@ public class Main extends Activity
 
         if (dark != darkTheme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
+
+        checkButtons();
     }
 
     // Restore state
@@ -747,11 +749,30 @@ public class Main extends Activity
 
         // Higher
         case R.id.higher:
-        {
-            int progress = fine.getProgress();
-            fine.setProgress(++progress);
-        }
-        break;
+            if (fine != null)
+            {
+                int progress = fine.getProgress();
+                fine.setProgress(++progress);
+            }
+            break;
+
+        // Less
+        case R.id.less:
+            if (level != null)
+            {
+                int progress = level.getProgress();
+                level.setProgress(--progress);
+            }
+            break;
+
+        // More
+        case R.id.more:
+            if (level != null)
+            {
+                int progress = level.getProgress();
+                level.setProgress(++progress);
+            }
+            break;
         }
     }
 
@@ -934,6 +955,14 @@ public class Main extends Activity
         if (v != null)
             v.setOnClickListener(this);
 
+        v = findViewById(R.id.less);
+        if (v != null)
+            v.setOnClickListener(this);
+
+        v = findViewById(R.id.more);
+        if (v != null)
+            v.setOnClickListener(this);
+
         if (fine != null)
         {
             fine.setOnSeekBarChangeListener(this);
@@ -965,6 +994,24 @@ public class Main extends Activity
         v = findViewById(R.id.mute);
         if (v != null)
             v.setOnClickListener(this);
+    }
+
+    private void checkButtons()
+    {
+        final View v = findViewById(R.id.mute);
+        if (v != null)
+            v.postDelayed(() ->
+        {
+            int width = v.getWidth();
+            View l = findViewById(R.id.less);
+            if (l != null && width < l.getWidth())
+            {
+                l.setVisibility(View.GONE);
+                View m = findViewById(R.id.more);
+                if (m != null)
+                    m.setVisibility(View.GONE);
+            }
+        }, DELAY);
     }
 
     // setupPhoneStateListener
