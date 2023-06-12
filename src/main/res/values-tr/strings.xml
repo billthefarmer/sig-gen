@@ -36,8 +36,6 @@
   <string name="pref_about_summ">Sinyal Üreteci <a href="https://github.com/billthefarmer/sig-gen/releases/latest">version %s</a></string>
 
   <string name="pref_theme">Tema</string>
-  <string name="pref_dark_theme">Koyu</string>
-  <string name="pref_dark_theme_summ">Koyu temayı kullan</string>
 
   <string name="pref_duty">Kare görev döngüsü</string>
 

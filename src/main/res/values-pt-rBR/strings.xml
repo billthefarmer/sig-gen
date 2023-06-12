@@ -35,8 +35,6 @@
   <string name="pref_duty">Ciclo de trabalho quadrado</string>
 
   <string name="pref_theme">Tema</string>
-  <string name="pref_dark_theme">Sombrio</string>
-  <string name="pref_dark_theme_summ">Use o tema escuro</string>
 
   <string name="pref_about">Sobre</string>
   <string name="pref_about_summ">Signal Generator <a href="https://github.com/billthefarmer/sig-gen/releases/latest">versão %s</a></string>
