@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -69,6 +70,10 @@ public class Main extends Activity
     private static final int MAX_LEVEL = 160;
     private static final int MAX_FINE = 1000;
 
+    public static final int LIGHT  = 0;
+    public static final int DARK   = 1;
+    public static final int SYSTEM = 2;
+
     public static final int VERSION_CODE_S_V2 = 32;
 
     private static final double MARGIN = 1.0;
@@ -86,7 +91,7 @@ public class Main extends Activity
     private static final String SLEEP = "sleep";
 
     public static final String PREF_BOOKMARKS = "pref_bookmarks";
-    public static final String PREF_DARK_THEME = "pref_dark_theme";
+    public static final String PREF_THEME = "pref_theme";
     public static final String PREF_DUTY = "pref_duty";
     public static final String PREF_MUTE = "pref_mute";
     public static final String PREF_FREQ = "pref_freq";
@@ -114,7 +119,7 @@ public class Main extends Activity
     private List<Double> bookmarks;
 
     private boolean sleep;
-    private boolean darkTheme;
+    private int theme;
 
     // On create
     @Override
@@ -125,8 +130,32 @@ public class Main extends Activity
         // Get preferences
         getPreferences();
 
-        if (!darkTheme)
+        Configuration config = getResources().getConfiguration();
+        int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (theme)
+        {
+        case LIGHT:
             setTheme(R.style.AppTheme);
+            break;
+
+        case DARK:
+            setTheme(R.style.AppDarkTheme);
+            break;
+
+        case SYSTEM:
+            switch (night)
+            {
+            case Configuration.UI_MODE_NIGHT_NO:
+                setTheme(R.style.AppTheme);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_YES:
+                setTheme(R.style.AppDarkTheme);
+                break;
+            }
+            break;
+        }
 
         setContentView(R.layout.main);
 
@@ -191,12 +220,12 @@ public class Main extends Activity
     {
         super.onResume();
 
-        boolean dark = darkTheme;
+        int last = theme;
 
         // Get preferences
         getPreferences();
 
-        if (dark != darkTheme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
+        if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
         checkButtons();
@@ -902,7 +931,7 @@ public class Main extends Activity
             onClick(v);
         }
 
-        darkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+        theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
 
         String string = preferences.getString(PREF_BOOKMARKS, "");
 

@@ -28,7 +28,7 @@
     <item name="previous">@drawable/ic_action_previous_item</item>
 
     <item name="pref_about">@drawable/ic_action_about</item>
-    <item name="pref_dark_theme">@drawable/ic_action_brightness_high_light</item>
+    <item name="pref_theme">@drawable/ic_action_brightness_high_light</item>
     <item name="pref_duty">@drawable/ic_action_sort_by_size</item>
 
   </style>
@@ -56,7 +56,7 @@
     <item name="previous">@drawable/ic_action_previous_item_dark</item>
 
     <item name="pref_about">@drawable/ic_action_about_dark</item>
-    <item name="pref_dark_theme">@drawable/ic_action_brightness_high</item>
+    <item name="pref_theme">@drawable/ic_action_brightness_high</item>
     <item name="pref_duty">@drawable/ic_action_sort_by_size_dark</item>
 
   </style>
