@@ -32,6 +32,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 // SettingsActivity
+@SuppressWarnings("deprecation")
 public class SettingsActivity extends Activity
 {
     // On create

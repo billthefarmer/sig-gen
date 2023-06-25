@@ -23,22 +23,22 @@ allprojects {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
     namespace "org.billthefarmer.siggen"
 
     defaultConfig {
         applicationId "org.billthefarmer.siggen"
         minSdkVersion 14
-        targetSdkVersion 28
-        versionName "1.30"
-        versionCode 130
+        targetSdkVersion 31
+        versionName "1.31"
+        versionCode 131
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_9
+        targetCompatibility JavaVersion.VERSION_1_9
     }
 
     lintOptions {

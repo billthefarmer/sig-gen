@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 
+@SuppressWarnings("deprecation")
 public class AboutPreference extends DialogPreference
 {
 

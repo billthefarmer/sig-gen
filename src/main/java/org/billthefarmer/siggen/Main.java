@@ -60,6 +60,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("deprecation")
 public class Main extends Activity
     implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
     View.OnClickListener, ValueAnimator.AnimatorUpdateListener
