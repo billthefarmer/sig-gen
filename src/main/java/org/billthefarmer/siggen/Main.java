@@ -47,11 +47,14 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import org.json.JSONArray;
 
@@ -63,7 +66,8 @@ import java.util.Locale;
 @SuppressWarnings("deprecation")
 public class Main extends Activity
     implements Knob.OnKnobChangeListener, SeekBar.OnSeekBarChangeListener,
-    View.OnClickListener, ValueAnimator.AnimatorUpdateListener
+    View.OnClickListener, ValueAnimator.AnimatorUpdateListener,
+    PopupMenu.OnMenuItemClickListener
 {
     public static final String EXACT = "exact";
 
@@ -112,6 +116,7 @@ public class Main extends Activity
 
     private SeekBar fine;
     private SeekBar level;
+    private Toolbar toolbar;
 
     private Toast toast;
 
@@ -171,6 +176,20 @@ public class Main extends Activity
         // Get wake lock
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOCK);
+
+        // Find toolbar
+        ViewGroup root = (ViewGroup) getWindow().getDecorView();
+        toolbar = findToolbar(root);
+
+        // Set up navigation
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
+        toolbar.setNavigationOnClickListener((v) ->
+        {
+            PopupMenu popup = new PopupMenu(this, v);
+            popup.inflate(R.menu.navigation);
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
+        });
 
         // Audio
         audio = new Audio();
@@ -390,6 +409,44 @@ public class Main extends Activity
         default:
             return false;
         }
+    }
+
+    // onMenuItemClick
+    @Override
+    public boolean onMenuItemClick(MenuItem item)
+    {
+        // Get id
+        int id = item.getItemId();
+        switch (id)
+        {
+        // Settings
+        case R.id.settings:
+            return onSettingsClick(item);
+
+        default:
+            return false;
+        }
+    }
+
+    // findToolbar
+    private Toolbar findToolbar(ViewGroup group)
+    {
+        View result = null;
+        final int count = group.getChildCount();
+        for (int i = 0; i < count; i++)
+        {
+            View view = group.getChildAt(i);
+            if (view instanceof Toolbar)
+                return (Toolbar) view;
+
+            if (view instanceof ViewGroup)
+                result = findToolbar((ViewGroup) view);
+
+            if (result != null)
+                break;
+        }
+
+        return (Toolbar) result;
     }
 
     // On settings click

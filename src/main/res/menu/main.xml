@@ -18,11 +18,11 @@
       android:icon="@drawable/ic_action_brightness_low"
       android:showAsAction="ifRoom"
       android:title="@string/sleep" />
-
+  <!--
   <item
       android:id="@+id/settings"
       android:icon="@drawable/ic_action_settings"
       android:showAsAction="ifRoom"
       android:title="@string/settings" />
-
+  -->
 </menu>
