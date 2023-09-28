@@ -13,8 +13,11 @@
   <string name="exact">Kesin</string>
   <string name="bookmark">Yer işareti</string>
   <string name="frequency">Frekans</string>
+  <string name="level">Düzey</string>
   <string name="enter">Frekans girin</string>
   <string name="cancel">İptal</string>
+  <string name="create">Yaratmak</string>
+  <string name="clear">Berrak</string>
   <string name="ok">Tamam</string>
 
   <string name="bookmark_added">Yer işareti eklendi %1.2f</string>

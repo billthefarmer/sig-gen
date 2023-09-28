@@ -13,8 +13,11 @@
   <string name="exact">Exato</string>
   <string name="bookmark">Favorito</string>
   <string name="frequency">Frequência</string>
+  <string name="level">Nível</string>
   <string name="enter">Inserir Frequência</string>
   <string name="cancel">Cancelar</string>
+  <string name="create">Criar</string>
+  <string name="clear">Claro</string>
   <string name="ok">OK</string>
 
   <string name="bookmark_added">Favorito adicionado %1.2f</string>

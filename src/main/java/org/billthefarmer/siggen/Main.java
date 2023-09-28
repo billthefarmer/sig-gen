@@ -205,7 +205,52 @@ public class Main extends Activity
 
         // Restore state
         if (savedInstanceState != null)
-            restoreState(savedInstanceState);
+        {
+            // Get saved state bundle
+            Bundle bundle = savedInstanceState.getBundle(STATE);
+
+            // Knob
+            if (knob != null)
+                knob.setValue(bundle.getFloat(KNOB, 400));
+
+            // Waveform
+            int waveform = bundle.getInt(WAVE, Audio.SINE);
+
+            // Waveform buttons
+            View v = null;
+            switch (waveform)
+            {
+            case Audio.SINE:
+                v = findViewById(R.id.sine);
+                break;
+
+            case Audio.SQUARE:
+                v = findViewById(R.id.square);
+                break;
+
+            case Audio.SAWTOOTH:
+                v = findViewById(R.id.sawtooth);
+                break;
+            }
+
+            if (v != null)
+                onClick(v);
+
+            // Mute
+            boolean mute = bundle.getBoolean(MUTE, false);
+            if (mute)
+                onClick(findViewById(R.id.mute));
+
+            // Fine frequency and level
+            fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
+            level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL * 3 / 4));
+
+            // Sleep
+            sleep = bundle.getBoolean(SLEEP, false);
+
+            if (sleep)
+                wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
+        }
 
         // Get intent
         setState(getIntent());
@@ -243,63 +288,19 @@ public class Main extends Activity
         int last = theme;
 
         // Get preferences
-        getPreferences();
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
 
         if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
+        if (audio != null)
+            audio.duty =
+                Float.parseFloat(preferences.getString(PREF_DUTY, "0.5"));
+
         checkButtons();
-    }
-
-    // Restore state
-    private void restoreState(Bundle savedInstanceState)
-    {
-        // Get saved state bundle
-        Bundle bundle = savedInstanceState.getBundle(STATE);
-
-        // Knob
-        if (knob != null)
-            knob.setValue(bundle.getFloat(KNOB, 400));
-
-        // Waveform
-        int waveform = bundle.getInt(WAVE, Audio.SINE);
-
-        // Waveform buttons
-        View v = null;
-        switch (waveform)
-        {
-        case Audio.SINE:
-            v = findViewById(R.id.sine);
-            break;
-
-        case Audio.SQUARE:
-            v = findViewById(R.id.square);
-            break;
-
-        case Audio.SAWTOOTH:
-            v = findViewById(R.id.sawtooth);
-            break;
-        }
-
-        onClick(v);
-
-        // Mute
-        boolean mute = bundle.getBoolean(MUTE, false);
-        if (mute)
-        {
-            v = findViewById(R.id.mute);
-            onClick(v);
-        }
-
-        // Fine frequency and level
-        fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
-        level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL * 3 / 4));
-
-        // Sleep
-        sleep = bundle.getBoolean(SLEEP, false);
-
-        if (sleep)
-            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
     }
 
     // Save state

@@ -61,4 +61,35 @@
 
   </style>
 
+  <style name="DialogBaseTheme" parent="android:Theme.Material.Light.Dialog">
+    <!--
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
+    -->
+  </style>
+
+  <style name="DialogDarkBaseTheme" parent="android:Theme.Material.Dialog">
+    <!--
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
+    -->
+  </style>
+
+  <style name="DialogTheme" parent="DialogBaseTheme">
+    <!--
+        All customizations that are NOT specific to a particular
+        API-level can go here.
+    -->
+  </style>
+
+
+  <style name="DialogDarkTheme" parent="DialogDarkBaseTheme">
+    <!--
+        All customizations that are NOT specific to a particular
+        API-level can go here.
+    -->
+  </style>
+
 </resources>

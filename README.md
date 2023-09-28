@@ -25,9 +25,14 @@ The toolbar items are, from left to right:
  * **Exact** - Prompt for an exact frequency
  * **Bookmark** - Save the current frequency as a bookmark
  * **Sleep** - Prevent the device from sleeping
- * **Settings** - Show the settings.
  
 To remove a bookmark, go to it and touch the toolbar bookmark button.
+
+### Shortcut
+A shortcut may be created to set the parameters shown below. Empty
+frequency and level values and unchecked waveform values will not
+be included. The mute value will always be included. The title of
+the shortcut will be composed from the set values.
 
 ### External Control
 The app may be started, the frequency, level, waveform and mute set

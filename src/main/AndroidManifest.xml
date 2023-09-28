@@ -30,6 +30,16 @@
     </activity>
 
     <activity
+        android:name="Shortcut"
+        android:exported="true"
+        android:theme="@style/DialogDarkTheme">
+      <intent-filter>
+        <action android:name="android.intent.action.CREATE_SHORTCUT" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+
+    <activity
         android:name="SettingsActivity"
         android:screenOrientation="landscape" />
 
