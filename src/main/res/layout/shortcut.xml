@@ -11,6 +11,15 @@
     tools:ignore="Autofill">
 
   <EditText
+      android:id="@+id/name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:hint="@string/name"
+      android:inputType="textCapWords" />
+
+  <EditText
       android:id="@+id/freq"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -26,7 +35,7 @@
       android:layout_marginLeft="8dp"
       android:layout_marginRight="8dp"
       android:hint="@string/level"
-      android:inputType="numberSigned" />
+      android:inputType="numberDecimal|numberSigned" />
 
   <RadioGroup
       android:layout_width="match_parent"

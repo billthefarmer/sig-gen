@@ -86,6 +86,7 @@ public class Shortcut extends Activity
         // Set content
         setContentView(R.layout.shortcut);
 
+        TextView nameView = findViewById(R.id.name);
         TextView freqView = findViewById(R.id.freq);
         TextView levelView = findViewById(R.id.level);
         RadioButton sine = findViewById(R.id.sine);
@@ -104,6 +105,7 @@ public class Shortcut extends Activity
 
         clear.setOnClickListener((v) ->
         {
+            nameView.setText("");
             freqView.setText("");
             levelView.setText("");
             sine.setChecked(false);
@@ -114,23 +116,23 @@ public class Shortcut extends Activity
 
         create.setOnClickListener((v) ->
         {
-            String result = freqView.getText().toString();
+            String value = freqView.getText().toString();
             float freq = Float.NaN;
 
             // Ignore empty string
-            if (!result.isEmpty())
-                freq = Float.parseFloat(result);
+            if (!value.isEmpty())
+                freq = Float.parseFloat(value);
 
             // Ignore if out of range
             if (freq < 0.1 || freq > 25000)
                 freq = Float.NaN;
 
-            result = levelView.getText().toString();
+            value = levelView.getText().toString();
             float level = Float.NaN;
 
             // Ignore empty string
-            if (!result.isEmpty())
-                level = Float.parseFloat(result);
+            if (!value.isEmpty())
+                level = Float.parseFloat(value);
 
             // Ignore if out of range
             if (level < -80 || level > 0)
@@ -161,33 +163,43 @@ public class Shortcut extends Activity
             shortcut.putExtra(Main.SET_MUTE, mute);
 
             StringBuilder name = new StringBuilder();
-            if (!Float.isNaN(freq))
-                name.append(String.format(Locale.getDefault(), "%1.2f ", freq));
-            if (!Float.isNaN(level))
-                name.append(String.format(Locale.getDefault(), "%1.2f ", level));
-            if (waveform != -1)
+            value = nameView.getText().toString();
+            if (value.isEmpty())
             {
-                switch (waveform)
+                if (!Float.isNaN(freq))
+                    name.append(String.format(Locale.getDefault(),
+                                              "%1.2fHz ", freq));
+                if (!Float.isNaN(level))
+                    name.append(String.format(Locale.getDefault(),
+                                              "%1.2fdB ", level));
+                if (waveform != -1)
                 {
-                case Main.Audio.SINE:
-                    name.append(getText(R.string.sine));
-                    break;
+                    switch (waveform)
+                    {
+                    case Main.Audio.SINE:
+                        name.append(getText(R.string.sine));
+                        break;
 
-                case Main.Audio.SQUARE:
-                    name.append(getText(R.string.square));
-                    break;
+                    case Main.Audio.SQUARE:
+                        name.append(getText(R.string.square));
+                        break;
 
-                case Main.Audio.SAWTOOTH:
-                    name.append(getText(R.string.sawtooth));
-                    break;
+                    case Main.Audio.SAWTOOTH:
+                        name.append(getText(R.string.sawtooth));
+                        break;
+                    }
+                    name.append(" ");
                 }
-                name.append(" ");
-            }
-            if (mute)
-                name.append(getText(R.string.mute));
 
-            if (name.length() == 0)
-                name.append(getText(R.string.app_name));
+                if (mute)
+                    name.append(getText(R.string.mute));
+
+                if (name.length() == 0)
+                    name.append(getText(R.string.app_name));
+            }
+
+            else
+                name.append(value);
 
             // Create the shortcut
             Intent intent = new Intent();

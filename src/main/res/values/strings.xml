@@ -12,6 +12,7 @@
   <string name="sleep">Sleep</string>
   <string name="exact">Exact</string>
   <string name="bookmark">Bookmark</string>
+  <string name="name">Name</string>
   <string name="frequency">Frequency</string>
   <string name="level">Level</string>
   <string name="enter">Enter frequency</string>

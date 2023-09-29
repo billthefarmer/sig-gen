@@ -11,6 +11,7 @@ and [here](https://github.com/billthefarmer/sig-gen/releases).
  *  Set exact frequency
  *  Frequency bookmarks
  *  Square wave duty cycle
+ *  Shortcut
  *  External control
 
 ### Using
@@ -30,9 +31,10 @@ To remove a bookmark, go to it and touch the toolbar bookmark button.
 
 ### Shortcut
 A shortcut may be created to set the parameters shown below. Empty
-frequency and level values and unchecked waveform values will not
-be included. The mute value will always be included. The title of
-the shortcut will be composed from the set values.
+frequency and level values and unchecked waveform values will not be
+included. The mute value will always be included. The name of the
+shortcut will be composed from the set values if the name field is
+empty.
 
 ### External Control
 The app may be started, the frequency, level, waveform and mute set
@@ -56,7 +58,7 @@ parameters may be:
 | | org.billthefarmer.siggen.SET_MUTE | boolean | true, false |
 
 Any combination of extras or none may be sent. Subsequent intents sent
-will update the parameters from the included extras.
+will update the values from the included extras.
 
 This may be tested using the [Android Debug
 Bridge](https://developer.android.com/studio/command-line/adb#am).
