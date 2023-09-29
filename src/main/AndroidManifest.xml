@@ -43,6 +43,10 @@
         android:name="SettingsActivity"
         android:screenOrientation="landscape" />
 
+    <activity
+        android:name="HelpActivity"
+        android:screenOrientation="landscape" />
+
   </application>
 
 </manifest>

@@ -1,0 +1,58 @@
+<h2>Signal Generator</h2>
+<p>
+  A signal generator for Android. The app can be downloaded
+  from <a href="https://f-droid.org/packages/org.billthefarmer.siggen">F-Droid</a>
+  and <a href="https://github.com/billthefarmer/sig-gen/releases">here</a>.
+</p>
+&nbsp; &bullet;&nbsp; Frequency range 0.1Hz &ndash; 25KHz<br>
+&nbsp; &bullet;&nbsp; Level range 0dB &ndash; -80dB<br>
+&nbsp; &bullet;&nbsp; Set exact frequency<br>
+&nbsp; &bullet;&nbsp; Frequency bookmarks<br>
+&nbsp; &bullet;&nbsp; Square wave duty cycle<br>
+&nbsp; &bullet;&nbsp; Shortcut<br>
+&nbsp; &bullet;&nbsp; External control<br>
+<h3>Using</h3>
+<p>
+  The frequency knob responds to finger twirling. The fine frequency
+  and level sliders allow for fine adjustments of frequency and output
+  level. The frequency knob is also adjustable using the left and
+  right arrow buttons above. The two bookmark buttons below the
+  frequency knob show if there are bookmarks, and will go to the next
+  lower or higher bookmark if it exists.
+</p>
+<p>
+  The toolbar items are, from left to right:
+</p>
+&nbsp; &bullet;&nbsp; <strong>Exact</strong> - Prompt for an exact frequency<br>
+&nbsp; &bullet;&nbsp; <strong>Bookmark</strong> - Save the current frequency as a bookmark<br>
+&nbsp; &bullet;&nbsp; <strong>Sleep</strong> - Prevent the device from sleeping<br>
+<p>
+  To remove a bookmark, go to it and touch the toolbar bookmark button.
+</p>
+<h3>Shortcut</h3>
+<p>
+  A shortcut may be created to set the parameters shown below. Empty
+  frequency and level values and unchecked waveform values will not be
+  included. The mute value will always be included. The name of the
+  shortcut will be composed from the set values if the name field is
+  empty.
+</p>
+<h3>External Control</h3>
+<p>
+  The app may be started, the frequency, level, waveform and mute set
+  externally by sending a suitable
+  <a href="https://developer.android.com/reference/android/content/Intent">Intent</a>
+  from an automation app. The app package/activity is
+  org.billthefarmer.siggen/org.billthefarmer.siggen.Main. The
+  parameters may be seen in a table in
+  the <a href="https://github.com/billthefarmer/sig-gen#external-control">README</a>.
+</p>
+<p>
+  Any combination of extras or none may be sent. Subsequent intents sent
+  will update the values from the included extras.
+</p>
+<p>
+  This may be tested using
+  the <a href="https://developer.android.com/studio/command-line/adb#am">Android
+  Debug Bridge</a>.
+</p>

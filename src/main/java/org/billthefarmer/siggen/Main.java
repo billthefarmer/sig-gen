@@ -391,10 +391,6 @@ public class Main extends Activity
         int id = item.getItemId();
         switch (id)
         {
-        // Settings
-        case R.id.settings:
-            return onSettingsClick(item);
-
         // Sleep
         case R.id.sleep:
             return onSleepClick(item);
@@ -420,6 +416,10 @@ public class Main extends Activity
         int id = item.getItemId();
         switch (id)
         {
+        // Help
+        case R.id.help:
+            return onHelpClick(item);
+
         // Settings
         case R.id.settings:
             return onSettingsClick(item);
@@ -448,6 +448,15 @@ public class Main extends Activity
         }
 
         return (Toolbar) result;
+    }
+
+    // On help click
+    private boolean onHelpClick(MenuItem item)
+    {
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
+
+        return true;
     }
 
     // On settings click
