@@ -178,9 +178,8 @@ public class Main extends Activity
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOCK);
 
         // Find toolbar
-        ViewGroup root = (ViewGroup) getWindow().getDecorView();
-        toolbar = findToolbar(root);
-
+        toolbar = findViewById(getResources().getIdentifier("action_bar",
+                                                            "id", "android"));
         // Set up navigation
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
         toolbar.setNavigationOnClickListener((v) ->
@@ -427,27 +426,6 @@ public class Main extends Activity
         default:
             return false;
         }
-    }
-
-    // findToolbar
-    private Toolbar findToolbar(ViewGroup group)
-    {
-        View result = null;
-        final int count = group.getChildCount();
-        for (int i = 0; i < count; i++)
-        {
-            View view = group.getChildAt(i);
-            if (view instanceof Toolbar)
-                return (Toolbar) view;
-
-            if (view instanceof ViewGroup)
-                result = findToolbar((ViewGroup) view);
-
-            if (result != null)
-                break;
-        }
-
-        return (Toolbar) result;
     }
 
     // On help click
