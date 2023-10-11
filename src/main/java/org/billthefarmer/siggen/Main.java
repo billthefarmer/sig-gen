@@ -53,6 +53,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -73,6 +74,7 @@ public class Main extends Activity
 
     private static final int DELAY = 250;
     private static final int MAX_LEVEL = 160;
+    private static final int MAX_DUTY = 1000;
     private static final int MAX_FINE = 1000;
 
     public static final int LIGHT  = 0;
@@ -91,6 +93,7 @@ public class Main extends Activity
     private static final String KNOB = "knob";
     private static final String WAVE = "wave";
     private static final String MUTE = "mute";
+    private static final String DUTY = "duty";
     private static final String FINE = "fine";
     private static final String LEVEL = "level";
     private static final String SLEEP = "sleep";
@@ -106,6 +109,7 @@ public class Main extends Activity
     public static final String SET_FREQ = "org.billthefarmer.siggen.SET_FREQ";
     public static final String SET_WAVE = "org.billthefarmer.siggen.SET_WAVE";
     public static final String SET_MUTE = "org.billthefarmer.siggen.SET_MUTE";
+    public static final String SET_DUTY = "org.billthefarmer.siggen.SET_DUTY";
     public static final String SET_LEVEL = "org.billthefarmer.siggen.SET_LEVEL";
 
     private Audio audio;
@@ -114,9 +118,11 @@ public class Main extends Activity
     private Scale scale;
     private Display display;
 
+    private SeekBar duty;
     private SeekBar fine;
     private SeekBar level;
     private Toolbar toolbar;
+    private TextView custom;
 
     private Toast toast;
 
@@ -134,7 +140,10 @@ public class Main extends Activity
         super.onCreate(savedInstanceState);
 
         // Get preferences
-        getPreferences();
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
 
         Configuration config = getResources().getConfiguration();
         int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -170,6 +179,7 @@ public class Main extends Activity
         scale = findViewById(R.id.scale);
         knob = findViewById(R.id.knob);
 
+        duty = findViewById(R.id.duty);
         fine = findViewById(R.id.fine);
         level = findViewById(R.id.level);
 
@@ -177,11 +187,16 @@ public class Main extends Activity
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOCK);
 
+        // Set up custom view
+        getActionBar().setCustomView(R.layout.custom);
+        getActionBar().setDisplayShowCustomEnabled(true);
+        custom = (TextView) getActionBar().getCustomView();
+
         // Find toolbar
         toolbar = findViewById(getResources().getIdentifier("action_bar",
                                                             "id", "android"));
         // Set up navigation
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         toolbar.setNavigationOnClickListener((v) ->
         {
             PopupMenu popup = new PopupMenu(this, v);
@@ -201,6 +216,9 @@ public class Main extends Activity
 
         // Setup phone state listener
         setupPhoneStateListener();
+
+        // Get preferences
+        getPreferences();
 
         // Restore state
         if (savedInstanceState != null)
@@ -237,10 +255,11 @@ public class Main extends Activity
 
             // Mute
             boolean mute = bundle.getBoolean(MUTE, false);
-            if (mute)
+            if (mute != audio.mute)
                 onClick(findViewById(R.id.mute));
 
-            // Fine frequency and level
+            // Duty, fine frequency and level
+            duty.setProgress(bundle.getInt(DUTY, MAX_DUTY / 2));
             fine.setProgress(bundle.getInt(FINE, MAX_FINE / 2));
             level.setProgress(bundle.getInt(LEVEL, MAX_LEVEL * 3 / 4));
 
@@ -295,10 +314,6 @@ public class Main extends Activity
         if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
-        if (audio != null)
-            audio.duty =
-                Float.parseFloat(preferences.getString(PREF_DUTY, "0.5"));
-
         checkButtons();
     }
 
@@ -319,6 +334,9 @@ public class Main extends Activity
 
         // Mute
         bundle.putBoolean(MUTE, audio.mute);
+
+        // Duty
+        bundle.putInt(DUTY, duty.getProgress());
 
         // Fine
         bundle.putInt(FINE, fine.getProgress());
@@ -354,6 +372,8 @@ public class Main extends Activity
 
         edit.putInt(PREF_WAVE, audio.waveform);
         edit.putBoolean(PREF_MUTE, audio.mute);
+        edit.remove(PREF_DUTY);
+        edit.putInt(PREF_DUTY, duty.getProgress());
         edit.putInt(PREF_LEVEL, level.getProgress());
         edit.putString(PREF_FREQ, Double.toString(audio.frequency));
         edit.apply();
@@ -371,9 +391,8 @@ public class Main extends Activity
                                        getSystemService(TELEPHONY_SERVICE);
             manager.listen(phoneListener, PhoneStateListener.LISTEN_NONE);
         }
-        catch (Exception e)
-        {
-        }
+
+        catch (Exception e) {}
 
         if (sleep)
             wakeLock.release();
@@ -589,9 +608,21 @@ public class Main extends Activity
         // Mute
         if (extras.containsKey(SET_MUTE))
         {
-            audio.mute = !extras.getBoolean(SET_MUTE);
-            View view = findViewById(R.id.mute);
-            onClick(view);
+            boolean mute = extras.getBoolean(SET_MUTE);
+            if (mute != audio.mute)
+                onClick(findViewById(R.id.mute));
+        }
+
+        // Duty
+        if (extras.containsKey(SET_DUTY))
+        {
+            int value = extras.getInt(SET_DUTY);
+            if (value != 0)
+                duty.setProgress(value * MAX_DUTY / 100);
+
+            else
+                duty.setProgress((int) extras.getFloat(SET_DUTY) *
+                                 MAX_DUTY / 100);
         }
 
         // Level
@@ -671,6 +702,14 @@ public class Main extends Activity
         // Check id
         switch (id)
         {
+        // Duty
+        case R.id.duty:
+            audio.duty = ((float) progress) / MAX_DUTY;
+            String text = String.format(Locale.getDefault(), "%d%%",
+                                        progress * 100 / MAX_DUTY);
+            custom.setText(text);
+            break;
+
         // Fine
         case R.id.fine:
         {
@@ -944,9 +983,6 @@ public class Main extends Activity
         {
             View v = null;
 
-            audio.duty =
-                Float.parseFloat(preferences.getString(PREF_DUTY, "0.5"));
-
             double frequency =
                 Double.parseDouble(preferences.getString(PREF_FREQ, "1000.0"));
             setFrequency(frequency);
@@ -969,12 +1005,20 @@ public class Main extends Activity
             }
             onClick(v);
 
+            try
+            {
+                int progress = preferences.getInt(PREF_DUTY, MAX_DUTY / 2);
+                duty.setProgress(progress);
+            }
+
+            catch (Exception e) {}
+
             int progress = preferences.getInt(PREF_LEVEL, MAX_LEVEL * 3 / 4);
             level.setProgress(progress);
 
-            audio.mute = !preferences.getBoolean(PREF_MUTE, false);
-            v = findViewById(R.id.mute);
-            onClick(v);
+            boolean mute = preferences.getBoolean(PREF_MUTE, false);
+            if (mute != audio.mute)
+                onClick(findViewById(R.id.mute));
         }
 
         theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
@@ -990,9 +1034,8 @@ public class Main extends Activity
 
             checkBookmarks();
         }
-        catch (Exception e)
-        {
-        }
+
+        catch (Exception e) {}
     }
 
     // Set up widgets
@@ -1037,6 +1080,14 @@ public class Main extends Activity
         v = findViewById(R.id.more);
         if (v != null)
             v.setOnClickListener(this);
+
+        if (duty != null)
+        {
+            duty.setOnSeekBarChangeListener(this);
+
+            duty.setMax(MAX_DUTY);
+            duty.setProgress(MAX_DUTY / 2);
+        }
 
         if (fine != null)
         {
@@ -1115,9 +1166,8 @@ public class Main extends Activity
                                        getSystemService(TELEPHONY_SERVICE);
             manager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
         }
-        catch (Exception e)
-        {
-        }
+
+        catch (Exception e) {}
     }
 
     // A collection of unused unwanted unloved listener callback methods
@@ -1139,7 +1189,7 @@ public class Main extends Activity
         protected static final int SAWTOOTH = 2;
 
         protected int waveform;
-        protected boolean mute = true;
+        protected boolean mute = false;
 
         protected double frequency;
         protected double level;
@@ -1200,7 +1250,7 @@ public class Main extends Activity
             int sizes[] = {1024, 2048, 4096, 8192, 16384, 32768};
             int size = 0;
 
-            for (int s : sizes)
+            for (int s: sizes)
             {
                 if (s > minSize)
                 {
@@ -1216,11 +1266,9 @@ public class Main extends Activity
                                         AudioFormat.CHANNEL_OUT_MONO,
                                         AudioFormat.ENCODING_PCM_16BIT,
                                         size, AudioTrack.MODE_STREAM);
-            // Check audioTrack
 
-            // Check state
+            // Check audioTrack state
             int state = audioTrack.getState();
-
             if (state != AudioTrack.STATE_INITIALIZED)
             {
                 audioTrack.release();

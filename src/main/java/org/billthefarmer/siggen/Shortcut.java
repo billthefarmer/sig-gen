@@ -89,6 +89,7 @@ public class Shortcut extends Activity
         TextView nameView = findViewById(R.id.name);
         TextView freqView = findViewById(R.id.freq);
         TextView levelView = findViewById(R.id.level);
+        TextView dutyView = findViewById(R.id.duty);
         RadioButton sine = findViewById(R.id.sine);
         RadioButton square = findViewById(R.id.square);
         RadioButton sawtooth = findViewById(R.id.sawtooth);
@@ -138,6 +139,13 @@ public class Shortcut extends Activity
             if (level < -80 || level > 0)
                 level = Float.NaN;
 
+            value = dutyView.getText().toString();
+            int duty = -1;
+
+            // Ignore empty string
+            if (!value.isEmpty())
+                duty = Integer.parseInt(value);
+
             int waveform = -1;
             if (sine.isChecked())
                 waveform = Main.Audio.SINE;
@@ -158,6 +166,8 @@ public class Shortcut extends Activity
                 shortcut.putExtra(Main.SET_FREQ, freq);
             if (!Float.isNaN(level))
                 shortcut.putExtra(Main.SET_LEVEL, level);
+            if (duty != -1)
+                shortcut.putExtra(Main.SET_DUTY, duty);
             if (waveform != -1)
                 shortcut.putExtra(Main.SET_WAVE, waveform);
             shortcut.putExtra(Main.SET_MUTE, mute);
@@ -172,6 +182,9 @@ public class Shortcut extends Activity
                 if (!Float.isNaN(level))
                     name.append(String.format(Locale.getDefault(),
                                               "%1.2fdB ", level));
+                if (duty != -1)
+                    name.append(String.format(Locale.getDefault(),
+                                              "%1d%% ", duty));
                 if (waveform != -1)
                 {
                     switch (waveform)

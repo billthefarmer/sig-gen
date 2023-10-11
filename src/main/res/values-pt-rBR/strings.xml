@@ -16,6 +16,7 @@
   <string name="name">Nome</string>
   <string name="frequency">Frequência</string>
   <string name="level">Nível</string>
+  <string name="duty">Dever</string>
   <string name="enter">Inserir Frequência</string>
   <string name="cancel">Cancelar</string>
   <string name="create">Criar</string>
@@ -36,8 +37,6 @@
   <string name="w">R</string>
 
   <string name="mute">Mutar</string>
-
-  <string name="pref_duty">Ciclo de trabalho quadrado</string>
 
   <string name="pref_theme">Tema</string>
 

@@ -37,8 +37,8 @@ shortcut will be composed from the set values if the name field is
 empty.
 
 ### External Control
-The app may be started, the frequency, level, waveform and mute set
-externally by sending a suitable
+The app may be started, the frequency, level, duty cycle, waveform and
+mute set externally by sending a suitable
 [Intent](https://developer.android.com/reference/android/content/Intent)
 from an automation app. The app package/activity is
 `org.billthefarmer.siggen/org.billthefarmer.siggen.Main`. The
@@ -52,6 +52,7 @@ parameters may be:
 | | android.intent.category.DEFAULT |
 | Extras | org.billthefarmer.siggen.SET_FREQ | int, float | 0.1 &ndash; 25000 |
 | | org.billthefarmer.siggen.SET_LEVEL | int, float | -80 &ndash; 0 |
+| | org.billthefarmer.siggen.SET_DUTY | int, float | 0 &ndash; 100 |
 | | org.billthefarmer.siggen.SET_WAVE | int | 0 = Sine |
 | | | | 1 = Square |
 | | | | 2 = Sawtooth |

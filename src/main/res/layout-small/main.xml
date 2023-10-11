@@ -166,7 +166,16 @@
       android:text="@string/mute" />
 
   <SeekBar
-      android:id="@+id/fine"
+      android:id="@+id/duty"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/fine"
+      android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_marginBottom="8dp" />
+
+  <SeekBar
+      android:id="@id/fine"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_above="@+id/level"

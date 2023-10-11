@@ -16,6 +16,7 @@
   <string name="name">Name</string>
   <string name="frequency">Frequency</string>
   <string name="level">Level</string>
+  <string name="duty">Duty</string>
   <string name="enter">Enter frequency</string>
   <string name="cancel">Cancel</string>
   <string name="create">Create</string>
@@ -42,7 +43,5 @@
 
   <string name="pref_theme">Theme</string>
   <string translatable="false" name="pref_theme_summ">%s</string>
-
-  <string name="pref_duty">Square duty cycle</string>
 
 </resources>

@@ -126,7 +126,7 @@
       android:id="@+id/lower"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_above="@+id/fine"
+      android:layout_below="@id/mute"
       android:layout_alignLeft="@id/display"
       android:layout_marginBottom="8dp"
       android:src="?attr/previous"
@@ -136,7 +136,7 @@
       android:id="@+id/less"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_above="@+id/fine"
+      android:layout_below="@id/mute"
       android:layout_toRightOf="@id/lower"
       android:layout_marginBottom="8dp"
       android:src="?attr/expand"
@@ -146,7 +146,7 @@
       android:id="@+id/more"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_above="@+id/fine"
+      android:layout_below="@id/mute"
       android:layout_toLeftOf="@id/higher"
       android:layout_marginBottom="8dp"
       android:src="?attr/collapse"
@@ -156,11 +156,20 @@
       android:id="@+id/higher"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_above="@id/fine"
+      android:layout_below="@id/mute"
       android:layout_alignRight="@id/display"
       android:layout_marginBottom="8dp"
       android:src="?attr/next"
       tools:ignore="ContentDescription" />
+
+  <SeekBar
+      android:id="@+id/duty"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/fine"
+      android:layout_alignLeft="@id/display"
+      android:layout_alignParentRight="true"
+      android:layout_marginBottom="8dp" />
 
   <SeekBar
       android:id="@id/fine"

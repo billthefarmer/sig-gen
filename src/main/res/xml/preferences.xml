@@ -4,20 +4,6 @@
     android:title="@string/settings">
 
   <PreferenceCategory
-      android:key="pref_square_category"
-      android:title="@string/square">
-
-    <ListPreference
-        android:key="pref_duty"
-        android:icon="?attr/pref_duty"
-        android:title="@string/pref_duty"
-        android:entries="@array/pref_duty_entries"
-        android:entryValues="@array/pref_duty_entry_values"
-        android:defaultValue="0.5" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
       android:key="pref_theme_category"
       android:title="@string/pref_theme">
 
