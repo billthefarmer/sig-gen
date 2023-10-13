@@ -15,12 +15,12 @@ and [here](https://github.com/billthefarmer/sig-gen/releases).
  *  External control
 
 ### Using
-The frequency knob responds to finger twirling. The fine frequency and
-level sliders allow for fine adjustments of frequency and output
-level. The frequency knob is also adjustable using the left and right
-arrow buttons above. The two bookmark buttons below the frequency knob
-show if there are bookmarks, and will go to the next lower or higher
-bookmark if it exists.
+The frequency knob responds to finger twirling. The duty cycle, fine
+frequency and level sliders allow for adjustments of square wave duty
+cycle, fine frequency and output level. The frequency knob is also
+adjustable using the left and right arrow buttons above. The two
+bookmark buttons below the frequency knob show if there are bookmarks,
+and will go to the next lower or higher bookmark if it exists.
 
 The toolbar items are, from left to right:
  * **Exact** - Prompt for an exact frequency
@@ -31,10 +31,10 @@ To remove a bookmark, go to it and touch the toolbar bookmark button.
 
 ### Shortcut
 A shortcut may be created to set the parameters shown below. Empty
-frequency and level values and unchecked waveform values will not be
-included. The mute value will always be included. The name of the
-shortcut will be composed from the set values if the name field is
-empty.
+frequency, duty cycle and level values and unchecked waveform values
+will not be included. The mute value will always be included. The name
+of the shortcut will be composed from the set values if the name field
+is empty.
 
 ### External Control
 The app may be started, the frequency, level, duty cycle, waveform and

@@ -1,0 +1,2 @@
+ * Add duty cycle slider
+ * Update icons
