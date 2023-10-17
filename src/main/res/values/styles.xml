@@ -21,15 +21,14 @@
     -->
 
     <item name="back">@drawable/ic_back</item>
-    <item name="collapse">@drawable/ic_action_collapse</item>
-    <item name="expand">@drawable/ic_action_expand</item>
+    <item name="collapse">@drawable/ic_expand_less_black_24dp</item>
+    <item name="expand">@drawable/ic_expand_more_black_24dp</item>
     <item name="forward">@drawable/ic_forward</item>
-    <item name="next">@drawable/ic_action_next_item</item>
-    <item name="previous">@drawable/ic_action_previous_item</item>
+    <item name="next">@drawable/ic_chevron_right_black_24dp</item>
+    <item name="previous">@drawable/ic_chevron_left_black_24dp</item>
 
     <item name="pref_about">@drawable/ic_action_about</item>
     <item name="pref_theme">@drawable/ic_action_brightness_high_light</item>
-    <item name="pref_duty">@drawable/ic_action_sort_by_size</item>
 
   </style>
 
@@ -49,15 +48,14 @@
     -->
 
     <item name="back">@drawable/ic_back_dark</item>
-    <item name="collapse">@drawable/ic_action_collapse_dark</item>
-    <item name="expand">@drawable/ic_action_expand_dark</item>
+    <item name="collapse">@drawable/ic_expand_less_white_24dp</item>
+    <item name="expand">@drawable/ic_expand_more_white_24dp</item>
     <item name="forward">@drawable/ic_forward_dark</item>
-    <item name="next">@drawable/ic_action_next_item_dark</item>
-    <item name="previous">@drawable/ic_action_previous_item_dark</item>
+    <item name="next">@drawable/ic_chevron_right_white_24dp</item>
+    <item name="previous">@drawable/ic_chevron_left_white_24dp</item>
 
     <item name="pref_about">@drawable/ic_action_about_dark</item>
     <item name="pref_theme">@drawable/ic_action_brightness_high</item>
-    <item name="pref_duty">@drawable/ic_action_sort_by_size_dark</item>
 
   </style>
 

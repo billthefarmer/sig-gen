@@ -289,10 +289,9 @@ public class Main extends Activity
         // is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
-        MenuItem sleepItem = menu.findItem(R.id.sleep);
-
-        if (sleep)
-            sleepItem.setIcon(R.drawable.ic_action_brightness_high);
+        menu.findItem(R.id.sleep)
+            .setIcon(sleep? R.drawable.ic_brightness_high_white_24dp:
+                     R.drawable.ic_brightness_low_white_24dp);
 
         return true;
     }
@@ -473,12 +472,12 @@ public class Main extends Activity
         if (sleep)
         {
             wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
-            item.setIcon(R.drawable.ic_action_brightness_high);
+            item.setIcon(R.drawable.ic_brightness_high_white_24dp);
         }
         else
         {
             wakeLock.release();
-            item.setIcon(R.drawable.ic_action_brightness_low);
+            item.setIcon(R.drawable.ic_brightness_low_white_24dp);
         }
 
         return true;
