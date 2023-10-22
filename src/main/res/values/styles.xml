@@ -31,8 +31,8 @@
     <item name="check_off">@drawable/ic_check_box_outline_blank_black_24dp</item>
     <item name="check_on">@drawable/ic_check_box_black_24dp</item>
 
-    <item name="pref_about">@drawable/ic_action_about</item>
-    <item name="pref_theme">@drawable/ic_action_brightness_high_light</item>
+    <item name="pref_about">@drawable/ic_info_outline_black_24dp</item>
+    <item name="pref_theme">@drawable/ic_brightness_high_black_24dp</item>
 
   </style>
 
@@ -62,8 +62,8 @@
     <item name="check_off">@drawable/ic_check_box_outline_blank_white_24dp</item>
     <item name="check_on">@drawable/ic_check_box_white_24dp</item>
 
-    <item name="pref_about">@drawable/ic_action_about_dark</item>
-    <item name="pref_theme">@drawable/ic_action_brightness_high</item>
+    <item name="pref_about">@drawable/ic_info_outline_white_24dp</item>
+    <item name="pref_theme">@drawable/ic_brightness_high_white_24dp</item>
 
   </style>
 
