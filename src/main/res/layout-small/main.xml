@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
-        android:drawableLeft="@android:drawable/radiobutton_on_background"
+        android:drawableLeft="?attr/radio_on"
         android:drawablePadding="8dp"
         android:text="@string/s" />
 
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
-        android:drawableLeft="@android:drawable/radiobutton_off_background"
+        android:drawableLeft="?attr/radio_off"
         android:drawablePadding="8dp"
         android:text="@string/q" />
 
@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
-        android:drawableLeft="@android:drawable/radiobutton_off_background"
+        android:drawableLeft="?attr/radio_off"
         android:drawablePadding="8dp"
         android:text="@string/w" />
 
@@ -161,7 +161,7 @@
       android:layout_alignBottom="@id/lower"
       android:layout_toLeftOf="@id/more"
       android:layout_toRightOf="@id/less"
-      android:drawableLeft="@android:drawable/checkbox_off_background"
+      android:drawableLeft="?attr/check_off"
       android:drawablePadding="8dp"
       android:text="@string/mute" />
 

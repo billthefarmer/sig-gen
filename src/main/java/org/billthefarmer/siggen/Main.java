@@ -32,6 +32,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -118,6 +121,11 @@ public class Main extends Activity
     private Scale scale;
     private Display display;
 
+    private Drawable check_on;
+    private Drawable check_off;
+    private Drawable radio_on;
+    private Drawable radio_off;
+
     private SeekBar duty;
     private SeekBar fine;
     private SeekBar level;
@@ -182,6 +190,15 @@ public class Main extends Activity
         duty = findViewById(R.id.duty);
         fine = findViewById(R.id.fine);
         level = findViewById(R.id.level);
+
+        Resources.Theme current = getTheme();
+        TypedArray array =
+            current.obtainStyledAttributes(R.styleable.Siggen);
+        check_on = array.getDrawable(R.styleable.Siggen_check_on);
+        check_off = array.getDrawable(R.styleable.Siggen_check_off);
+        radio_on = array.getDrawable(R.styleable.Siggen_radio_on);
+        radio_off = array.getDrawable(R.styleable.Siggen_radio_off);
+        array.recycle();
 
         // Get wake lock
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
@@ -759,14 +776,14 @@ public class Main extends Activity
             if (audio != null)
                 audio.waveform = Audio.SINE;
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_on_background, 0, 0, 0);
+                radio_on, null, null, null);
 
             v = findViewById(R.id.square);
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                radio_off, null, null, null);
             v = findViewById(R.id.sawtooth);
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                radio_off, null, null, null);
             break;
 
         // Square
@@ -774,14 +791,14 @@ public class Main extends Activity
             if (audio != null)
                 audio.waveform = Audio.SQUARE;
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_on_background, 0, 0, 0);
+                radio_on, null, null, null);
 
             v = findViewById(R.id.sine);
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                radio_off, null, null, null);
             v = findViewById(R.id.sawtooth);
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                radio_off, null, null, null);
             break;
 
         // Sawtooth
@@ -789,14 +806,14 @@ public class Main extends Activity
             if (audio != null)
                 audio.waveform = Audio.SAWTOOTH;
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_on_background, 0, 0, 0);
+                radio_on, null, null, null);
 
             v = findViewById(R.id.sine);
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                radio_off, null, null, null);
             v = findViewById(R.id.square);
             ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                android.R.drawable.radiobutton_off_background, 0, 0, 0);
+                radio_off, null, null, null);
             break;
 
         // Mute
@@ -806,11 +823,11 @@ public class Main extends Activity
 
             if (audio.mute)
                 ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                    android.R.drawable.checkbox_on_background, 0, 0, 0);
+                    check_on, null, null, null);
 
             else
                 ((Button) v).setCompoundDrawablesWithIntrinsicBounds(
-                    android.R.drawable.checkbox_off_background, 0, 0, 0);
+                    check_off, null, null, null);
             break;
 
         // Back

@@ -26,6 +26,10 @@
     <item name="forward">@drawable/ic_forward</item>
     <item name="next">@drawable/ic_chevron_right_black_24dp</item>
     <item name="previous">@drawable/ic_chevron_left_black_24dp</item>
+    <item name="radio_off">@drawable/ic_radio_button_unchecked_black_24dp</item>
+    <item name="radio_on">@drawable/ic_radio_button_checked_black_24dp</item>
+    <item name="check_off">@drawable/ic_check_box_outline_blank_black_24dp</item>
+    <item name="check_on">@drawable/ic_check_box_black_24dp</item>
 
     <item name="pref_about">@drawable/ic_action_about</item>
     <item name="pref_theme">@drawable/ic_action_brightness_high_light</item>
@@ -53,6 +57,10 @@
     <item name="forward">@drawable/ic_forward_dark</item>
     <item name="next">@drawable/ic_chevron_right_white_24dp</item>
     <item name="previous">@drawable/ic_chevron_left_white_24dp</item>
+    <item name="radio_off">@drawable/ic_radio_button_unchecked_white_24dp</item>
+    <item name="radio_on">@drawable/ic_radio_button_checked_white_24dp</item>
+    <item name="check_off">@drawable/ic_check_box_outline_blank_white_24dp</item>
+    <item name="check_on">@drawable/ic_check_box_white_24dp</item>
 
     <item name="pref_about">@drawable/ic_action_about_dark</item>
     <item name="pref_theme">@drawable/ic_action_brightness_high</item>

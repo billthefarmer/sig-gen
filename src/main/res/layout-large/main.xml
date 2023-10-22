@@ -85,7 +85,7 @@
       android:layout_below="@id/display"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:drawableLeft="@android:drawable/radiobutton_on_background"
+      android:drawableLeft="?attr/radio_on"
       android:drawablePadding="8dp"
       android:text="@string/sine" />
 
@@ -96,7 +96,7 @@
       android:layout_below="@id/sine"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:drawableLeft="@android:drawable/radiobutton_off_background"
+      android:drawableLeft="?attr/radio_off"
       android:drawablePadding="8dp"
       android:text="@string/square" />
 
@@ -107,7 +107,7 @@
       android:layout_below="@id/square"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:drawableLeft="@android:drawable/radiobutton_off_background"
+      android:drawableLeft="?attr/radio_off"
       android:drawablePadding="8dp"
       android:text="@string/sawtooth" />
 
@@ -118,7 +118,7 @@
       android:layout_below="@id/sawtooth"
       android:layout_alignLeft="@id/display"
       android:layout_alignParentRight="true"
-      android:drawableLeft="@android:drawable/checkbox_off_background"
+      android:drawableLeft="?attr/check_off"
       android:drawablePadding="8dp"
       android:text="@string/mute" />
 

@@ -8,6 +8,10 @@
     <attr name="forward" format="reference" />
     <attr name="next" format="reference" />
     <attr name="previous" format="reference" />
+    <attr name="radio_off" format="reference" />
+    <attr name="radio_on" format="reference" />
+    <attr name="check_off" format="reference" />
+    <attr name="check_on" format="reference" />
 
     <attr name="pref_about" format="reference" />
     <attr name="pref_theme" format="reference" />
