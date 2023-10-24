@@ -23,6 +23,7 @@
 
 package org.billthefarmer.siggen;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -101,7 +102,15 @@ public class SettingsFragment extends android.preference.PreferenceFragment
 
         if (key.equals(Main.PREF_THEME))
         {
-            if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
+            {
+                Intent intent = new
+                    Intent(getActivity(), getActivity().getClass());
+                getActivity().startActivity(intent);
+                getActivity().finish();
+            }
+
+            else
                 getActivity().recreate();
         }
     }

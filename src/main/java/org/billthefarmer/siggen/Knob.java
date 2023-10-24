@@ -80,7 +80,7 @@ public class Knob extends View
         Resources resources = getResources();
 
         final TypedArray typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
+            context.obtainStyledAttributes(attrs, R.styleable.Siggen);
 
         int foregroundColour =
             typedArray.getColor(R.styleable

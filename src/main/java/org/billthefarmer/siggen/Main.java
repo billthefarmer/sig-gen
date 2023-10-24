@@ -32,7 +32,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.media.AudioFormat;
@@ -191,9 +190,7 @@ public class Main extends Activity
         fine = findViewById(R.id.fine);
         level = findViewById(R.id.level);
 
-        Resources.Theme current = getTheme();
-        TypedArray array =
-            current.obtainStyledAttributes(R.styleable.Siggen);
+        TypedArray array = obtainStyledAttributes(R.styleable.Siggen);
         check_on = array.getDrawable(R.styleable.Siggen_check_on);
         check_off = array.getDrawable(R.styleable.Siggen_check_off);
         radio_on = array.getDrawable(R.styleable.Siggen_radio_on);
@@ -327,8 +324,18 @@ public class Main extends Activity
 
         theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
 
-        if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
-            recreate();
+        if (last != theme)
+        {
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
+            {
+                Intent intent = new Intent(this, getClass());
+                startActivity(intent);
+                finish();
+            }
+
+            else
+                recreate();
+        }
 
         checkButtons();
     }

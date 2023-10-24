@@ -60,14 +60,12 @@ public abstract class SiggenView extends View
     {
         super(context, attrs);
 
-        Resources resources = getResources();
-
         final TypedArray typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.Siggen, 0, 0);
+            context.obtainStyledAttributes(attrs, R.styleable.Siggen);
 
         textColour =
             typedArray.getColor(R.styleable.Siggen_TextColour,
-                                resources.getColor(android.R.color.black));
+                                getResources().getColor(android.R.color.black));
         typedArray.recycle();
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
