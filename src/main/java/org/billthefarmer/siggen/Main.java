@@ -329,8 +329,8 @@ public class Main extends Activity
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
             {
                 Intent intent = new Intent(this, getClass());
-                startActivity(intent);
                 finish();
+                startActivity(intent);
             }
 
             else
