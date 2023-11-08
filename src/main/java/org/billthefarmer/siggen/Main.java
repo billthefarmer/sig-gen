@@ -326,14 +326,7 @@ public class Main extends Activity
 
         if (last != theme)
         {
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
-            {
-                Intent intent = new Intent(this, getClass());
-                finish();
-                startActivity(intent);
-            }
-
-            else
+            if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
                 recreate();
         }
 
