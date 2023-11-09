@@ -18,7 +18,7 @@
         android:name="Main"
         android:exported="true"
         android:launchMode="singleTask"
-        android:screenOrientation="landscape">
+        android:screenOrientation="userLandscape">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
@@ -41,11 +41,11 @@
 
     <activity
         android:name="SettingsActivity"
-        android:screenOrientation="landscape" />
+        android:screenOrientation="userLandscape" />
 
     <activity
         android:name="HelpActivity"
-        android:screenOrientation="landscape" />
+        android:screenOrientation="userLandscape" />
 
   </application>
 
