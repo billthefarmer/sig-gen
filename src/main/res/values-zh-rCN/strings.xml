@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">信号发生器</string>
+    <string name="copyright">"版权所有 \u00A9 2017 <a href="https://billthefarmer.github.io">Bill Farmer</a>
+    </string>
+    <string name="licence">"许可证 <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+    </string>
+    <string name="built">构建于 %s</string>
+
+    <string name="settings">设置</string>
+    <string name="help">帮助</string>
+    <string name="sleep">屏幕常亮</string>
+    <string name="exact">精确频率</string>
+    <string name="bookmark">书签</string>
+    <string name="name">名称</string>
+    <string name="frequency">频率</string>
+    <string name="level">输出电平</string>
+    <string name="duty">占空比</string>
+    <string name="enter">输入频率</string>
+    <string name="cancel">取消</string>
+    <string name="create">创建</string>
+    <string name="clear">清除</string>
+    <string name="ok">确定</string>
+
+    <string name="bookmark_added">已添加书签 %1.2f</string>
+    <string name="bookmark_removed">已删除书签 %1.2f</string>
+
+    <string name="sine">正弦波</string>
+    <string name="sin">正弦</string>
+    <string name="s">弦</string>
+    <string name="square">方波</string>
+    <string name="squ">方波</string>
+    <string name="q">方</string>
+    <string name="sawtooth">锯齿波</string>
+    <string name="saw">锯齿</string>
+    <string name="w">齿</string>
+
+    <string name="mute">静音</string>
+
+    <string name="pref_about">关于</string>
+    <string name="pref_about_summ">信号发生器 <a href="https://github.com/billthefarmer/sig-gen/releases/latest">版本 %s</a></string>
+
+    <string name="pref_theme">主题</string>
+
+</resources>
