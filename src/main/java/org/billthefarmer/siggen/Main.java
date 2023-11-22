@@ -34,6 +34,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -1204,6 +1205,8 @@ public class Main extends Activity
         protected static final int SQUARE = 1;
         protected static final int SAWTOOTH = 2;
 
+        protected static final int SIZE = 8192;
+
         protected int waveform;
         protected boolean mute = false;
 
@@ -1256,32 +1259,22 @@ public class Main extends Activity
         {
             short buffer[];
 
-            int rate =
-                AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
-            int minSize =
-                AudioTrack.getMinBufferSize(rate, AudioFormat.CHANNEL_OUT_MONO,
-                                            AudioFormat.ENCODING_PCM_16BIT);
-
-            // Find a suitable buffer size
-            int sizes[] = {1024, 2048, 4096, 8192, 16384, 32768};
-            int size = 0;
-
-            for (int s: sizes)
-            {
-                if (s > minSize)
-                {
-                    size = s;
-                    break;
-                }
-            }
-
-            final double K = 2.0 * Math.PI / rate;
-
             // Create the audio track
-            audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, rate,
-                                        AudioFormat.CHANNEL_OUT_MONO,
-                                        AudioFormat.ENCODING_PCM_16BIT,
-                                        size, AudioTrack.MODE_STREAM);
+            audioTrack = new AudioTrack.Builder()
+                .setAudioAttributes
+                (new AudioAttributes.Builder()
+                 .setUsage(AudioAttributes.USAGE_MEDIA)
+                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                 .build())
+                .setAudioFormat
+                (new AudioFormat.Builder()
+                 .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                 .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+                 .build())
+                .build();
+
+            int rate = audioTrack.getSampleRate();
+            final double K = 2.0 * Math.PI / rate;
 
             // Check audioTrack state
             int state = audioTrack.getState();
@@ -1294,7 +1287,7 @@ public class Main extends Activity
             audioTrack.play();
 
             // Create the buffer
-            buffer = new short[size];
+            buffer = new short[SIZE];
 
             // Initialise the generator variables
             double f = frequency;
