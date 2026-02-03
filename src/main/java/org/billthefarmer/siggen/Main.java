@@ -229,7 +229,7 @@ public class Main extends Activity
 
         // Audio
         audio = new Audio();
-        executor.execute(audio);
+        audio.start();
 
         // Setup widgets
         setupWidgets();
@@ -1227,6 +1227,13 @@ public class Main extends Activity
         {
             frequency = 440.0;
             level = 16384.0;
+        }
+
+        // Start audio
+        protected void start()
+        {
+            // Start
+            executor.execute(this);
         }
 
         // Stop
