@@ -62,6 +62,9 @@ import android.widget.Toolbar;
 
 import org.json.JSONArray;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -136,6 +139,7 @@ public class Main extends Activity
 
     private PowerManager.WakeLock wakeLock;
     private PhoneStateListener phoneListener;
+    private ExecutorService executor;
     private List<Double> bookmarks;
 
     private boolean sleep;
@@ -202,6 +206,9 @@ public class Main extends Activity
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOCK);
 
+        // Executor
+        executor =  Executors.newSingleThreadExecutor();
+
         // Set up custom view
         getActionBar().setCustomView(R.layout.custom);
         getActionBar().setDisplayShowCustomEnabled(true);
@@ -222,9 +229,7 @@ public class Main extends Activity
 
         // Audio
         audio = new Audio();
-
-        if (audio != null)
-            audio.start();
+        executor.execute(audio);
 
         // Setup widgets
         setupWidgets();
@@ -1209,13 +1214,12 @@ public class Main extends Activity
 
         protected int waveform;
         protected boolean mute = false;
+        protected boolean running = false;
 
         protected double frequency;
         protected double level;
 
         protected float duty;
-
-        protected Thread thread;
 
         private AudioTrack audioTrack;
 
@@ -1225,31 +1229,15 @@ public class Main extends Activity
             level = 16384.0;
         }
 
-        // Start
-        protected void start()
-        {
-            thread = new Thread(this, "Audio");
-            thread.start();
-        }
-
         // Stop
         protected void stop()
         {
-            Thread t = thread;
-            thread = null;
-
-            try
-            {
-                // Wait for the thread to exit
-                if (t != null && t.isAlive())
-                    t.join();
-            }
-
-            catch (Exception e) {}
+            running = false;
         }
 
         public void run()
         {
+            running = true;
             processAudio();
         }
 
@@ -1273,7 +1261,7 @@ public class Main extends Activity
                  .build())
                 .build();
 
-            int rate = audioTrack.getSampleRate();
+            final int rate = audioTrack.getSampleRate();
             final double K = 2.0 * Math.PI / rate;
 
             // Check audioTrack state
@@ -1294,7 +1282,7 @@ public class Main extends Activity
             double l = 0.0;
             double q = 0.0;
 
-            while (thread != null)
+            while (running)
             {
                 double t = (duty * 2.0 * Math.PI) - Math.PI;
 
