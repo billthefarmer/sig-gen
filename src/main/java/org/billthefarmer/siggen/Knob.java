@@ -272,10 +272,18 @@ public class Knob extends View
             break;
 
         case MotionEvent.ACTION_UP:
+            performClick();
             move = false;
             break;
         }
         return true;
+    }
+
+    // performClick
+    @Override
+    public boolean performClick()
+    {
+        return super.performClick();
     }
 
     // On fling
