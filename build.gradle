@@ -24,14 +24,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 35
-    namespace "org.billthefarmer.siggen"
+    namespace = "org.billthefarmer.siggen"
 
     defaultConfig {
         applicationId "org.billthefarmer.siggen"
         minSdkVersion 23
         targetSdkVersion 35
-        versionName "1.36"
-        versionCode 136
+        versionName "1.37"
+        versionCode 137
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
